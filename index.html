@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Gamejam Gamecodeur.fr octobre 2016</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas" width="640" height="480">
+			<p>Your browser does not support the canvas element.</p>
+		</canvas>
+
+        <!-- Enjine Includes -->
+        <script src="jail/Enjine/core.js"></script>
+        <script src="jail/Enjine/gameCanvas.js"></script>
+        <script src="jail/Enjine/keyboardInput.js"></script>
+        <script src="jail/Enjine/resources.js"></script>
+        <script src="jail/Enjine/drawable.js"></script>
+        <script src="jail/Enjine/state.js"></script>
+        <script src="jail/Enjine/gameTimer.js"></script>
+        <script src="jail/Enjine/camera.js"></script>
+        <script src="jail/Enjine/drawableManager.js"></script>
+        <script src="jail/Enjine/sprite.js"></script>
+        <script src="jail/Enjine/spriteFont.js"></script>
+        <script src="jail/Enjine/frameSprite.js"></script>
+        <script src="jail/Enjine/animatedSprite.js"></script>
+        <script src="jail/Enjine/collideable.js"></script>
+        <script src="jail/Enjine/application.js"></script>
+
+        <!-- Actual game code -->
+        <script src="jail/code/setup.js"></script>
+        <!-- <script src="code/spriteCuts.js"></script>
+        <script src="code/level.js"></script>
+        <script src="code/backgroundGenerator.js"></script>
+        <script src="code/backgroundRenderer.js"></script>
+        <script src="code/improvedNoise.js"></script>
+        <script src="code/notchSprite.js"></script> -->
+        <script src="jail/code/character.js"></script>
+        <!-- <script src="code/levelRenderer.js"></script>
+        <script src="code/levelGenerator.js"></script>
+        <script src="code/spriteTemplate.js"></script>
+        <script src="code/enemy.js"></script>
+        <script src="code/fireball.js"></script>
+        <script src="code/sparkle.js"></script>
+        <script src="code/coinAnim.js"></script>
+        <script src="code/mushroom.js"></script>
+		<script src="code/particle.js"></script>
+		<script src="code/fireFlower.js"></script>
+        <script src="code/bulletBill.js"></script>
+        <script src="code/flowerEnemy.js"></script>
+        <script src="code/shell.js"></script>
+
+        <script src="code/titleState.js"></script> -->
+        <script src="jail/code/loadingState.js"></script>
+        <!--<script src="code/loseState.js"></script>
+        <script src="code/winState.js"></script>
+        <script src="code/mapState.js"></script>
+        <script src="code/levelState.js"></script>
+
+        <script src="code/music.js"></script> -->
+
+        <script>$(document).ready(function() { new Enjine.Application().Initialize(new Game.LoadingState(), 320, 240) });</script>
+	</body>
+</html>
