@@ -14,11 +14,6 @@ Enjine.GameCanvas.prototype = {
 	Initialize: function(canvasId, resWidth, resHeight) {
 		this.Canvas = document.getElementById(canvasId);
 		this.Context2D = this.Canvas.getContext("2d");
-		// this.Context2D['imageSmoothingEnabled'] = false;       /* standard */
-		// this.Context2D['mozImageSmoothingEnabled'] = false;    /* Firefox */
-		// this.Context2D['oImageSmoothingEnabled'] = false;      /* Opera */
-		// this.Context2D['webkitImageSmoothingEnabled'] = false; /* Safari */
-		// this.Context2D['msImageSmoothingEnabled'] = false;     /* IE */
 		this.BackBuffer = document.createElement("canvas");
 		this.BackBuffer.width = resWidth;
 		this.BackBuffer.height = resHeight;

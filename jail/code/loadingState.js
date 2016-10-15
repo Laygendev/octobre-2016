@@ -17,7 +17,7 @@ Game.LoadingState.prototype = new Enjine.GameState();
 Game.LoadingState.prototype.Enter = function() {
   this.Images = {
     "head0": {
-      "Src": "jail/images/head/0.png",
+      "Src": "jail/images/elements.png",
       "Size": {
         "Width": 0,
         "Height": 0

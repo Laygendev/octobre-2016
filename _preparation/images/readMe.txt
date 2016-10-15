@@ -1,0 +1,1 @@
+Tête: Rond => Selection => Réduire de 2 px, bordure 2 px, noir
