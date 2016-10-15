@@ -4,7 +4,7 @@ Code by Rob Kleffner, 2011
 */
 
 Game.LoadingState = function() {
-  this.Images = {};
+  this.Zones = {};
   this.ImagesLoaded = false;
   this.ScreenColor = 0;
   this.ColorDirection = 1;
@@ -15,32 +15,58 @@ Game.LoadingState = function() {
 Game.LoadingState.prototype = new Enjine.GameState();
 
 Game.LoadingState.prototype.Enter = function() {
-  this.Images = {
+  this.Zones = {
     "head0": {
-      "Src": "jail/images/elements.png",
-      "Size": {
-        "Width": 0,
-        "Height": 0
-      }
+        "X": "0",
+        "Y": "0",
+        "Width": 80,
+        "Height": 80
+    },
+    "head1": {
+      "X": "80",
+      "Y": "0",
+      "Width": 80,
+      "Height": 80
+    },
+    "head2": {
+      "X": "160",
+      "Y": "0",
+      "Width": 80,
+      "Height": 80
+    },
+    "body0": {
+      "X": "0",
+      "Y": "80",
+      "Width": 80,
+      "Height": 80
+    },
+    "body1": {
+      "X": "80",
+      "Y": "80",
+      "Width": 80,
+      "Height": 80
+    },
+    "body2": {
+      "X": "160",
+      "Y": "80",
+      "Width": 80,
+      "Height": 80
     }
   };
 
-  Enjine.Resources.AddImages(this.Images);
+  Enjine.Resources.AddElement("jail/images/elements.png");
+  Enjine.Resources.AddZones(this.Zones);
 };
 
 Game.LoadingState.prototype.Exit = function() {
-  delete this.Images;
+  delete this.Zones;
 };
 
 Game.LoadingState.prototype.Update = function(delta) {
   if (!this.ImagesLoaded) {
     this.ImagesLoaded = true;
-    var i = 0;
-    for (i = 0; i < this.Images.length; i++) {
-      if (Enjine.Resources.Images[this.Images[i].name].complete !== true) {
-        this.ImagesLoaded = false;
-        break;
-      }
+    if (Enjine.Resources.Element.complete !== true) {
+      this.ImagesLoaded = false;
     }
   }
 

@@ -25,9 +25,5 @@ Enjine.GameTimer.prototype = {
 
       this.UpdateObject.Update(delta);
     }
-  },
-
-  Stop: function() {
-    clearInterval(this.IntervalFunc);
   }
 };

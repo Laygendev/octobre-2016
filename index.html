@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<title>Gamejam Gamecodeur.fr octobre 2016</title>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	</head>
 	<body>
 		<canvas id="canvas" width="640" height="480">
@@ -23,7 +22,8 @@
         <script src="jail/code/state.js"></script>
         <script src="jail/code/loadingState.js"></script>
         <script src="jail/code/levelState.js"></script>
+        <script src="jail/code/const.js"></script>
 
-        <script>$(document).ready(function() { new Enjine.Application().Initialize(new Game.LoadingState(), 640, 480) });</script>
+        <script>window.onload = function() { Enjine.Application.Initialize(new Game.LoadingState(), 640, 480) };</script>
 	</body>
 </html>

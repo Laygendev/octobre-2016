@@ -13,10 +13,14 @@ Enjine.GameCanvas = function() {
 Enjine.GameCanvas.prototype = {
 	Initialize: function(canvasId, resWidth, resHeight) {
 		this.Canvas = document.getElementById(canvasId);
+		this.Canvas.width = document.body.clientWidth; //document.width is obsolete
+    this.Canvas.height = document.body.clientHeight; //document.height is obsolete
+
 		this.Context2D = this.Canvas.getContext("2d");
+
 		this.BackBuffer = document.createElement("canvas");
-		this.BackBuffer.width = resWidth;
-		this.BackBuffer.height = resHeight;
+		this.BackBuffer.width = document.body.clientWidth; //document.width is obsolete
+    this.BackBuffer.height = document.body.clientHeight; //document.height is obsolete
 		this.BackBufferContext2D = this.BackBuffer.getContext("2d");
 	},
 

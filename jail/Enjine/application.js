@@ -3,13 +3,10 @@ Simple demo of the engine.
 Code by Rob Kleffner, 2011
 */
 
-Enjine.Application = function() {
-  this.canvas = null;
-  this.timer = null;
-  this.stateContext = null;
-};
-
-Enjine.Application.prototype = {
+Enjine.Application = {
+  canvas: null,
+  timer: null,
+  stateContext: null,
   Update: function(delta) {
 
     this.stateContext.Update(delta);
