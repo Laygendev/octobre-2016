@@ -11,15 +11,17 @@ Enjine.GameCanvas = {
 
 	Initialize: function(canvasId, resWidth, resHeight) {
 		this.Canvas = document.getElementById(canvasId);
-		this.Canvas.width = document.body.clientWidth; //document.width is obsolete
-    this.Canvas.height = document.body.clientHeight; //document.height is obsolete
+		this.Canvas.width = window.innerWidth; //document.width is obsolete
+    this.Canvas.height = window.innerHeight; //document.height is obsolete
 
 		this.Context2D = this.Canvas.getContext("2d");
 
 		this.BackBuffer = document.createElement("canvas");
-		this.BackBuffer.width = document.body.clientWidth; //document.width is obsolete
-    this.BackBuffer.height = document.body.clientHeight; //document.height is obsolete
+		this.BackBuffer.width = window.innerWidth; //document.width is obsolete
+    this.BackBuffer.height = window.innerHeight; //document.height is obsolete
 		this.BackBufferContext2D = this.BackBuffer.getContext("2d");
+
+		window.addEventListener('resize', this.ResizeCanvas, false);
 	},
 
 	BeginDraw: function() {
@@ -29,5 +31,13 @@ Enjine.GameCanvas = {
 
 	EndDraw: function() {
 		this.Context2D.drawImage(this.BackBuffer, 0, 0, this.BackBuffer.width, this.BackBuffer.height, 0, 0, this.Canvas.width, this.Canvas.height);
+	},
+
+	ResizeCanvas: function() {
+		Enjine.GameCanvas.Canvas.width = window.innerWidth;
+		Enjine.GameCanvas.Canvas.height = window.innerHeight;
+
+		Enjine.GameCanvas.BackBuffer.width = window.innerWidth;
+		Enjine.GameCanvas.BackBuffer.height = window.innerHeight;
 	}
 };

@@ -19,7 +19,7 @@ Game.LevelState = {
   TimeToCreateElement: 1,
   IntervalSecondFunc: null,
 
-  SelectedBody: null,
+  SelectedBody: "head0",
 
   Enter: function() {
     this.Sprites = new Enjine.DrawableManager();

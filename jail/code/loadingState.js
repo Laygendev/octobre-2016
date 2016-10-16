@@ -67,7 +67,7 @@ Game.LoadingState = {
       }
     }
     else {
-      Enjine.Application.SetState(Game.BodySelectState);
+      Enjine.Application.SetState(Game.LevelState);
     }
 
     this.ScreenColor += this.ColorDirection * 255 * delta;
@@ -89,9 +89,5 @@ Game.LoadingState = {
       context.fillStyle = "rgb(0, 0, 0)";
       context.fillRect(0, 0, 640, 480);
     }
-  },
-
-  ChangeState: function(stateName) {
-
   }
 };

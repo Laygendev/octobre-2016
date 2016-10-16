@@ -2,9 +2,10 @@
 <html>
 	<head>
 		<title>Gamejam Gamecodeur.fr octobre 2016</title>
+		<link rel="stylesheet" type="text/css" href="jail/css/reset.css">
 	</head>
 	<body>
-		<canvas id="canvas" width="640" height="480">
+		<canvas id="canvas">
 			<p>Your browser does not support the canvas element.</p>
 		</canvas>
 
@@ -18,6 +19,7 @@
         <script src="jail/Enjine/sprite.js"></script>
         <script src="jail/Enjine/character.js"></script>
         <script src="jail/Enjine/mouse.js"></script>
+        <script src="jail/Enjine/shape.js"></script>
 
         <script src="jail/code/setup.js"></script>
         <script src="jail/code/loadingState.js"></script>
@@ -25,6 +27,7 @@
         <script src="jail/code/bodySelectState.js"></script>
         <script src="jail/code/const.js"></script>
 				<script src="jail/code/element.js"></script>
+				<script src="jail/code/collider.js"></script>
 
 
         <script>window.onload = function() { Enjine.Application.Initialize(Game.LoadingState, 640, 480) };</script>

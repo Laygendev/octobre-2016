@@ -8,8 +8,8 @@ Enjine.Character = function(manager, element, zone) {
 	this.Image = element;
 	this.Zone = zone;
 
-	this.X = 0;
-	this.Y = 0;
+	this.X = 200;
+	this.Y = 200;
 	this.size = {
 		width: 0,
 		height: 0,
@@ -17,6 +17,25 @@ Enjine.Character = function(manager, element, zone) {
 	this.Angle = 0;
 
   this.Childs = [];
+  this.Colliders = [];
+	this.AddCollider(new Game.Collider([
+		{
+			X: 170,
+			Y: 170
+		},
+		{
+			X: 230,
+			Y: 170
+		},
+		{
+			X: 230,
+			Y: 190
+		},
+		{
+			X: 170,
+			Y: 190
+		}
+	]));
 };
 
 Enjine.Character.prototype = new Enjine.Drawable();
@@ -32,8 +51,11 @@ Enjine.Character.prototype.SetPos = function(pos) {
 }
 
 Enjine.Character.prototype.AddChild = function(obj) {
-  console.log(obj);
   this.Childs.push(obj);
+}
+
+Enjine.Character.prototype.AddCollider = function(obj) {
+  this.Colliders.push(obj);
 }
 
 Enjine.Character.prototype.Update = function(delta) {
@@ -42,6 +64,7 @@ Enjine.Character.prototype.Update = function(delta) {
   this.Y = Enjine.Mouse.Y;
 
   this.UpdateChild();
+	this.UpdateCollider();
 }
 
 Enjine.Character.prototype.UpdateChild = function () {
@@ -52,6 +75,55 @@ Enjine.Character.prototype.UpdateChild = function () {
     });
   }
 }
+
+Enjine.Character.prototype.UpdateCollider = function () {
+	this.UpdateColliderPos();
+	this.UpdateColliderRotate();
+	this.UpdateCollider();
+	for (var key in this.Colliders) {
+		for(var i = 0; i < 4; i++) {
+			var A = this.Colliders[key].Rect[i];
+			this.Colliders[key].Rect[i] = this.RotatePoint(A, {X: this.X, Y: this.Y}, 0.575);
+		}
+	}
+
+	for (var key in this.Colliders) {
+		var mouseIn = true;
+		for(var i = 0; i < 4; i++) {
+			var A = this.Colliders[key].Rect[i];
+			var nextI = i;
+			nextI++;
+			if (nextI >= 4) {
+				nextI = 0;
+			}
+			var B = this.Colliders[key].Rect[nextI];
+			var D = {X: 0, Y: 0};
+			var T = {X: 0, Y: 0};
+
+			D.X = B.X - A.X;
+			D.Y = B.Y - A.Y;
+			T.X = Enjine.Mouse.X - A.X;
+			T.Y = Enjine.Mouse.Y - A.Y;
+			var d = D.X*T.Y - D.Y*T.X;
+			if (d < 0) {
+				mouseIn = false;
+				break;
+			}
+		}
+
+		if (mouseIn) {
+			console.log('ok');
+		}
+  }
+};
+
+Enjine.Character.prototype.RotatePoint = function(P, O, angle) {
+    angle = angle * Math.PI / 180.0;
+    return {
+        X: Math.cos(angle) * (P.X-O.X) - Math.sin(angle) * (P.Y-O.Y) + O.X,
+        Y: Math.sin(angle) * (P.X-O.X) + Math.cos(angle) * (P.Y-O.Y) + O.Y
+    };
+};
 
 Enjine.Character.prototype.Draw = function(context) {
 	context.save();
@@ -67,6 +139,7 @@ Enjine.Character.prototype.Draw = function(context) {
 										this.Zone.Width,
 										this.Zone.Height);
   this.DrawChild(context);
+	this.DrawCollider(context);
 };
 
 Enjine.Character.prototype.DrawChild = function(context) {
@@ -83,4 +156,23 @@ Enjine.Character.prototype.DrawChild = function(context) {
   }
 
 	context.restore();
+};
+
+Enjine.Character.prototype.DrawCollider = function(context) {
+	context.beginPath();
+
+  for (var key in this.Colliders) {
+		for(var i = 0; i < 4; i++) {
+			var A = this.Colliders[key].Rect[i];
+			var nextI = i;
+			nextI++;
+			if (nextI >= 4) {
+				nextI = 0;
+			}
+			var B = this.Colliders[key].Rect[nextI];
+			context.moveTo(A.X,A.Y);
+			context.lineTo(B.X,B.Y);
+		}
+  }
+	context.stroke();
 };
