@@ -16,38 +16,38 @@ Game.LoadingState = {
       "head0": {
           "X": "0",
           "Y": "0",
-          "Width": 80,
-          "Height": 80
+          "Width": 58,
+          "Height": 62
       },
       "head1": {
-        "X": "80",
+        "X": "58",
         "Y": "0",
-        "Width": 80,
-        "Height": 80
+        "Width": 58,
+        "Height": 62
       },
       "head2": {
-        "X": "160",
+        "X": "116",
         "Y": "0",
-        "Width": 80,
-        "Height": 80
+        "Width": 58,
+        "Height": 62
       },
       "body0": {
         "X": "0",
-        "Y": "80",
-        "Width": 80,
-        "Height": 80
+        "Y": "62",
+        "Width": 58,
+        "Height": 62
       },
       "body1": {
-        "X": "80",
-        "Y": "80",
-        "Width": 80,
-        "Height": 80
+        "X": "58",
+        "Y": "62",
+        "Width": 58,
+        "Height": 62
       },
       "body2": {
-        "X": "160",
-        "Y": "80",
-        "Width": 80,
-        "Height": 80
+        "X": "116",
+        "Y": "62",
+        "Width": 58,
+        "Height": 62
       }
     };
 
