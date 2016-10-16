@@ -19,20 +19,21 @@ Game.BodySelectState = {
   },
 
   CreateElement: function() {
-    var tmpSprite = new Enjine.Sprite(this.Sprites, Enjine.Resources.Element, Enjine.Resources.Zones['body0']);
+    var tmpSprite = new Enjine.Sprite('body0', this.Sprites, Enjine.Resources.Element, Enjine.Resources.Zones['body0']);
     tmpSprite.SetPos({X: ((document.body.clientWidth / 2) - (Enjine.Resources.Zones['body0'].Width) / 2) - 160, Y: document.body.clientHeight / 2 - Enjine.Resources.Zones['body0'].Height / 2 });
     this.Sprites.Add(tmpSprite);
     delete tmpSprite;
-    tmpSprite = new Enjine.Sprite(this.Sprites, Enjine.Resources.Element, Enjine.Resources.Zones['body1']);
+    tmpSprite = new Enjine.Sprite('body1', this.Sprites, Enjine.Resources.Element, Enjine.Resources.Zones['body1']);
     tmpSprite.SetPos({X: ((document.body.clientWidth / 2) - (Enjine.Resources.Zones['body0'].Width) / 2), Y: document.body.clientHeight / 2 - Enjine.Resources.Zones['body1'].Height / 2 });
     this.Sprites.Add(tmpSprite);
     delete tmpSprite;
-    tmpSprite = new Enjine.Sprite(this.Sprites, Enjine.Resources.Element, Enjine.Resources.Zones['body2']);
+    tmpSprite = new Enjine.Sprite('body2', this.Sprites, Enjine.Resources.Element, Enjine.Resources.Zones['body2']);
     tmpSprite.SetPos({X: ((document.body.clientWidth / 2) - (Enjine.Resources.Zones['body0'].Width) / 2) + 160, Y: document.body.clientHeight / 2 - Enjine.Resources.Zones['body2'].Height / 2 });
     this.Sprites.Add(tmpSprite);
   },
 
-  Exit: function() {
+  Exit: function(name) {
+    Game.LevelState.SelectedBody = name;
     this.GotoLevelState = true;
     this.CheckForChange();
   },

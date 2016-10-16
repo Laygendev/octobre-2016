@@ -31,12 +31,12 @@ Enjine.Resources = {
     return this;
   },
 
-  GetRandomZone: function() {
+  GetRandomZoneName: function() {
     var randomZone = Math.floor((Math.random() * this.NumberZone) + 0);
     var i = 0;
     for (var key in this.Zones) {
       if (randomZone == i) {
-        return this.Zones[key];
+        return key;
       }
 
       i++;

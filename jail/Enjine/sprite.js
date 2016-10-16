@@ -3,7 +3,8 @@ Represents a simple static sprite.
 Code by Rob Kleffner, 2011
 */
 
-Enjine.Sprite = function(manager, element, zone) {
+Enjine.Sprite = function(name, manager, element, zone) {
+	this.Name = name;
 	this.Manager = manager;
 	this.Image = element;
 	this.Zone = zone;
@@ -59,7 +60,7 @@ Enjine.Sprite.prototype.ClickIn = function() {
 	if (Enjine.Mouse.IsClicked &&
 		Enjine.Mouse.ClickX > this.X && Enjine.Mouse.ClickX < this.X + this.Zone.Width &&
 		Enjine.Mouse.ClickY > this.Y && Enjine.Mouse.ClickY < this.Y + this.Zone.Height) {
-		Game.BodySelectState.Exit();
+		Game.BodySelectState.Exit(this.Name);
 	}
 };
 

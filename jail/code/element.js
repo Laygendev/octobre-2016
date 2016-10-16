@@ -3,7 +3,8 @@ Represents a simple static sprite.
 Code by Jimmy Latour, 2016
 */
 
-Game.Element = function(manager, element, zone) {
+Game.Element = function(name, manager, element, zone) {
+	this.Name = name;
 	this.Manager = manager;
 	this.X = 0;
 	this.Y = 0;
