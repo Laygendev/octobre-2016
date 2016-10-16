@@ -3,9 +3,14 @@ Represents a simple static sprite.
 Code by Jimmy Latour, 2016
 */
 
-Game.Element = function(element, zone) {
+Game.Element = function(manager, element, zone) {
+	this.Manager = manager;
 	this.X = 0;
 	this.Y = 0;
+	this.Offset = {
+		X: 0,
+		Y: 0
+	};
 	this.Speed = 100;
 	this.Angle = 0;
 	this.SpeedAngle = 0;
@@ -16,6 +21,7 @@ Game.Element = function(element, zone) {
 	this.randomPosition = 0;
 	this.inScreen = false;
 	this.outScreen = false;
+	this.Child = {};
 
 	this.Enter();
 };
@@ -50,19 +56,19 @@ Game.Element.prototype.Enter = function() {
 	}
 
 	var RANDOM_ANGLE = {
-		0: {
+		0: { // "TOP"
 			min: 0.8,
 			max: 2.5
 		},
-		1: {
+		1: { // "LEFT"
 			min: -0.6,
 			max: 0.6
 		},
-		2: {
+		2: { // "RIGHT"
 			min: 2.6,
 			max: 3.6
 		},
-		3: {
+		3: { // "DOWN"
 			min: 3.6,
 			max: 5.6
 		}
@@ -94,12 +100,12 @@ Game.Element.prototype.InCanvas = function() {
 		}
 	}
 
-}
+};
 
 Game.Element.prototype.Draw = function(context) {
 	context.drawImage(this.Image, this.Zone.X, this.Zone.Y, this.Zone.Width, this.Zone.Height, this.X, this.Y, this.Zone.Width, this.Zone.Height);
 };
 
 Game.Element.prototype.Exit = function() {
-	console.log('Exit');
+	this.Manager.Remove(this);
 };

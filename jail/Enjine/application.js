@@ -21,12 +21,16 @@ Enjine.Application = {
   Initialize: function(defaultState, resWidth, resHeight) {
     this.canvas = Enjine.GameCanvas;
     this.timer = new Enjine.GameTimer();
-    // Enjine.KeyboardInput.Initialize();
     this.canvas.Initialize("canvas", resWidth, resHeight);
+    Enjine.Mouse.Initialize(Enjine.GameCanvas.Canvas);
     this.timer.UpdateObject = this;
-
-    this.stateContext = new Enjine.GameStateContext(defaultState);
-
+    defaultState.Enter();
+    this.stateContext = defaultState;
     this.timer.Start();
+  },
+
+  SetState: function(state) {
+    this.stateContext = state;
+    state.Enter();
   }
 };

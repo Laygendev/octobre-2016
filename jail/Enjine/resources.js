@@ -4,7 +4,7 @@ Code by Rob Kleffner, 2011
 */
 
 Enjine.Resources = {
-  Element: {},
+  Element: null,
   Zones: {},
   NumberZone: 0,
 
