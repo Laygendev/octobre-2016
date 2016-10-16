@@ -3,14 +3,12 @@ Base class to represent a double buffered canvas object.
 Code by Rob Kleffner, 2011
 */
 
-Enjine.GameCanvas = function() {
-	this.Canvas = null;
-	this.Context2D = null;
-	this.BackBuffer = null;
-	this.BackBufferContext2D = null;
-};
+Enjine.GameCanvas = {
+	Canvas: null,
+	Context2D: null,
+	BackBuffer: null,
+	BackBufferContext2D: null,
 
-Enjine.GameCanvas.prototype = {
 	Initialize: function(canvasId, resWidth, resHeight) {
 		this.Canvas = document.getElementById(canvasId);
 		this.Canvas.width = document.body.clientWidth; //document.width is obsolete

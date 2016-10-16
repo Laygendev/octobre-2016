@@ -19,7 +19,7 @@ Enjine.Application = {
   },
 
   Initialize: function(defaultState, resWidth, resHeight) {
-    this.canvas = new Enjine.GameCanvas();
+    this.canvas = Enjine.GameCanvas;
     this.timer = new Enjine.GameTimer();
     // Enjine.KeyboardInput.Initialize();
     this.canvas.Initialize("canvas", resWidth, resHeight);

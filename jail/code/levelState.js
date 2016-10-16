@@ -31,7 +31,7 @@ Game.LevelState.prototype.Enter = function() {
 
   this.GotoLoseState = false;
   var _self = this;
-  this.IntervalSecondFunc = setInterval(function() { _self.TickSecond(_self); }, 10);
+  // this.IntervalSecondFunc = setInterval(function() { _self.TickSecond(_self); }, 1000);
 };
 
 Game.LevelState.prototype.TickSecond = function(instance) {
@@ -47,19 +47,19 @@ Game.LevelState.prototype.Stop = function() {
 }
 
 Game.LevelState.prototype.CreateElement = function(instance) {
-  var tmpSprite = new Enjine.SpriteMovable(Enjine.Resources.Element, Enjine.Resources.GetRandomZone());
+  var tmpSprite = new Game.Element(Enjine.Resources.Element, Enjine.Resources.GetRandomZone());
   instance.Sprites.Add(tmpSprite);
 };
 
 Game.LevelState.prototype.Exit = function() {
 };
 
-Game.LevelState.prototype.Update = function(delta) {
+Game.LevelState.prototype.Update = function(delta, canvas) {
   this.Delta = delta;
 
   if (this.Paused) {
   } else {
-    this.Sprites.Update(delta);
+    this.Sprites.Update(delta, canvas);
   }
 };
 

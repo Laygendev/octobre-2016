@@ -3,7 +3,7 @@ Represents a simple static sprite.
 Code by Jimmy Latour, 2016
 */
 
-Enjine.SpriteMovable = function(element, zone) {
+Game.Element = function(element, zone) {
 	this.X = 0;
 	this.Y = 0;
 	this.Speed = 100;
@@ -14,13 +14,15 @@ Enjine.SpriteMovable = function(element, zone) {
 	this.Image = element;
 	this.Zone = zone;
 	this.randomPosition = 0;
+	this.inScreen = false;
+	this.outScreen = false;
 
 	this.Enter();
 };
 
-Enjine.SpriteMovable.prototype = new Enjine.Drawable();
+Game.Element.prototype = new Enjine.Drawable();
 
-Enjine.SpriteMovable.prototype.Enter = function() {
+Game.Element.prototype.Enter = function() {
 	var RANDOM_POSITION_SIDE = {
     0: "TOP", // Negative X
     1: "LEFT", // Negative Y
@@ -71,12 +73,33 @@ Enjine.SpriteMovable.prototype.Enter = function() {
 	this.Speed = (Math.random() * 300) + 50;
 }
 
-Enjine.SpriteMovable.prototype.Update = function(delta) {
+Game.Element.prototype.Update = function(delta) {
 	this.X = this.X + this.Speed * Math.cos(this.Angle) * delta;
 	this.Y = this.Y + this.Speed * Math.sin(this.Angle) * delta;
 	this.Angle += this.SpeedAngle;
+
+	this.InCanvas();
 };
 
-Enjine.SpriteMovable.prototype.Draw = function(context) {
+Game.Element.prototype.InCanvas = function() {
+	if (!this.inScreen &&
+		this.X > 0 && this.X + this.Zone.Width < document.body.clientWidth &&
+		this.Y > 0 && this.Y + this.Zone.Height < document.body.clientHeight) {
+		this.inScreen = true;
+	}
+	else if ((this.X < 0 || this.X + this.Zone.Width > document.body.clientWidth) ||
+		this.Y < 0 || this.Y + this.Zone.Height > document.body.clientHeight) {
+		if (this.inScreen) {
+			this.Exit();
+		}
+	}
+
+}
+
+Game.Element.prototype.Draw = function(context) {
 	context.drawImage(this.Image, this.Zone.X, this.Zone.Y, this.Zone.Width, this.Zone.Height, this.X, this.Y, this.Zone.Width, this.Zone.Height);
+};
+
+Game.Element.prototype.Exit = function() {
+	console.log('Exit');
 };

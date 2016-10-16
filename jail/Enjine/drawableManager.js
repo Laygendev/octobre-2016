@@ -69,7 +69,7 @@ Enjine.DrawableManager.prototype = {
 		}
 	},
 
-	Draw: function(context, camera) {
+	Draw: function(context) {
 
 		//sort the sprites based on their 'z depth' to get the correct drawing order
 		if (this.Unsorted) {
@@ -80,7 +80,7 @@ Enjine.DrawableManager.prototype = {
 		var i = 0;
 		for (i = 0; i < this.Objects.length; i++) {
 			if (this.Objects[i].Draw) {
-				this.Objects[i].Draw(context, camera);
+				this.Objects[i].Draw(context);
 			}
 		}
 	}
