@@ -1,6 +1,9 @@
 /**
 Base class to represent a double buffered canvas object.
 Code by Rob Kleffner, 2011
+Modifié par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 */
 
 Enjine.GameCanvas = {

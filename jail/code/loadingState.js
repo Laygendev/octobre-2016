@@ -1,6 +1,6 @@
 /**
-State that loads all the resources for the game.
-Code by Rob Kleffner, 2011
+Code par Jimmy Latour, 2016
+http://labodudev.fr
 */
 
 Game.LoadingState = {

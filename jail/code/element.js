@@ -1,6 +1,6 @@
 /**
-Represents a simple static sprite.
-Code by Jimmy Latour, 2016
+Code par Jimmy Latour, 2016
+http://labodudev.fr
 */
 
 Game.Element = function(name, manager, element, zone) {

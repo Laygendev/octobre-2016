@@ -1,6 +1,9 @@
 /**
 Class to help manage and draw a collection of sprites.
 Code by Rob Kleffner, 2011
+Modifié par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 */
 
 Enjine.DrawableManager = function() {

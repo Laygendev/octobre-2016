@@ -1,6 +1,6 @@
 /**
-State for actually playing a randomly generated level.
-Code by Rob Kleffner, 2011
+Code par Jimmy Latour, 2016
+http://labodudev.fr
 */
 
 Game.LevelState = {

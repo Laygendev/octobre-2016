@@ -1,6 +1,6 @@
 /**
-Represents a simple static sprite.
-Code by Rob Kleffner, 2011
+Code par Jimmy Latour, 2016
+http://labodudev.fr
 */
 
 Enjine.Mouse = {
