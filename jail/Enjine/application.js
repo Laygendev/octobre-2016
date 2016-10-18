@@ -21,6 +21,7 @@ Enjine.Application = {
   },
 
   Initialize: function(defaultState, resWidth, resHeight) {
+		Game.LoadingState.Enter();
     this.canvas = Enjine.GameCanvas;
     this.timer = new Enjine.GameTimer();
     this.canvas.Initialize("canvas", resWidth, resHeight);

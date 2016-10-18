@@ -4,7 +4,6 @@ Code by Rob Kleffner, 2011
 Modifié par Jimmy Latour, 2016
 http://labodudev.fr
 */
-*/
 
 Enjine.Character = function(manager, element, zone) {
 	this.Manager = manager;
@@ -21,22 +20,22 @@ Enjine.Character = function(manager, element, zone) {
 
   this.Childs = [];
   this.Colliders = [];
-	this.AddCollider(new Game.Collider([
+	this.AddCollider(new Game.Collider(this, [
 		{
-			X: 170,
-			Y: 170
+			X: -20,
+			Y: -40
 		},
 		{
-			X: 230,
-			Y: 170
+			X: 20,
+			Y: -40
 		},
 		{
-			X: 230,
-			Y: 190
+			X: 20,
+			Y: -20
 		},
 		{
-			X: 170,
-			Y: 190
+			X: -20,
+			Y: -20
 		}
 	]));
 };
@@ -80,52 +79,11 @@ Enjine.Character.prototype.UpdateChild = function () {
 }
 
 Enjine.Character.prototype.UpdateCollider = function () {
-	this.UpdateColliderPos();
-	this.UpdateColliderRotate();
-	this.UpdateCollider();
 	for (var key in this.Colliders) {
-		for(var i = 0; i < 4; i++) {
-			var A = this.Colliders[key].Rect[i];
-			this.Colliders[key].Rect[i] = this.RotatePoint(A, {X: this.X, Y: this.Y}, 0.575);
-		}
+		this.Colliders[key].UpdatePos();
+		this.Colliders[key].Rotate();
+		this.Colliders[key].OnEnter();
 	}
-
-	for (var key in this.Colliders) {
-		var mouseIn = true;
-		for(var i = 0; i < 4; i++) {
-			var A = this.Colliders[key].Rect[i];
-			var nextI = i;
-			nextI++;
-			if (nextI >= 4) {
-				nextI = 0;
-			}
-			var B = this.Colliders[key].Rect[nextI];
-			var D = {X: 0, Y: 0};
-			var T = {X: 0, Y: 0};
-
-			D.X = B.X - A.X;
-			D.Y = B.Y - A.Y;
-			T.X = Enjine.Mouse.X - A.X;
-			T.Y = Enjine.Mouse.Y - A.Y;
-			var d = D.X*T.Y - D.Y*T.X;
-			if (d < 0) {
-				mouseIn = false;
-				break;
-			}
-		}
-
-		if (mouseIn) {
-			console.log('ok');
-		}
-  }
-};
-
-Enjine.Character.prototype.RotatePoint = function(P, O, angle) {
-    angle = angle * Math.PI / 180.0;
-    return {
-        X: Math.cos(angle) * (P.X-O.X) - Math.sin(angle) * (P.Y-O.Y) + O.X,
-        Y: Math.sin(angle) * (P.X-O.X) + Math.cos(angle) * (P.Y-O.Y) + O.Y
-    };
 };
 
 Enjine.Character.prototype.Draw = function(context) {
@@ -141,8 +99,11 @@ Enjine.Character.prototype.Draw = function(context) {
 										-(this.Zone.Height/2),
 										this.Zone.Width,
 										this.Zone.Height);
-  this.DrawChild(context);
-	this.DrawCollider(context);
+
+	this.DrawChild(context);
+	for (var key in this.Colliders) {
+		this.Colliders[key].Draw(context);
+	}
 };
 
 Enjine.Character.prototype.DrawChild = function(context) {
@@ -159,23 +120,4 @@ Enjine.Character.prototype.DrawChild = function(context) {
   }
 
 	context.restore();
-};
-
-Enjine.Character.prototype.DrawCollider = function(context) {
-	context.beginPath();
-
-  for (var key in this.Colliders) {
-		for(var i = 0; i < 4; i++) {
-			var A = this.Colliders[key].Rect[i];
-			var nextI = i;
-			nextI++;
-			if (nextI >= 4) {
-				nextI = 0;
-			}
-			var B = this.Colliders[key].Rect[nextI];
-			context.moveTo(A.X,A.Y);
-			context.lineTo(B.X,B.Y);
-		}
-  }
-	context.stroke();
 };
