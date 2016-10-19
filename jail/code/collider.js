@@ -30,7 +30,7 @@ Game.Collider = function(Parent, Rect) {
 	];
 
 	this.Angle = 0;
-	this.SpeedAngle = 0.14;
+	this.SpeedAngle = 0;
 };
 
 Game.Collider.prototype.UpdatePos = function() {
@@ -53,7 +53,7 @@ Game.Collider.prototype.Rotate = function() {
 
 		this.Pos.X = this.Parent.X;
 		this.Pos.Y = this.Parent.Y;
-		this.PosPoint[i] = this.RotatePoint(A, this.Pos, this.Angle += this.SpeedAngle);
+		this.PosPoint[i] = this.RotatePoint(A, this.Pos, this.Parent.Angle * 57.28);
 	}
 };
 
@@ -65,8 +65,8 @@ Game.Collider.prototype.RotatePoint = function(P, O, angle) {
 	};
 };
 
-Game.Collider.prototype.OnEnter = function() {
-	var mouseIn = true;
+Game.Collider.prototype.OnEnter = function(otherColliders) {
+	var collider = true;
 	for(var i = 0; i < 4; i++) {
 		var A = this.PosPoint[i];
 		var nextI = i;
@@ -80,19 +80,26 @@ Game.Collider.prototype.OnEnter = function() {
 
 		D.X = B.X - A.X;
 		D.Y = B.Y - A.Y;
-		T.X = Enjine.Mouse.X - A.X;
-		T.Y = Enjine.Mouse.Y - A.Y;
-		var d = D.X*T.Y - D.Y*T.X;
-		if (d < 0) {
-			mouseIn = false;
+		for(var x = 0; x < 4; x++) {
+			T.X = otherColliders[0].PosPoint[x].X - A.X;
+			T.Y = otherColliders[0].PosPoint[x].Y - A.Y;
+			var d = D.X*T.Y - D.Y*T.X;
+			if (d < 0) {
+				collider = false;
+			}
+		}
+
+		if (!collider) {
 			break;
 		}
 	}
 
-	if (mouseIn) {
-		console.log('ok');
+	if (collider) {
+		this.Parent.AddChild(otherColliders[0].Parent);
+		otherColliders[0].Parent.Hide = true;
+		otherColliders[0].Parent.SetOffset({X: 0, Y: 68});
+		otherColliders[0].Parent.RemoveCollider();
 	}
-
 };
 
 Game.Collider.prototype.Draw = function(context) {

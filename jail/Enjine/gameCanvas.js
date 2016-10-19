@@ -23,6 +23,8 @@ Enjine.GameCanvas = {
     this.BackBuffer.height = window.innerHeight; //document.height is obsolete
 		this.BackBufferContext2D = this.BackBuffer.getContext("2d");
 
+		Enjine.KeyboardInput.Initialize();
+
 		window.addEventListener('resize', this.ResizeCanvas, false);
 	},
 

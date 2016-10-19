@@ -19,7 +19,7 @@ Game.LevelState = {
   TimeToCreateElement: 1,
   IntervalSecondFunc: null,
 
-  SelectedBody: "head0",
+  SelectedBody: "body0",
 
   Enter: function() {
     this.Sprites = new Enjine.DrawableManager();
@@ -30,7 +30,7 @@ Game.LevelState = {
     this.CreateElement();
 
     this.GotoLoseState = false;
-    this.IntervalSecondFunc = setInterval(Game.LevelState.TickSecond, 1000);
+    // this.IntervalSecondFunc = setInterval(Game.LevelState.TickSecond, 1000);
   },
 
   TickSecond: function() {
@@ -52,7 +52,7 @@ Game.LevelState = {
 
   CreateElement: function() {
     var zoneName = Enjine.Resources.GetRandomZoneName();
-    var tmpSprite = new Game.Element(zoneName, Game.LevelState.Sprites, Enjine.Resources.Element, Enjine.Resources.Zones[zoneName]);
+    var tmpSprite = new Game.Element(zoneName, Game.LevelState.Sprites, Enjine.Resources.Element, Enjine.Resources.Zones['head0']);
     Game.LevelState.Sprites.Add(tmpSprite);
   },
 

@@ -17,6 +17,7 @@ Enjine.Character = function(manager, element, zone) {
 		height: 0,
 	};
 	this.Angle = 0;
+	this.SpeedAngle = 0.5;
 
   this.Childs = [];
   this.Colliders = [];
@@ -65,31 +66,41 @@ Enjine.Character.prototype.Update = function(delta) {
   this.X = Enjine.Mouse.X;
   this.Y = Enjine.Mouse.Y;
 
+	// Update rotation
+	if (Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.Left)) {
+		this.Angle -= this.SpeedAngle;
+	}
+	if (Enjine.KeyboardInput.IsKeyDown(Enjine.Keys.Right)) {
+		this.Angle += this.SpeedAngle;
+	}
+
   this.UpdateChild();
 	this.UpdateCollider();
 }
 
 Enjine.Character.prototype.UpdateChild = function () {
-  for (var key in this.Childs) {
-    this.Childs[key].SetPos({
-      X: this.X + this.Childs[key].Offset.X,
-      Y: this.Y + this.Childs[key].Offset.Y
-    });
-  }
+  // for (var key in this.Childs) {
+  //   this.Childs[key].SetPos({
+  //     X: this.X + this.Childs[key].Offset.X,
+  //     Y: this.Y + this.Childs[key].Offset.Y
+  //   });
+  // }
 }
 
 Enjine.Character.prototype.UpdateCollider = function () {
 	for (var key in this.Colliders) {
 		this.Colliders[key].UpdatePos();
 		this.Colliders[key].Rotate();
-		this.Colliders[key].OnEnter();
+		if ( this.Manager.Objects[1].Colliders ) {
+			this.Colliders[key].OnEnter(this.Manager.Objects[1].Colliders);
+		}
 	}
 };
 
 Enjine.Character.prototype.Draw = function(context) {
 	context.save();
 	context.translate(this.X, this.Y); //let's translate
-	context.rotate(this.Angle += 0.01); //increment the angle and rotate the image
+	context.rotate(this.Angle); //increment the angle and rotate the image
 	context.drawImage(this.Image,
 										this.Zone.X,
 										this.Zone.Y,
@@ -101,9 +112,9 @@ Enjine.Character.prototype.Draw = function(context) {
 										this.Zone.Height);
 
 	this.DrawChild(context);
-	for (var key in this.Colliders) {
-		this.Colliders[key].Draw(context);
-	}
+	// for (var key in this.Colliders) {
+	// 	this.Colliders[key].Draw(context);
+	// }
 };
 
 Enjine.Character.prototype.DrawChild = function(context) {

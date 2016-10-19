@@ -3,6 +3,7 @@
 	<head>
 		<title>Gamejam Gamecodeur.fr octobre 2016</title>
 		<link rel="stylesheet" type="text/css" href="jail/css/reset.css">
+		<link rel="stylesheet" type="text/css" href="jail/css/style.css">
 	</head>
 	<body>
 		<canvas id="canvas">
@@ -20,6 +21,7 @@
         <script src="jail/Enjine/character.js"></script>
         <script src="jail/Enjine/mouse.js"></script>
         <script src="jail/Enjine/shape.js"></script>
+        <script src="jail/Enjine/keyboardInput.js"></script>
 
         <script src="jail/code/setup.js"></script>
         <script src="jail/code/loadingState.js"></script>
@@ -30,6 +32,6 @@
 				<script src="jail/code/collider.js"></script>
 
 
-        <script>window.onload = function() { Enjine.Application.Initialize(Game.BodySelectState, 640, 480) };</script>
+        <script>window.onload = function() { Enjine.Application.Initialize(Game.LevelState, 640, 480) };</script>
 	</body>
 </html>
