@@ -9,17 +9,21 @@ Enjine.Character = function(manager, element, zone) {
 	this.Manager = manager;
 	this.Image = element;
 	this.Zone = zone;
-
+	this.Type = 'body';
 	this.X = 200;
 	this.Y = 200;
 	this.size = {
 		width: 0,
 		height: 0,
 	};
+	this.Offset = {
+		X: 0,
+		Y: 0
+	}
 	this.Angle = 0;
-	this.SpeedAngle = 0.5;
+	this.SpeedAngle = 0.1;
 
-  this.Childs = [];
+  this.Childs = {'head': undefined, 'body': this, 'leg': undefined};
   this.Colliders = [];
 	this.AddCollider(new Game.Collider("top", this, [
 		{
@@ -72,24 +76,20 @@ Enjine.Character.prototype.SetPos = function(pos) {
 	}
 }
 
-Enjine.Character.prototype.AddChild = function(key, obj) {
+Enjine.Character.prototype.AddChild = function(key, obj, collider, contactPoint) {
 	obj.Hide = true;
 	var offset = {
 		X: 0,
 		Y: 0
 	};
 
-	switch( key ) {
-		case "top":
-			offset.Y = 60;
-			break;
-		case "bottom":
-			offset.Y = -60;
-			break;
-	}
+	offset.Y = contactPoint.Y;
+	offset.X = contactPoint.X;
+
 	obj.SetOffset(offset);
 	obj.RemoveCollider();
-  this.Childs.push(obj);
+	this.RemoveColliderKey(collider.Key);
+  this.Childs[obj.Type] = obj;
 }
 
 Enjine.Character.prototype.AddCollider = function(obj) {
@@ -142,15 +142,15 @@ Enjine.Character.prototype.Draw = function(context) {
 	context.save();
 	context.translate(this.X, this.Y); //let's translate
 	context.rotate(this.Angle); //increment the angle and rotate the image
-	context.drawImage(this.Image,
-										this.Zone.X,
-										this.Zone.Y,
-										this.Zone.Width,
-										this.Zone.Height,
-										-(this.Zone.Width/2),
-										-(this.Zone.Height/2),
-										this.Zone.Width,
-										this.Zone.Height);
+	// context.drawImage(this.Image,
+	// 									this.Zone.X,
+	// 									this.Zone.Y,
+	// 									this.Zone.Width,
+	// 									this.Zone.Height,
+	// 									-(this.Zone.Width/2),
+	// 									-(this.Zone.Height/2),
+	// 									this.Zone.Width,
+	// 									this.Zone.Height);
 
 	this.DrawChild(context);
 	for (var key in this.Colliders) {
@@ -160,16 +160,17 @@ Enjine.Character.prototype.Draw = function(context) {
 
 Enjine.Character.prototype.DrawChild = function(context) {
   for (var key in this.Childs) {
-  	context.drawImage(this.Image,
-                      this.Childs[key].Zone.X,
-                      this.Childs[key].Zone.Y,
-                      this.Childs[key].Zone.Width,
-                      this.Childs[key].Zone.Height,
-                      -((this.Childs[key].Zone.Width/2) + this.Childs[key].Offset.X),
-                      -((this.Childs[key].Zone.Height/2) + this.Childs[key].Offset.Y),
-                      this.Childs[key].Zone.Width,
-                      this.Childs[key].Zone.Height);
-  }
-
+			if (this.Childs[key]) {
+	  	context.drawImage(this.Image,
+	                      this.Childs[key].Zone.X,
+	                      this.Childs[key].Zone.Y,
+	                      this.Childs[key].Zone.Width,
+	                      this.Childs[key].Zone.Height,
+	                      -((this.Childs[key].Zone.Width/2) + this.Childs[key].Offset.X),
+	                      -((this.Childs[key].Zone.Height/2) + this.Childs[key].Offset.Y),
+	                      this.Childs[key].Zone.Width,
+	                      this.Childs[key].Zone.Height);
+	  }
+	}
 	context.restore();
 };

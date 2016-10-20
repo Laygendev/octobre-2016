@@ -79,15 +79,15 @@ Game.Collider.prototype.CheckCollider = function(others) {
 			if (others[key].Colliders[keyCollider].Parent.Name) {
 				var contactPoint = this.OnEnter(others[key].Colliders[keyCollider]);
 				if (contactPoint) {
-					this.Parent.RemoveColliderKey(others[key].Colliders[keyCollider].Key);
-					this.Parent.AddChild(others[key].Colliders[keyCollider].Key, others[key].Colliders[keyCollider].Parent);
+					// this.Parent.RemoveColliderKey(others[key].Colliders[keyCollider].Key);
+					this.Parent.AddChild(this.Key, others[key].Colliders[keyCollider].Parent, this, contactPoint);
 				}
 			}
 		}
 	}
 }
 
-Game.Collider.prototype.OnEnter = function(otherColliders) {
+Game.Collider.prototype.OnEnter = function(colliderPoint) {
 	var collider = true;
 	var contactPoint = { X: 0, Y: 0 };
 	for(var i = 0; i < 4; i++) {
@@ -103,17 +103,15 @@ Game.Collider.prototype.OnEnter = function(otherColliders) {
 
 		D.X = B.X - A.X;
 		D.Y = B.Y - A.Y;
-		for(var x = 0; x < 4; x++) {
-			T.X = otherColliders.PosPoint[x].X - A.X;
-			T.Y = otherColliders.PosPoint[x].Y - A.Y;
-			var d = D.X*T.Y - D.Y*T.X;
-			if (d < 0) {
-				collider = false;
-				return false;
-			}
-			else {
+		T.X = colliderPoint.Point.X - A.X;
+		T.Y = colliderPoint.Point.Y - A.Y;
+		var d = D.X*T.Y - D.Y*T.X;
+		if (d < 0) {
+			collider = false;
+			return false;
+		}
+		else {
 
-			}
 		}
 
 		if (!collider) {
@@ -122,6 +120,10 @@ Game.Collider.prototype.OnEnter = function(otherColliders) {
 	}
 
 	if (collider) {
+		console.log(colliderPoint);
+		contactPoint.X = colliderPoint.Parent.Zone.ColliderPoint.top.X;
+		contactPoint.Y = colliderPoint.Parent.Zone.ColliderPoint.top.Y + this.Parent.Zone.Height / 2;
+		console.log(contactPoint);
 		return contactPoint;
 	}
 };

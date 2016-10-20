@@ -15,49 +15,70 @@ Game.LoadingState = {
   Enter: function() {
     this.Zones = {
       "head0": {
-          "X": "0",
-          "Y": "0",
-          "Width": 96,
-          "Height": 96
+        'type': 'head',
+        "X": "0",
+        "Y": "0",
+        "Width": 96,
+        "Height": 87,
+        "ColliderPoint": {
+          "top": {
+            X: 0,
+            Y: 42
+          }
+        }
       },
       "head1": {
+        'type': 'head',
         "X": "96",
         "Y": "0",
-        "Width": 90,
-        "Height": 113
+        "Width": 85,
+        "Height": 104,
+        "ColliderPoint": {
+          "top": {
+            X: 0,
+            Y: 35
+          }
+        }
       },
       "head2": {
+        'type': 'head',
         "X": "186",
         "Y": "0",
-        "Width": 100,
-        "Height": 96
+        "Width": 86,
+        "Height": 91,
+        "ColliderPoint": {
+          "top": {
+            X: 0,
+            Y: 43
+          }
+        }
       },
-      "leg0": {
-        "X": "0",
-        "Y": "192",
-        "Width": 96,
-        "Height": 78
-      },
-      "leg1": {
-        "X": "96",
-        "Y": "172",
-        "Width": 90,
-        "Height": 78
-      },
-      "leg2": {
-        "X": "186",
-        "Y": "178",
-        "Width": 100,
-        "Height": 78
-      },
+      // "leg0": {
+      //   "X": "0",
+      //   "Y": "192",
+      //   "Width": 96,
+      //   "Height": 78
+      // },
+      // "leg1": {
+      //   "X": "96",
+      //   "Y": "172",
+      //   "Width": 90,
+      //   "Height": 78
+      // },
+      // "leg2": {
+      //   "X": "186",
+      //   "Y": "178",
+      //   "Width": 100,
+      //   "Height": 78
+      // },
     };
 
     this.ZoneBodies = {
       "body0": {
         "X": "0",
         "Y": "96",
-        "Width": 96,
-        "Height": 78
+        "Width": 44,
+        "Height": 69
       },
       "body1": {
         "X": "96",
