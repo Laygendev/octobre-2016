@@ -30,7 +30,7 @@ Game.LevelState = {
     this.CreateElement();
 
     this.GotoLoseState = false;
-    this.IntervalSecondFunc = setInterval(Game.LevelState.TickSecond, 5000);
+    this.IntervalSecondFunc = setInterval(Game.LevelState.TickSecond, 1000);
   },
 
   TickSecond: function() {
