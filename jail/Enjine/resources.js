@@ -8,10 +8,12 @@ http://labodudev.fr
 Enjine.Resources = {
   Element: null,
   Zones: {},
+  ZonesBodies: {},
   NumberZone: 0,
 
   Destroy: function() {
     delete this.Zones;
+    delete this.ZonesBodies;
     return this;
   },
 
@@ -30,6 +32,11 @@ Enjine.Resources = {
     }
 
     this.Zones = obj;
+    return this;
+  },
+
+  AddZonesBodies: function(obj) {
+    this.ZonesBodies = obj;
     return this;
   },
 

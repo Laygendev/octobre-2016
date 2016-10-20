@@ -3,12 +3,17 @@ Code par Jimmy Latour, 2016
 http://labodudev.fr
 */
 
-Game.Collider = function(Parent, Rect) {
+Game.Collider = function(Key, Parent, Rect) {
+	this.Key = Key;
 	this.Parent = Parent;
   this.Rect = Rect;
 	this.Pos = {
 		X: 40,
 		Y: 20
+	}
+	this.Center = {
+		X: 0,
+		Y: 0
 	}
 	this.PosPoint = [
 		{
@@ -45,6 +50,9 @@ Game.Collider.prototype.UpdatePos = function() {
 
 	this.PosPoint[3].X = this.Parent.X + this.Rect[3].X;
 	this.PosPoint[3].Y = this.Parent.Y + this.Rect[3].Y;
+
+	this.Center.X = this.PosPoint[1].X - this.PosPoint[0].X;
+	this.Center.Y = this.PosPoint[2].Y - this.PosPoint[0].Y;
 }
 
 Game.Collider.prototype.Rotate = function() {
@@ -65,8 +73,23 @@ Game.Collider.prototype.RotatePoint = function(P, O, angle) {
 	};
 };
 
+Game.Collider.prototype.CheckCollider = function(others) {
+	for(var key in others) {
+		for(var keyCollider in others[key].Colliders) {
+			if (others[key].Colliders[keyCollider].Parent.Name) {
+				var contactPoint = this.OnEnter(others[key].Colliders[keyCollider]);
+				if (contactPoint) {
+					this.Parent.RemoveColliderKey(others[key].Colliders[keyCollider].Key);
+					this.Parent.AddChild(others[key].Colliders[keyCollider].Key, others[key].Colliders[keyCollider].Parent);
+				}
+			}
+		}
+	}
+}
+
 Game.Collider.prototype.OnEnter = function(otherColliders) {
 	var collider = true;
+	var contactPoint = { X: 0, Y: 0 };
 	for(var i = 0; i < 4; i++) {
 		var A = this.PosPoint[i];
 		var nextI = i;
@@ -81,11 +104,15 @@ Game.Collider.prototype.OnEnter = function(otherColliders) {
 		D.X = B.X - A.X;
 		D.Y = B.Y - A.Y;
 		for(var x = 0; x < 4; x++) {
-			T.X = otherColliders[0].PosPoint[x].X - A.X;
-			T.Y = otherColliders[0].PosPoint[x].Y - A.Y;
+			T.X = otherColliders.PosPoint[x].X - A.X;
+			T.Y = otherColliders.PosPoint[x].Y - A.Y;
 			var d = D.X*T.Y - D.Y*T.X;
 			if (d < 0) {
 				collider = false;
+				return false;
+			}
+			else {
+
 			}
 		}
 
@@ -95,10 +122,7 @@ Game.Collider.prototype.OnEnter = function(otherColliders) {
 	}
 
 	if (collider) {
-		this.Parent.AddChild(otherColliders[0].Parent);
-		otherColliders[0].Parent.Hide = true;
-		otherColliders[0].Parent.SetOffset({X: 0, Y: 68});
-		otherColliders[0].Parent.RemoveCollider();
+		return contactPoint;
 	}
 };
 

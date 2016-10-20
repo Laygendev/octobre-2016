@@ -30,7 +30,7 @@ Game.LevelState = {
     this.CreateElement();
 
     this.GotoLoseState = false;
-    // this.IntervalSecondFunc = setInterval(Game.LevelState.TickSecond, 1000);
+    this.IntervalSecondFunc = setInterval(Game.LevelState.TickSecond, 5000);
   },
 
   TickSecond: function() {
@@ -46,13 +46,14 @@ Game.LevelState = {
   },
 
   CreateCharacter: function() {
-    var tmpCharacter = new Enjine.Character(Game.LevelState.Sprites, Enjine.Resources.Element, Enjine.Resources.Zones[this.SelectedBody]);
+    var tmpCharacter = new Enjine.Character(Game.LevelState.Sprites, Enjine.Resources.Element, Enjine.Resources.ZonesBodies[this.SelectedBody]);
     Game.LevelState.Sprites.Add(tmpCharacter);
   },
 
   CreateElement: function() {
     var zoneName = Enjine.Resources.GetRandomZoneName();
-    var tmpSprite = new Game.Element(zoneName, Game.LevelState.Sprites, Enjine.Resources.Element, Enjine.Resources.Zones['head0']);
+    console.log(zoneName);
+    var tmpSprite = new Game.Element(zoneName, Game.LevelState.Sprites, Enjine.Resources.Element, Enjine.Resources.Zones[zoneName]);
     Game.LevelState.Sprites.Add(tmpSprite);
   },
 

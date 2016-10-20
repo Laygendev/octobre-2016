@@ -21,7 +21,7 @@ Enjine.Character = function(manager, element, zone) {
 
   this.Childs = [];
   this.Colliders = [];
-	this.AddCollider(new Game.Collider(this, [
+	this.AddCollider(new Game.Collider("top", this, [
 		{
 			X: -20,
 			Y: -40
@@ -39,6 +39,25 @@ Enjine.Character = function(manager, element, zone) {
 			Y: -20
 		}
 	]));
+
+	this.AddCollider(new Game.Collider("bottom", this, [
+		{
+			X: -20,
+			Y: 40
+		},
+		{
+			X: 20,
+			Y: 40
+		},
+		{
+			X: 20,
+			Y: 60
+		},
+		{
+			X: -20,
+			Y: 60
+		}
+	]));
 };
 
 Enjine.Character.prototype = new Enjine.Drawable();
@@ -53,12 +72,36 @@ Enjine.Character.prototype.SetPos = function(pos) {
 	}
 }
 
-Enjine.Character.prototype.AddChild = function(obj) {
+Enjine.Character.prototype.AddChild = function(key, obj) {
+	obj.Hide = true;
+	var offset = {
+		X: 0,
+		Y: 0
+	};
+
+	switch( key ) {
+		case "top":
+			offset.Y = 60;
+			break;
+		case "bottom":
+			offset.Y = -60;
+			break;
+	}
+	obj.SetOffset(offset);
+	obj.RemoveCollider();
   this.Childs.push(obj);
 }
 
 Enjine.Character.prototype.AddCollider = function(obj) {
   this.Colliders.push(obj);
+}
+
+Enjine.Character.prototype.RemoveColliderKey = function(key) {
+	for (var i in this.Colliders) {
+		if (this.Colliders[i].Key == key) {
+			this.Colliders.splice(i, 1);
+		}
+	}
 }
 
 Enjine.Character.prototype.Update = function(delta) {
@@ -91,9 +134,7 @@ Enjine.Character.prototype.UpdateCollider = function () {
 	for (var key in this.Colliders) {
 		this.Colliders[key].UpdatePos();
 		this.Colliders[key].Rotate();
-		if ( this.Manager.Objects[1].Colliders ) {
-			this.Colliders[key].OnEnter(this.Manager.Objects[1].Colliders);
-		}
+		this.Colliders[key].CheckCollider(this.Manager.Objects);
 	}
 };
 
@@ -112,9 +153,9 @@ Enjine.Character.prototype.Draw = function(context) {
 										this.Zone.Height);
 
 	this.DrawChild(context);
-	// for (var key in this.Colliders) {
-	// 	this.Colliders[key].Draw(context);
-	// }
+	for (var key in this.Colliders) {
+		this.Colliders[key].Draw(context);
+	}
 };
 
 Enjine.Character.prototype.DrawChild = function(context) {

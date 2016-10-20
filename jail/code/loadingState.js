@@ -5,6 +5,7 @@ http://labodudev.fr
 
 Game.LoadingState = {
   Zones: {},
+  ZonesBodies: {},
   ImagesLoaded: false,
   ScreenColor: 0,
   ColorDirection: 1,
@@ -31,6 +32,27 @@ Game.LoadingState = {
         "Width": 100,
         "Height": 96
       },
+      "leg0": {
+        "X": "0",
+        "Y": "192",
+        "Width": 96,
+        "Height": 78
+      },
+      "leg1": {
+        "X": "96",
+        "Y": "172",
+        "Width": 90,
+        "Height": 78
+      },
+      "leg2": {
+        "X": "186",
+        "Y": "178",
+        "Width": 100,
+        "Height": 78
+      },
+    };
+
+    this.ZoneBodies = {
       "body0": {
         "X": "0",
         "Y": "96",
@@ -53,6 +75,7 @@ Game.LoadingState = {
 
     Enjine.Resources.AddElement("jail/images/elements.png");
     Enjine.Resources.AddZones(this.Zones);
+    Enjine.Resources.AddZonesBodies(this.ZoneBodies);
   },
 
   Exit: function() {
