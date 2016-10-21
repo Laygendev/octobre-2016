@@ -10,7 +10,7 @@ Enjine.Application = {
   timer: null,
   stateContext: null,
   Update: function(delta) {
-
+		Game.LoadingState.Update();
     this.stateContext.Update(delta);
 
     this.canvas.BeginDraw();
@@ -27,7 +27,6 @@ Enjine.Application = {
     this.canvas.Initialize("canvas", resWidth, resHeight);
     Enjine.Mouse.Initialize(Enjine.GameCanvas.Canvas);
     this.timer.UpdateObject = this;
-    defaultState.Enter();
     this.stateContext = defaultState;
     this.timer.Start();
   },
