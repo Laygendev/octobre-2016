@@ -1,0 +1,15 @@
+{
+	"head0": {
+		"type": "head",
+		"X": "0",
+		"Y": "0",
+		"Width": 86,
+		"Height": 86,
+		"ColliderPoint": {
+			"top": {
+				"X": 0,
+				"Y": 42
+			}
+		}
+	}
+}
