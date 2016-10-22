@@ -1,38 +1,30 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Gamejam Gamecodeur.fr octobre 2016</title>
-		<link rel="stylesheet" type="text/css" href="jail/css/reset.css">
-		<link rel="stylesheet" type="text/css" href="jail/css/style.css">
-	</head>
-	<body>
-		<canvas id="canvas">
-			<p>Your browser does not support the canvas element.</p>
-		</canvas>
+<head>
+	<title>Gamejam Gamecodeur.fr octobre 2016</title>
+	<link rel="stylesheet" type="text/css" href="jail/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="jail/css/style.css">
+</head>
+<body>
+	<canvas id="canvas">
+		<p>Your browser does not support the canvas element.</p>
+	</canvas>
 
-        <script src="jail/Enjine/core.js"></script>
-        <script src="jail/Enjine/application.js"></script>
-        <script src="jail/Enjine/gameCanvas.js"></script>
-        <script src="jail/Enjine/gameTimer.js"></script>
-        <script src="jail/Enjine/resources.js"></script>
-				<script src="jail/Enjine/drawable.js"></script>
-				<script src="jail/Enjine/drawableManager.js"></script>
-        <script src="jail/Enjine/sprite.js"></script>
-        <script src="jail/Enjine/character.js"></script>
-        <script src="jail/Enjine/mouse.js"></script>
-        <script src="jail/Enjine/keyboardInput.js"></script>
-        <script src="jail/Enjine/json.js"></script>
+	<script src="jail/js/Enjine/Scene.js"></script>
+	<script src="jail/js/Enjine/SceneManager.js"></script>
+	<script src="jail/js/Enjine/Loader.js"></script>
+	<script src="jail/js/Enjine/Ressources.js"></script>
+	<script src="jail/js/Enjine/JSON.js"></script>
+	<script src="jail/js/Enjine/Application.js"></script>
+	<script src="jail/js/Enjine/SpawnManager.js"></script>
+	<script src="jail/js/Enjine/Sprite.js"></script>
+	<script src="jail/js/Enjine/SpriteManager.js"></script>
+	<script src="jail/js/Enjine/SpriteGenerator.js"></script>
+	<script src="jail/js/Enjine/Character.js"></script>
+	<script src="jail/js/Enjine/EventMouse.js"></script>
 
-        <script src="jail/code/setup.js"></script>
-        <script src="jail/code/loadingState.js"></script>
-        <script src="jail/code/levelState.js"></script>
-        <script src="jail/code/bodySelectState.js"></script>
-        <script src="jail/code/const.js"></script>
-				<script src="jail/code/element.js"></script>
-				<script src="jail/code/collider.js"></script>
-				<script src="jail/code/colliderPoint.js"></script>
+	<script src="jail/js/code/MainScene.js"></script>
 
-
-        <script>window.onload = function() { Enjine.Application.Initialize(Game.LevelState, 640, 480) };</script>
-	</body>
+	<script>window.onload = new Application();</script>
+</body>
 </html>
