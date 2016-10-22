@@ -2,7 +2,14 @@ var SpriteGenerator = (function () {
     function SpriteGenerator() {
     }
     SpriteGenerator.prototype.Exec = function () {
-        return new Sprite(0, 0, Data.Ressources.humanPart['head0']);
+        var pos = this.RandomPosition();
+        return new Sprite(pos.x, pos.y, Data.Ressources.humanPart['head0']);
+    };
+    SpriteGenerator.prototype.RandomPosition = function () {
+        return {
+            x: 0,
+            y: 0
+        };
     };
     return SpriteGenerator;
 }());

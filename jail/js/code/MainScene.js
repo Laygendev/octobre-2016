@@ -8,21 +8,22 @@ var MainScene = (function (_super) {
     function MainScene() {
         _super.call(this);
         this.spriteManager = new SpriteManager();
-        this.spawnManager = new SpawnManager(this.spriteManager, 1000);
         this.character = new Character(0, 0, []);
     }
     MainScene.prototype.Init = function () {
         this.InitCharacter();
+        var tmpSprite = undefined;
+        tmpSprite = new Sprite(100, 200, Data.Ressources.humanPart['head0']);
+        this.spriteManager.Add(tmpSprite);
     };
     MainScene.prototype.InitCharacter = function () {
         var tmpSprite = new Sprite(0, 0, Data.Ressources.bodies['body0']);
         this.character.AddChild(tmpSprite);
-        tmpSprite = new Sprite(0, 0, Data.Ressources.humanPart['head0']);
-        tmpSprite.SetOffset({ x: 0, y: 80 });
-        this.character.AddChild(tmpSprite);
     };
     MainScene.prototype.Update = function () {
+        this.character.UpdateCollider(this.spriteManager.listSprite);
         this.character.Update();
+        this.spriteManager.Update();
     };
     MainScene.prototype.Draw = function (context) {
         this.character.Draw(context);

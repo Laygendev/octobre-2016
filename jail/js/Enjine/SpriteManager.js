@@ -5,7 +5,9 @@ var SpriteManager = (function () {
     SpriteManager.prototype.Init = function () {
     };
     SpriteManager.prototype.Update = function () {
-        console.log("Update");
+        for (var key in this.listSprite) {
+            this.listSprite[key].Update();
+        }
     };
     SpriteManager.prototype.Draw = function (context) {
         for (var key in this.listSprite) {

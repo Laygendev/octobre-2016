@@ -12,7 +12,9 @@ class SpriteManager {
   }
 
   public Update():void {
-    console.log("Update");
+    for (var key in this.listSprite) {
+      this.listSprite[key].Update();
+    }
   }
 
   public Draw(context: any):void {

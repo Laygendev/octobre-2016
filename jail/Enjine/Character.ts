@@ -5,12 +5,15 @@ http://labodudev.fr
 
 class Character extends Sprite {
   private childs: Array<Sprite> = [];
+  public colliders: Array<CharacterCollider> = [];
   constructor(public x: number, public y:number, public zone: Array<any>) {
     super(x, y, zone);
   }
 
   protected Init():void {
-
+    Data.JSONLoader.Exec('jail/json/characterCollider', (data) => {
+      this.colliders[0] = new CharacterCollider(data['top']);
+    });
   }
 
   public AddChild(child: Sprite):void {
@@ -20,6 +23,16 @@ class Character extends Sprite {
   public Update():void {
     this.x = EventMouse.Mouse.move.x;
     this.y = EventMouse.Mouse.move.y;
+
+    for (var key in this.colliders) {
+      this.colliders[key].Update(this.x, this.y);
+    }
+  }
+
+  public UpdateCollider(listSprite: Array<Sprite>):void {
+    for (var key in this.colliders) {
+      this.colliders[key].CheckCollider(listSprite);
+    }
   }
 
   public Draw(context: any):void {
@@ -31,5 +44,9 @@ class Character extends Sprite {
     }
 
     context.restore();
+
+    for (var key in this.colliders) {
+      this.colliders[key].Draw(context);
+    }
   }
 }

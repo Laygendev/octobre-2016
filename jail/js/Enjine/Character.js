@@ -11,8 +11,13 @@ var Character = (function (_super) {
         this.y = y;
         this.zone = zone;
         this.childs = [];
+        this.colliders = [];
     }
     Character.prototype.Init = function () {
+        var _this = this;
+        Data.JSONLoader.Exec('jail/json/characterCollider', function (data) {
+            _this.colliders[0] = new CharacterCollider(data['top']);
+        });
     };
     Character.prototype.AddChild = function (child) {
         this.childs.push(child);
@@ -20,6 +25,14 @@ var Character = (function (_super) {
     Character.prototype.Update = function () {
         this.x = EventMouse.Mouse.move.x;
         this.y = EventMouse.Mouse.move.y;
+        for (var key in this.colliders) {
+            this.colliders[key].Update(this.x, this.y);
+        }
+    };
+    Character.prototype.UpdateCollider = function (listSprite) {
+        for (var key in this.colliders) {
+            this.colliders[key].CheckCollider(listSprite);
+        }
     };
     Character.prototype.Draw = function (context) {
         context.save();
@@ -28,6 +41,9 @@ var Character = (function (_super) {
             this.childs[key].Draw(context);
         }
         context.restore();
+        for (var key in this.colliders) {
+            this.colliders[key].Draw(context);
+        }
     };
     return Character;
 }(Sprite));
