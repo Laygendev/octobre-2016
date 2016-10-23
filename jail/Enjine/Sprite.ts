@@ -13,8 +13,9 @@ class Sprite {
 
   protected Init():void {
     if (this.zone.collider) {
-      console.log(this.zone);
-      this.colliderPoint = new ColliderPoint(this.zone.collider.top.x, this.zone.collider.top.y);
+      for (var key in this.zone.collider) {
+        this.colliderPoint = new ColliderPoint(this.zone.collider[key].x, this.zone.collider[key].y);
+      }
     }
   }
 
@@ -31,8 +32,8 @@ class Sprite {
       this.zone.y,
       this.zone.width,
       this.zone.height,
-      -(this.zone.width / 2),
-      -(this.zone.height / 2),
+      -(this.zone.width / 2) + this.offset.x,
+      -(this.zone.height / 2) + this.offset.y,
       this.zone.width,
       this.zone.height);
 
@@ -47,6 +48,11 @@ class Sprite {
     this.colliderPoint.Clear();
     delete this.offset;
     delete this.zone;
+  }
+
+  public SetPos(x: number, y: number):void {
+    this.x = x;
+    this.y = y;
   }
 
   public SetOffset(offset: any):void {

@@ -18,6 +18,15 @@ class MainScene extends Scene {
 
     tmpSprite = new Sprite(100, 200, Data.Ressources.humanPart['head0']);
     this.spriteManager.Add(tmpSprite);
+
+    tmpSprite = new Sprite(200, 200, Data.Ressources.humanPart['leg0']);
+    this.spriteManager.Add(tmpSprite);
+
+    tmpSprite = new Sprite(400, 200, Data.Ressources.humanPart['arm0']);
+    this.spriteManager.Add(tmpSprite);
+
+    tmpSprite = new Sprite(600, 200, Data.Ressources.humanPart['arm1']);
+    this.spriteManager.Add(tmpSprite);
   }
 
   private InitCharacter():void {

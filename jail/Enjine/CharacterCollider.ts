@@ -41,17 +41,20 @@ class CharacterCollider {
     context.stroke();
   }
 
-  public CheckCollider(parent: Character, listSprite: Array<Sprite>):Sprite {
+  public CheckCollider(parent: Character, listSprite: Array<Sprite>, zone: string):any {
     for(var key in listSprite) {
-      if (this.OnEnter(listSprite[key].colliderPoint)) {
-        return listSprite[key];
+      if (this.OnEnter(listSprite[key].colliderPoint, zone)) {
+        return {
+          sprite: listSprite[key],
+          zone: zone
+        };
       }
   	}
 
     return undefined;
   }
 
-  public OnEnter(colliderPoint:any):boolean {
+  public OnEnter(colliderPoint:any, zone:string):boolean {
     var collider = true;
 
     if (!colliderPoint) return false;

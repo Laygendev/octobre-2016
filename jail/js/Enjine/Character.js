@@ -6,18 +6,20 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Character = (function (_super) {
     __extends(Character, _super);
     function Character(x, y, zone) {
-        var _this = _super.call(this, x, y, zone) || this;
-        _this.x = x;
-        _this.y = y;
-        _this.zone = zone;
-        _this.childs = [];
-        _this.colliders = [];
-        return _this;
+        _super.call(this, x, y, zone);
+        this.x = x;
+        this.y = y;
+        this.zone = zone;
+        this.childs = [];
+        this.colliders = [];
     }
     Character.prototype.Init = function () {
         var _this = this;
         Data.JSONLoader.Exec('jail/json/characterCollider', function (data) {
-            _this.colliders[0] = new CharacterCollider(data['top']);
+            _this.colliders["top"] = new CharacterCollider(data['top']);
+            _this.colliders["bottom"] = new CharacterCollider(data['bottom']);
+            _this.colliders["left"] = new CharacterCollider(data['left']);
+            _this.colliders["right"] = new CharacterCollider(data['right']);
         });
     };
     Character.prototype.AddChild = function (child) {
@@ -32,10 +34,36 @@ var Character = (function (_super) {
     };
     Character.prototype.UpdateCollider = function (spriteManager, listSprite) {
         for (var key in this.colliders) {
-            var spriteContact = this.colliders[key].CheckCollider(this, listSprite);
-            if (spriteContact) {
-                spriteManager.Remove(spriteContact);
-                this.AddChild(spriteContact);
+            var contactInfo = this.colliders[key].CheckCollider(this, listSprite, key);
+            if (contactInfo && contactInfo.sprite) {
+                console.log(contactInfo);
+                spriteManager.Remove(contactInfo.sprite);
+                contactInfo.sprite.SetPos(0, 0);
+                var offsetPos = {
+                    x: contactInfo.sprite.zone.collider[contactInfo.zone].x,
+                    y: contactInfo.sprite.zone.collider[contactInfo.zone].y
+                };
+                switch (contactInfo.zone) {
+                    case "top":
+                        offsetPos.y += this.childs[0].zone.height / 2;
+                        break;
+                    case "bottom":
+                        offsetPos.y -= this.childs[0].zone.height / 2;
+                        break;
+                    case "left":
+                        offsetPos.x -= this.childs[0].zone.width / 2;
+                        break;
+                    case "right":
+                        offsetPos.x += this.childs[0].zone.width / 2;
+                        break;
+                    default:
+                        break;
+                }
+                offsetPos.x *= -1;
+                offsetPos.y *= -1;
+                contactInfo.sprite.SetOffset(offsetPos);
+                this.AddChild(contactInfo.sprite);
+                this.RemoveCollider(contactInfo.zone);
                 break;
             }
         }
@@ -47,9 +75,9 @@ var Character = (function (_super) {
             this.childs[key].Draw(context);
         }
         context.restore();
-        for (var key in this.colliders) {
-            this.colliders[key].Draw(context);
-        }
+    };
+    Character.prototype.RemoveCollider = function (zoneName) {
+        delete this.colliders[zoneName];
     };
     return Character;
 }(Sprite));

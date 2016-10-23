@@ -6,15 +6,20 @@ var __extends = (this && this.__extends) || function (d, b) {
 var MainScene = (function (_super) {
     __extends(MainScene, _super);
     function MainScene() {
-        var _this = _super.call(this) || this;
-        _this.spriteManager = new SpriteManager();
-        _this.character = new Character(0, 0, []);
-        return _this;
+        _super.call(this);
+        this.spriteManager = new SpriteManager();
+        this.character = new Character(0, 0, []);
     }
     MainScene.prototype.Init = function () {
         this.InitCharacter();
         var tmpSprite = undefined;
         tmpSprite = new Sprite(100, 200, Data.Ressources.humanPart['head0']);
+        this.spriteManager.Add(tmpSprite);
+        tmpSprite = new Sprite(200, 200, Data.Ressources.humanPart['leg0']);
+        this.spriteManager.Add(tmpSprite);
+        tmpSprite = new Sprite(400, 200, Data.Ressources.humanPart['arm0']);
+        this.spriteManager.Add(tmpSprite);
+        tmpSprite = new Sprite(600, 200, Data.Ressources.humanPart['arm1']);
         this.spriteManager.Add(tmpSprite);
     };
     MainScene.prototype.InitCharacter = function () {

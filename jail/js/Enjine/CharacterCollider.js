@@ -28,15 +28,18 @@ var CharacterCollider = (function () {
         }
         context.stroke();
     };
-    CharacterCollider.prototype.CheckCollider = function (parent, listSprite) {
+    CharacterCollider.prototype.CheckCollider = function (parent, listSprite, zone) {
         for (var key in listSprite) {
-            if (this.OnEnter(listSprite[key].colliderPoint)) {
-                return listSprite[key];
+            if (this.OnEnter(listSprite[key].colliderPoint, zone)) {
+                return {
+                    sprite: listSprite[key],
+                    zone: zone
+                };
             }
         }
         return undefined;
     };
-    CharacterCollider.prototype.OnEnter = function (colliderPoint) {
+    CharacterCollider.prototype.OnEnter = function (colliderPoint, zone) {
         var collider = true;
         if (!colliderPoint)
             return false;
