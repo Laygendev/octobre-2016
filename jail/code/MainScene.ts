@@ -26,7 +26,7 @@ class MainScene extends Scene {
   }
 
   public Update():void {
-    this.character.UpdateCollider(this.spriteManager.listSprite);
+    this.character.UpdateCollider(this.spriteManager, this.spriteManager.listSprite);
     this.character.Update();
     this.spriteManager.Update();
   }

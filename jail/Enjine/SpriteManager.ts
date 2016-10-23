@@ -26,4 +26,12 @@ class SpriteManager {
   Add(sprite: Sprite): void {
     this.listSprite.push(sprite);
   }
+
+  Remove(sprite: Sprite): void {
+    for (var i = 0; i < this.listSprite.length; i++) {
+      if (this.listSprite[i] == sprite) {
+        this.listSprite.splice(i, 1);
+      }
+    }
+  }
 }

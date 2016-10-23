@@ -41,12 +41,14 @@ class CharacterCollider {
     context.stroke();
   }
 
-  public CheckCollider(listSprite: Array<Sprite>):void {
+  public CheckCollider(parent: Character, listSprite: Array<Sprite>):Sprite {
     for(var key in listSprite) {
       if (this.OnEnter(listSprite[key].colliderPoint)) {
-        console.log('ok');
+        return listSprite[key];
       }
   	}
+
+    return undefined;
   }
 
   public OnEnter(colliderPoint:any):boolean {

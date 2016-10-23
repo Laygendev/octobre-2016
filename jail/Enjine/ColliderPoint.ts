@@ -16,4 +16,8 @@ class ColliderPoint {
   public Draw(context: any):void {
     context.fillRect(this.pos.x, this.pos.y, 1, 1);
   }
+
+  public Clear():void {
+    delete this.pos;
+  }
 }

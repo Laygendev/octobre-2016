@@ -6,9 +6,10 @@ var __extends = (this && this.__extends) || function (d, b) {
 var MainScene = (function (_super) {
     __extends(MainScene, _super);
     function MainScene() {
-        _super.call(this);
-        this.spriteManager = new SpriteManager();
-        this.character = new Character(0, 0, []);
+        var _this = _super.call(this) || this;
+        _this.spriteManager = new SpriteManager();
+        _this.character = new Character(0, 0, []);
+        return _this;
     }
     MainScene.prototype.Init = function () {
         this.InitCharacter();
@@ -21,7 +22,7 @@ var MainScene = (function (_super) {
         this.character.AddChild(tmpSprite);
     };
     MainScene.prototype.Update = function () {
-        this.character.UpdateCollider(this.spriteManager.listSprite);
+        this.character.UpdateCollider(this.spriteManager, this.spriteManager.listSprite);
         this.character.Update();
         this.spriteManager.Update();
     };

@@ -11,6 +11,9 @@ var ColliderPoint = (function () {
     ColliderPoint.prototype.Draw = function (context) {
         context.fillRect(this.pos.x, this.pos.y, 1, 1);
     };
+    ColliderPoint.prototype.Clear = function () {
+        delete this.pos;
+    };
     return ColliderPoint;
 }());
 //# sourceMappingURL=ColliderPoint.js.map

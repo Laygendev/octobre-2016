@@ -6,12 +6,13 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Character = (function (_super) {
     __extends(Character, _super);
     function Character(x, y, zone) {
-        _super.call(this, x, y, zone);
-        this.x = x;
-        this.y = y;
-        this.zone = zone;
-        this.childs = [];
-        this.colliders = [];
+        var _this = _super.call(this, x, y, zone) || this;
+        _this.x = x;
+        _this.y = y;
+        _this.zone = zone;
+        _this.childs = [];
+        _this.colliders = [];
+        return _this;
     }
     Character.prototype.Init = function () {
         var _this = this;
@@ -29,9 +30,14 @@ var Character = (function (_super) {
             this.colliders[key].Update(this.x, this.y);
         }
     };
-    Character.prototype.UpdateCollider = function (listSprite) {
+    Character.prototype.UpdateCollider = function (spriteManager, listSprite) {
         for (var key in this.colliders) {
-            this.colliders[key].CheckCollider(listSprite);
+            var spriteContact = this.colliders[key].CheckCollider(this, listSprite);
+            if (spriteContact) {
+                spriteManager.Remove(spriteContact);
+                this.AddChild(spriteContact);
+                break;
+            }
         }
     };
     Character.prototype.Draw = function (context) {

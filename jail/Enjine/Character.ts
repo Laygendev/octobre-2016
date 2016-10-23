@@ -29,9 +29,15 @@ class Character extends Sprite {
     }
   }
 
-  public UpdateCollider(listSprite: Array<Sprite>):void {
+  public UpdateCollider(spriteManager: SpriteManager, listSprite: Array<Sprite>):void {
     for (var key in this.colliders) {
-      this.colliders[key].CheckCollider(listSprite);
+      var spriteContact = this.colliders[key].CheckCollider(this, listSprite);
+
+      if (spriteContact) {
+        spriteManager.Remove(spriteContact);
+        this.AddChild(spriteContact);
+        break;
+      }
     }
   }
 

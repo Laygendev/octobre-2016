@@ -25,6 +25,11 @@ var Sprite = (function () {
             this.colliderPoint.Draw(context);
         }
     };
+    Sprite.prototype.Clear = function () {
+        this.colliderPoint.Clear();
+        delete this.offset;
+        delete this.zone;
+    };
     Sprite.prototype.SetOffset = function (offset) {
         this.offset = offset;
     };

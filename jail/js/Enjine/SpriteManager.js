@@ -17,6 +17,13 @@ var SpriteManager = (function () {
     SpriteManager.prototype.Add = function (sprite) {
         this.listSprite.push(sprite);
     };
+    SpriteManager.prototype.Remove = function (sprite) {
+        for (var i = 0; i < this.listSprite.length; i++) {
+            if (this.listSprite[i] == sprite) {
+                this.listSprite.splice(i, 1);
+            }
+        }
+    };
     return SpriteManager;
 }());
 //# sourceMappingURL=SpriteManager.js.map

@@ -43,6 +43,12 @@ class Sprite {
       }
   }
 
+  public Clear():void {
+    this.colliderPoint.Clear();
+    delete this.offset;
+    delete this.zone;
+  }
+
   public SetOffset(offset: any):void {
     this.offset = offset;
   }

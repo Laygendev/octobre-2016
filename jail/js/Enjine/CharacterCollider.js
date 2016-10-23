@@ -28,12 +28,13 @@ var CharacterCollider = (function () {
         }
         context.stroke();
     };
-    CharacterCollider.prototype.CheckCollider = function (listSprite) {
+    CharacterCollider.prototype.CheckCollider = function (parent, listSprite) {
         for (var key in listSprite) {
             if (this.OnEnter(listSprite[key].colliderPoint)) {
-                console.log('ok');
+                return listSprite[key];
             }
         }
+        return undefined;
     };
     CharacterCollider.prototype.OnEnter = function (colliderPoint) {
         var collider = true;
