@@ -2,6 +2,8 @@ var CharacterCollider = (function () {
     function CharacterCollider(Rect) {
         this.Rect = Rect;
         this.pos = [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }];
+        this.angle = 0;
+        this.speedAngle = 0.5728;
     }
     CharacterCollider.prototype.Update = function (parentX, parentY) {
         this.pos[0].x = parentX + this.Rect[0].x;
@@ -12,6 +14,21 @@ var CharacterCollider = (function () {
         this.pos[2].y = parentY + this.Rect[2].y;
         this.pos[3].x = parentX + this.Rect[3].x;
         this.pos[3].y = parentY + this.Rect[3].y;
+        this.angle += this.speedAngle;
+        this.Rotate(parentX, parentY);
+    };
+    CharacterCollider.prototype.Rotate = function (parentX, parentY) {
+        for (var i = 0; i < 4; i++) {
+            var A = this.pos[i];
+            this.pos[i] = this.RotatePoint(A, { x: parentX, y: parentY });
+        }
+    };
+    CharacterCollider.prototype.RotatePoint = function (point, parent) {
+        var angle = this.angle * Math.PI / 180.0;
+        return {
+            x: Math.cos(angle) * (point.x - parent.x) - Math.sin(angle) * (point.y - parent.y) + parent.x,
+            y: Math.sin(angle) * (point.x - parent.x) + Math.cos(angle) * (point.y - parent.y) + parent.y
+        };
     };
     CharacterCollider.prototype.Draw = function (context) {
         context.beginPath();
@@ -29,12 +46,14 @@ var CharacterCollider = (function () {
         context.stroke();
     };
     CharacterCollider.prototype.CheckCollider = function (parent, listSprite, zone) {
-        for (var key in listSprite) {
-            if (this.OnEnter(listSprite[key].colliderPoint, zone)) {
-                return {
-                    sprite: listSprite[key],
-                    zone: zone
-                };
+        for (var type in listSprite) {
+            for (var key in listSprite[type]) {
+                if (this.OnEnter(listSprite[type][key].colliderPoint, zone)) {
+                    return {
+                        sprite: listSprite[type][key],
+                        zone: zone
+                    };
+                }
             }
         }
         return undefined;

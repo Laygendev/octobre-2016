@@ -16,21 +16,23 @@ class MainScene extends Scene {
     this.InitCharacter();
     let tmpSprite: Sprite = undefined;
 
-    tmpSprite = new Sprite(100, 200, Data.Ressources.humanPart['head0']);
+    tmpSprite = new Sprite(100, 200, Data.Ressources.humanPart['head0'], Data.Ressources.humanPart['head0'].type);
+    this.spriteManager.Add(tmpSprite);
+    tmpSprite = new Sprite(100, 50, Data.Ressources.humanPart['head1'], Data.Ressources.humanPart['head1'].type);
     this.spriteManager.Add(tmpSprite);
 
-    tmpSprite = new Sprite(200, 200, Data.Ressources.humanPart['leg0']);
+    tmpSprite = new Sprite(200, 200, Data.Ressources.humanPart['leg0'], Data.Ressources.humanPart['leg0'].type);
     this.spriteManager.Add(tmpSprite);
 
-    tmpSprite = new Sprite(400, 200, Data.Ressources.humanPart['arm0']);
+    tmpSprite = new Sprite(400, 200, Data.Ressources.humanPart['arm0'], Data.Ressources.humanPart['arm0'].type);
     this.spriteManager.Add(tmpSprite);
 
-    tmpSprite = new Sprite(600, 200, Data.Ressources.humanPart['arm1']);
+    tmpSprite = new Sprite(600, 200, Data.Ressources.humanPart['arm1'], Data.Ressources.humanPart['arm1'].type);
     this.spriteManager.Add(tmpSprite);
   }
 
   private InitCharacter():void {
-    var tmpSprite: Sprite = new Sprite(0, 0, Data.Ressources.bodies['body0']);
+    var tmpSprite: Sprite = new Sprite(0, 0, Data.Ressources.bodies['body1'], 'body');
     this.character.AddChild(tmpSprite);
   }
 

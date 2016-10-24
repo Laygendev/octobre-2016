@@ -6,24 +6,27 @@ var __extends = (this && this.__extends) || function (d, b) {
 var MainScene = (function (_super) {
     __extends(MainScene, _super);
     function MainScene() {
-        _super.call(this);
-        this.spriteManager = new SpriteManager();
-        this.character = new Character(0, 0, []);
+        var _this = _super.call(this) || this;
+        _this.spriteManager = new SpriteManager();
+        _this.character = new Character(0, 0, []);
+        return _this;
     }
     MainScene.prototype.Init = function () {
         this.InitCharacter();
         var tmpSprite = undefined;
-        tmpSprite = new Sprite(100, 200, Data.Ressources.humanPart['head0']);
+        tmpSprite = new Sprite(100, 200, Data.Ressources.humanPart['head0'], Data.Ressources.humanPart['head0'].type);
         this.spriteManager.Add(tmpSprite);
-        tmpSprite = new Sprite(200, 200, Data.Ressources.humanPart['leg0']);
+        tmpSprite = new Sprite(100, 50, Data.Ressources.humanPart['head1'], Data.Ressources.humanPart['head1'].type);
         this.spriteManager.Add(tmpSprite);
-        tmpSprite = new Sprite(400, 200, Data.Ressources.humanPart['arm0']);
+        tmpSprite = new Sprite(200, 200, Data.Ressources.humanPart['leg0'], Data.Ressources.humanPart['leg0'].type);
         this.spriteManager.Add(tmpSprite);
-        tmpSprite = new Sprite(600, 200, Data.Ressources.humanPart['arm1']);
+        tmpSprite = new Sprite(400, 200, Data.Ressources.humanPart['arm0'], Data.Ressources.humanPart['arm0'].type);
+        this.spriteManager.Add(tmpSprite);
+        tmpSprite = new Sprite(600, 200, Data.Ressources.humanPart['arm1'], Data.Ressources.humanPart['arm1'].type);
         this.spriteManager.Add(tmpSprite);
     };
     MainScene.prototype.InitCharacter = function () {
-        var tmpSprite = new Sprite(0, 0, Data.Ressources.bodies['body0']);
+        var tmpSprite = new Sprite(0, 0, Data.Ressources.bodies['body1'], 'body');
         this.character.AddChild(tmpSprite);
     };
     MainScene.prototype.Update = function () {

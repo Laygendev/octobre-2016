@@ -7,7 +7,7 @@ class Sprite {
   public offset: any = {x: 0, y: 0};
   public colliderPoint: ColliderPoint = undefined;
 
-  constructor(public x: number, public y:number, public zone: any) {
+  constructor(public x: number, public y:number, public zone: any, public type: string) {
     this.Init();
   }
 

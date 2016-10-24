@@ -4,10 +4,12 @@ http://labodudev.fr
 */
 
 class Character extends Sprite {
-  private childs: Array<Sprite> = [];
+  private childs: any = {'head': [], 'body': [], 'arm': [], 'leg': []};
   public colliders: Array<CharacterCollider> = [];
+  public angle: number = 0;
+  public speedAngle: number = 0.01;
   constructor(public x: number, public y:number, public zone: Array<any>) {
-    super(x, y, zone);
+    super(x, y, zone, 'body');
   }
 
   protected Init():void {
@@ -20,12 +22,13 @@ class Character extends Sprite {
   }
 
   public AddChild(child: Sprite):void {
-    this.childs.push(child);
+    this.childs[child["type"]].push(child);
   }
 
   public Update():void {
     this.x = EventMouse.Mouse.move.x;
     this.y = EventMouse.Mouse.move.y;
+    this.angle += this.speedAngle;
 
     for (var key in this.colliders) {
       this.colliders[key].Update(this.x, this.y);
@@ -48,16 +51,16 @@ class Character extends Sprite {
 
         switch (contactInfo.zone) {
           case "top":
-            offsetPos.y += this.childs[0].zone.height / 2;
+            offsetPos.y += this.childs['body'][0].zone.height / 2;
             break;
           case "bottom":
-            offsetPos.y -= this.childs[0].zone.height / 2;
+            offsetPos.y -= this.childs['body'][0].zone.height / 2;
             break;
           case "left":
-            offsetPos.x -= this.childs[0].zone.width / 2;
+            offsetPos.x -= this.childs['body'][0].zone.width / 2;
             break;
           case "right":
-            offsetPos.x += this.childs[0].zone.width / 2;
+            offsetPos.x += this.childs['body'][0].zone.width / 2;
             break;
           default:
             break;
@@ -78,16 +81,19 @@ class Character extends Sprite {
   public Draw(context: any):void {
     context.save();
     context.translate(this.x, this.y);
+    context.rotate(this.angle);
 
-    for (var key in this.childs) {
-      this.childs[key].Draw(context);
+    for (var type in this.childs) {
+      for (var key in this.childs[type]) {
+        this.childs[type][key].Draw(context);
+      }
     }
 
     context.restore();
 
-    // for (var key in this.colliders) {
-    //   this.colliders[key].Draw(context);
-    // }
+    for (var key in this.colliders) {
+      this.colliders[key].Draw(context);
+    }
   }
 
   public RemoveCollider(zoneName: string):void {

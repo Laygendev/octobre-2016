@@ -1,8 +1,9 @@
 var Sprite = (function () {
-    function Sprite(x, y, zone) {
+    function Sprite(x, y, zone, type) {
         this.x = x;
         this.y = y;
         this.zone = zone;
+        this.type = type;
         this.offset = { x: 0, y: 0 };
         this.colliderPoint = undefined;
         this.Init();

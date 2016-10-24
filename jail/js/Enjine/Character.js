@@ -6,12 +6,15 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Character = (function (_super) {
     __extends(Character, _super);
     function Character(x, y, zone) {
-        _super.call(this, x, y, zone);
-        this.x = x;
-        this.y = y;
-        this.zone = zone;
-        this.childs = [];
-        this.colliders = [];
+        var _this = _super.call(this, x, y, zone, 'body') || this;
+        _this.x = x;
+        _this.y = y;
+        _this.zone = zone;
+        _this.childs = { 'head': [], 'body': [], 'arm': [], 'leg': [] };
+        _this.colliders = [];
+        _this.angle = 0;
+        _this.speedAngle = 0.01;
+        return _this;
     }
     Character.prototype.Init = function () {
         var _this = this;
@@ -23,11 +26,12 @@ var Character = (function (_super) {
         });
     };
     Character.prototype.AddChild = function (child) {
-        this.childs.push(child);
+        this.childs[child["type"]].push(child);
     };
     Character.prototype.Update = function () {
         this.x = EventMouse.Mouse.move.x;
         this.y = EventMouse.Mouse.move.y;
+        this.angle += this.speedAngle;
         for (var key in this.colliders) {
             this.colliders[key].Update(this.x, this.y);
         }
@@ -45,16 +49,16 @@ var Character = (function (_super) {
                 };
                 switch (contactInfo.zone) {
                     case "top":
-                        offsetPos.y += this.childs[0].zone.height / 2;
+                        offsetPos.y += this.childs['body'][0].zone.height / 2;
                         break;
                     case "bottom":
-                        offsetPos.y -= this.childs[0].zone.height / 2;
+                        offsetPos.y -= this.childs['body'][0].zone.height / 2;
                         break;
                     case "left":
-                        offsetPos.x -= this.childs[0].zone.width / 2;
+                        offsetPos.x -= this.childs['body'][0].zone.width / 2;
                         break;
                     case "right":
-                        offsetPos.x += this.childs[0].zone.width / 2;
+                        offsetPos.x += this.childs['body'][0].zone.width / 2;
                         break;
                     default:
                         break;
@@ -71,10 +75,16 @@ var Character = (function (_super) {
     Character.prototype.Draw = function (context) {
         context.save();
         context.translate(this.x, this.y);
-        for (var key in this.childs) {
-            this.childs[key].Draw(context);
+        context.rotate(this.angle);
+        for (var type in this.childs) {
+            for (var key in this.childs[type]) {
+                this.childs[type][key].Draw(context);
+            }
         }
         context.restore();
+        for (var key in this.colliders) {
+            this.colliders[key].Draw(context);
+        }
     };
     Character.prototype.RemoveCollider = function (zoneName) {
         delete this.colliders[zoneName];

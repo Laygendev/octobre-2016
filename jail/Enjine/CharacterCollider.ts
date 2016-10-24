@@ -5,6 +5,8 @@ http://labodudev.fr
 
 class CharacterCollider {
   public pos: any = [{x: 0, y: 0},{x: 0, y: 0},{x: 0, y: 0},{x: 0, y: 0}];
+  public angle: number = 0;
+  public speedAngle: number = 0.5728;
 
   constructor(public Rect: any) {}
 
@@ -20,6 +22,25 @@ class CharacterCollider {
 
     this.pos[3].x = parentX + this.Rect[3].x;
     this.pos[3].y = parentY + this.Rect[3].y;
+
+    this.angle += this.speedAngle;
+    this.Rotate(parentX, parentY);
+  }
+
+  public Rotate(parentX: number, parentY: number):void {
+	  for(var i = 0; i < 4; i++) {
+  		var A = this.pos[i];
+
+  		this.pos[i] = this.RotatePoint(A, {x: parentX, y: parentY});
+  	}
+  }
+
+  public RotatePoint(point:any, parent:any):any {
+    let angle = this.angle * Math.PI / 180.0;
+  	return {
+			x: Math.cos(angle) * (point.x - parent.x) - Math.sin(angle) * (point.y - parent.y) + parent.x,
+			y: Math.sin(angle) * (point.x - parent.x) + Math.cos(angle) * (point.y - parent.y) + parent.y
+  	};
   }
 
   public Draw(context: any):void {
@@ -42,14 +63,16 @@ class CharacterCollider {
   }
 
   public CheckCollider(parent: Character, listSprite: Array<Sprite>, zone: string):any {
-    for(var key in listSprite) {
-      if (this.OnEnter(listSprite[key].colliderPoint, zone)) {
-        return {
-          sprite: listSprite[key],
-          zone: zone
-        };
-      }
-  	}
+    for(var type in listSprite) {
+      for(var key in listSprite[type]) {
+        if (this.OnEnter(listSprite[type][key].colliderPoint, zone)) {
+          return {
+            sprite: listSprite[type][key],
+            zone: zone
+          };
+        }
+    	}
+    }
 
     return undefined;
   }

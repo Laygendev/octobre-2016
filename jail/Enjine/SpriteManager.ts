@@ -4,7 +4,7 @@ http://labodudev.fr
 */
 
 class SpriteManager {
-  listSprite: Array<any> = [];
+  listSprite: any = {"body": [], "head": [], "leg": [], "arm": []};
   constructor() {}
 
   protected Init():void {
@@ -12,25 +12,32 @@ class SpriteManager {
   }
 
   public Update():void {
-    for (var key in this.listSprite) {
-      this.listSprite[key].Update();
+    for (var type in this.listSprite) {
+      for (var key in this.listSprite[type]) {
+        this.listSprite[type][key].Update();
+      }
     }
   }
 
   public Draw(context: any):void {
-    for (var key in this.listSprite) {
-      this.listSprite[key].Draw(context);
+    for (var type in this.listSprite) {
+      for (var key in this.listSprite[type]) {
+        this.listSprite[type][key].Draw(context);
+      }
     }
   }
 
   Add(sprite: Sprite): void {
-    this.listSprite.push(sprite);
+    this.listSprite[sprite.type].push(sprite);
   }
 
   Remove(sprite: Sprite): void {
-    for (var i = 0; i < this.listSprite.length; i++) {
-      if (this.listSprite[i] == sprite) {
-        this.listSprite.splice(i, 1);
+    for (var type in this.listSprite) {
+      for (var i = 0; i < this.listSprite[type].length; i++) {
+        if (this.listSprite[type][i] == sprite) {
+          this.listSprite[type].splice(i, 1);
+
+        }
       }
     }
   }
