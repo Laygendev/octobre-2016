@@ -1,9 +1,13 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var SpriteGenerator = (function () {
     function SpriteGenerator() {
     }
     SpriteGenerator.prototype.Exec = function () {
         var pos = this.RandomPosition();
-        return new Sprite(pos.x, pos.y, Data.Ressources.humanPart['head0']);
+        return new Sprite(pos.x, pos.y, Data.Ressources.RandomHumanPart());
     };
     SpriteGenerator.prototype.RandomPosition = function () {
         return {
@@ -12,5 +16,5 @@ var SpriteGenerator = (function () {
         };
     };
     return SpriteGenerator;
-}());
+})();
 //# sourceMappingURL=SpriteGenerator.js.map

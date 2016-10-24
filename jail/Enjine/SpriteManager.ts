@@ -4,7 +4,7 @@ http://labodudev.fr
 */
 
 class SpriteManager {
-  listSprite: any = {"body": [], "head": [], "leg": [], "arm": []};
+  listSprite: any = {"body": [], "head": [], "leg": [], "arm": [], "button": []};
   constructor() {}
 
   protected Init():void {

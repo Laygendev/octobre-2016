@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var Data;
 (function (Data) {
     var Ressources = (function () {
@@ -5,6 +9,8 @@ var Data;
         }
         Ressources.Load = function () {
             var _this = this;
+            this.buttons['restart'] = new Image();
+            this.buttons['restart'].src = 'jail/images/buttonRestart.png';
             this.LoadSpriteSheet(function (spriteSheet) {
                 _this.spriteSheet = spriteSheet;
                 Data.JSONLoader.Exec('jail/json/loadBodies.json', function (data) {
@@ -22,9 +28,14 @@ var Data;
             spriteSheet.src = 'jail/images/elements.png';
             callback(spriteSheet);
         };
+        Ressources.RandomHumanPart = function () {
+            var partName = "head0";
+            return partName;
+        };
         Ressources.isLoaded = false;
+        Ressources.buttons = [];
         return Ressources;
-    }());
+    })();
     Data.Ressources = Ressources;
 })(Data || (Data = {}));
 //# sourceMappingURL=Ressources.js.map

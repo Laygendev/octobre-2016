@@ -8,7 +8,7 @@ class SpriteGenerator {
 
   Exec(): Sprite {
     let pos = this.RandomPosition();
-    return new Sprite(pos.x, pos.y, Data.Ressources.humanPart['head0']);
+    return new Sprite(pos.x, pos.y, Data.Ressources.RandomHumanPart());
   }
 
   RandomPosition(): any {

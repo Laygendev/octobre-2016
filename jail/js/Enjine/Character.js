@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -6,15 +10,14 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Character = (function (_super) {
     __extends(Character, _super);
     function Character(x, y, zone) {
-        var _this = _super.call(this, x, y, zone, 'body') || this;
-        _this.x = x;
-        _this.y = y;
-        _this.zone = zone;
-        _this.childs = { 'head': [], 'body': [], 'arm': [], 'leg': [] };
-        _this.colliders = [];
-        _this.angle = 0;
-        _this.speedAngle = 0.01;
-        return _this;
+        _super.call(this, x, y, zone, 'body');
+        this.x = x;
+        this.y = y;
+        this.zone = zone;
+        this.childs = { 'head': [], 'body': [], 'arm': [], 'leg': [] };
+        this.colliders = [];
+        this.angle = 0;
+        this.speedAngle = 0.01;
     }
     Character.prototype.Init = function () {
         var _this = this;
@@ -89,6 +92,12 @@ var Character = (function (_super) {
     Character.prototype.RemoveCollider = function (zoneName) {
         delete this.colliders[zoneName];
     };
+    Character.prototype.CheckElement = function () {
+        if (this.childs['head'].length > 0 && this.childs['body'].length > 0 && this.childs['arm'].length > 1 && this.childs['leg'].length > 0) {
+            return true;
+        }
+        return false;
+    };
     return Character;
-}(Sprite));
+})(Sprite);
 //# sourceMappingURL=Character.js.map

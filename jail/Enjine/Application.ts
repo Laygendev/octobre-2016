@@ -3,6 +3,9 @@ Créer par Jimmy Latour, 2016
 http://labodudev.fr
 */
 
+let global:any = {};
+global.size = {width: 0, height: 0};
+
 class Application {
   private canvas: any;
   private context: any;
@@ -29,6 +32,8 @@ class Application {
     this.canvas.height = window.innerHeight
 
     this.context = this.canvas.getContext('2d');
+		global.size.width = this.canvas.width;
+		global.size.height = this.canvas.height;
 
     // Initialise les évènements: souris, clavier
     EventMouse.Mouse.Event(this.canvas);

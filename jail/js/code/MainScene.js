@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -6,24 +10,13 @@ var __extends = (this && this.__extends) || function (d, b) {
 var MainScene = (function (_super) {
     __extends(MainScene, _super);
     function MainScene() {
-        var _this = _super.call(this) || this;
-        _this.spriteManager = new SpriteManager();
-        _this.character = new Character(0, 0, []);
-        return _this;
+        _super.call(this);
+        this.spriteManager = new SpriteManager();
+        this.spawnManager = new SpawnManager(this.spriteManager, 1000);
+        this.character = new Character(0, 0, []);
     }
     MainScene.prototype.Init = function () {
         this.InitCharacter();
-        var tmpSprite = undefined;
-        tmpSprite = new Sprite(100, 200, Data.Ressources.humanPart['head0'], Data.Ressources.humanPart['head0'].type);
-        this.spriteManager.Add(tmpSprite);
-        tmpSprite = new Sprite(100, 50, Data.Ressources.humanPart['head1'], Data.Ressources.humanPart['head1'].type);
-        this.spriteManager.Add(tmpSprite);
-        tmpSprite = new Sprite(200, 200, Data.Ressources.humanPart['leg0'], Data.Ressources.humanPart['leg0'].type);
-        this.spriteManager.Add(tmpSprite);
-        tmpSprite = new Sprite(400, 200, Data.Ressources.humanPart['arm0'], Data.Ressources.humanPart['arm0'].type);
-        this.spriteManager.Add(tmpSprite);
-        tmpSprite = new Sprite(600, 200, Data.Ressources.humanPart['arm1'], Data.Ressources.humanPart['arm1'].type);
-        this.spriteManager.Add(tmpSprite);
     };
     MainScene.prototype.InitCharacter = function () {
         var tmpSprite = new Sprite(0, 0, Data.Ressources.bodies['body1'], 'body');
@@ -33,11 +26,17 @@ var MainScene = (function (_super) {
         this.character.UpdateCollider(this.spriteManager, this.spriteManager.listSprite);
         this.character.Update();
         this.spriteManager.Update();
+        if (this.character.CheckElement()) {
+            this.Clear();
+            SceneManager.Manager.SetScene(new EndScene(this.character, false));
+        }
     };
     MainScene.prototype.Draw = function (context) {
         this.character.Draw(context);
         this.spriteManager.Draw(context);
     };
+    MainScene.prototype.Clear = function () {
+    };
     return MainScene;
-}(Scene));
+})(Scene);
 //# sourceMappingURL=MainScene.js.map

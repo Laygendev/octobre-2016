@@ -7,10 +7,14 @@ module Data {
   export class Ressources {
     static isLoaded: boolean = false;
     static spriteSheet: HTMLImageElement;
+    static buttons: Array<HTMLImageElement> = [];
     static bodies: Array<any>;
     static humanPart: Array<any>;
 
     static Load():void {
+			this.buttons['restart'] = new Image();
+			this.buttons['restart'].src = 'jail/images/buttonRestart.png';
+
       this.LoadSpriteSheet( (spriteSheet: HTMLImageElement) => {
         this.spriteSheet = spriteSheet;
 
@@ -31,5 +35,10 @@ module Data {
       spriteSheet.src = 'jail/images/elements.png';
       callback(spriteSheet);
     }
+
+		static RandomHumanPart():string {
+			let partName = "head0";
+			return partName;
+		}
   }
 }

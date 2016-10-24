@@ -99,4 +99,16 @@ class Character extends Sprite {
   public RemoveCollider(zoneName: string):void {
     delete this.colliders[zoneName];
   }
+
+	public CheckElement():boolean {
+		if (this.childs['head'].length > 0 && this.childs['body'].length > 0 && this.childs['arm'].length > 1 && this.childs['leg'].length > 0) {
+			return true;
+		}
+		// Fast test
+		// if ( this.childs['body'].length > 0 && this.childs['head'].length > 0) {
+		// 	return true;
+		// }
+
+		return false;
+	}
 }
