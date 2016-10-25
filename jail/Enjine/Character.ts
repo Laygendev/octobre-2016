@@ -103,9 +103,9 @@ class Character extends Sprite {
 
     context.restore();
 
-    for (var key in this.colliders) {
-      this.colliders[key].Draw(context);
-    }
+    // for (var key in this.colliders) {
+    //   this.colliders[key].Draw(context);
+    // }
   }
 
   public RemoveCollider(zoneName: string):void {

@@ -5,7 +5,7 @@ http://labodudev.fr
 
 class MainScene extends Scene {
   private spriteManager: SpriteManager = new SpriteManager();
-  private spawnManager: SpawnManager =  new SpawnManager(this.spriteManager, 2000);
+  private spawnManager: SpawnManager =  new SpawnManager(this.spriteManager, 1000);
   private character: Character = new Character(this, 0, 0, []);
 
   constructor(public selectedBody: string) {

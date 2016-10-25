@@ -9,7 +9,7 @@ var MainScene = (function (_super) {
         var _this = _super.call(this) || this;
         _this.selectedBody = selectedBody;
         _this.spriteManager = new SpriteManager();
-        _this.spawnManager = new SpawnManager(_this.spriteManager, 2000);
+        _this.spawnManager = new SpawnManager(_this.spriteManager, 1000);
         _this.character = new Character(_this, 0, 0, []);
         return _this;
     }

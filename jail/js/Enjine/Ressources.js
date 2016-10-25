@@ -13,6 +13,9 @@ var Data;
                     _this.bodies = data;
                     Data.JSONLoader.Exec('jail/json/loadElements.json', function (data) {
                         _this.humanPart = data;
+                        for (var key in _this.humanPart) {
+                            _this.numberHumanPart++;
+                        }
                         _this.isLoaded = true;
                         SceneManager.Manager.SetScene(new SelectBody());
                     });
@@ -21,17 +24,25 @@ var Data;
         };
         Ressources.LoadSpriteSheet = function (callback) {
             var spriteSheet = new Image();
-            spriteSheet.src = 'jail/images/elements.png';
+            spriteSheet.src = 'jail/images/spritesheet.png';
             callback(spriteSheet);
         };
         Ressources.RandomHumanPart = function () {
-            var partName = "head0";
-            return partName;
+            var randomNumber = Math.floor(Math.random() * (0 - (this.numberHumanPart))) + this.numberHumanPart;
+            var i = 0;
+            for (var key in this.humanPart) {
+                if (i == randomNumber) {
+                    return key;
+                }
+                i++;
+            }
+            return undefined;
         };
         return Ressources;
     }());
     Ressources.isLoaded = false;
     Ressources.buttons = [];
+    Ressources.numberHumanPart = 0;
     Data.Ressources = Ressources;
 })(Data || (Data = {}));
 //# sourceMappingURL=Ressources.js.map

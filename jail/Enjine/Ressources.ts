@@ -10,6 +10,7 @@ module Data {
     static buttons: Array<HTMLImageElement> = [];
     static bodies: Array<any>;
     static humanPart: Array<any>;
+    static numberHumanPart: number = 0;
 
     static Load():void {
 			this.buttons['restart'] = new Image();
@@ -23,6 +24,9 @@ module Data {
 
           Data.JSONLoader.Exec('jail/json/loadElements.json', (data: Array<any>) => {
             this.humanPart = data;
+            for (var key in this.humanPart) {
+                this.numberHumanPart++;
+            }
             this.isLoaded = true;
             SceneManager.Manager.SetScene(new SelectBody());
           });
@@ -32,13 +36,21 @@ module Data {
 
     static LoadSpriteSheet(callback: (image: HTMLImageElement) => any):void {
       var spriteSheet: HTMLImageElement = new Image();
-      spriteSheet.src = 'jail/images/elements.png';
+      spriteSheet.src = 'jail/images/spritesheet.png';
       callback(spriteSheet);
     }
 
 		static RandomHumanPart():string {
-			let partName = "head0";
-			return partName;
+      var randomNumber: number = Math.floor(Math.random() * (0 - (this.numberHumanPart))) + this.numberHumanPart;
+      var i = 0;
+      for (var key in this.humanPart) {
+        if (i == randomNumber) {
+          return key;
+        }
+        i++;
+      }
+
+			return undefined;
 		}
   }
 }

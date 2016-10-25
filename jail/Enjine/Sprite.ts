@@ -41,9 +41,9 @@ class Sprite {
 
       context.restore();
 
-      for (var key in this.colliderPoint) {
-        this.colliderPoint[key].Draw(context);
-      }
+      // for (var key in this.colliderPoint) {
+      //   this.colliderPoint[key].Draw(context);
+      // }
   }
 
   public Clear():void {

@@ -93,9 +93,6 @@ var Character = (function (_super) {
             }
         }
         context.restore();
-        for (var key in this.colliders) {
-            this.colliders[key].Draw(context);
-        }
     };
     Character.prototype.RemoveCollider = function (zoneName) {
         delete this.colliders[zoneName];

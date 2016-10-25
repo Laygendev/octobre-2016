@@ -3,12 +3,12 @@
 		"type": "head",
 		"x": "0",
 		"y": "0",
-		"width": 86,
-		"height": 86,
+		"width": 109,
+		"height": 106,
 		"collider": {
 			"bottom": {
-				"x": 0,
-				"y": 40
+				"x": 2,
+				"y": 50
 			},
 			"top": {
 				"x": 0,
@@ -18,53 +18,152 @@
 	},
 	"head1": {
 		"type": "head",
-		"x": "86",
+		"x": "109",
 		"y": "0",
-		"width": 84,
-		"height": 103,
+		"width": 102,
+		"height": 106,
 		"collider": {
 			"bottom": {
 				"x": 0,
-				"y": 40
+				"y": 50
+			},
+			"top": {
+				"x": 0,
+				"y": -40
+			}
+		}
+	},
+	"head2": {
+		"type": "head",
+		"x": "212",
+		"y": "0",
+		"width": 109,
+		"height": 110,
+		"collider": {
+			"bottom": {
+				"x": 0,
+				"y": 50
+			},
+			"top": {
+				"x": 0,
+				"y": -40
 			}
 		}
 	},
 	"leg0": {
 		"type": "leg",
 		"x": "0",
-		"y": 154,
-		"width": 58,
-		"height": 77,
+		"y": 340,
+		"width": 69,
+		"height": 106,
 		"collider": {
 			"top": {
 				"x": 0,
-				"y": -38
+				"y": -50
 			}
 		}
 	},
-	"arm0": {
+	"leg1": {
+		"type": "leg",
+		"x": "69",
+		"y": 340,
+		"width": 68,
+		"height": 106,
+		"collider": {
+			"top": {
+				"x": 0,
+				"y": -50
+			}
+		}
+	},
+	"leg2": {
+		"type": "leg",
+		"x": 137,
+		"y": 340,
+		"width": 56,
+		"height": 106,
+		"collider": {
+			"top": {
+				"x": 0,
+				"y": -50
+			}
+		}
+	},
+	"arm0l": {
 		"type": "arm",
 		"x": 0,
-		"y": 231,
-		"width": 26,
-		"height": 77,
+		"y": 229,
+		"width": 30,
+		"height": 92,
 		"collider": {
-			"right": {
-				"x": -13,
-				"y": -4
+			"left": {
+				"x": 14,
+				"y": -7
 			}
 		}
 	},
-	"arm1": {
+	"arm0r": {
 		"type": "arm",
-		"x": 26,
-		"y": 231,
-		"width": 26,
-		"height": 77,
+		"x": 144,
+		"y": 229,
+		"width": 30,
+		"height": 92,
+		"collider": {
+			"right": {
+				"x": -14,
+				"y": -7
+			}
+		}
+	},
+	"arm1l": {
+		"type": "arm",
+		"x": 30,
+		"y": 229,
+		"width": 30,
+		"height": 92,
+		"collider": {
+			"left": {
+				"x": 14,
+				"y": -7
+			}
+		}
+	},
+	"arm1r": {
+		"type": "arm",
+		"x": 114,
+		"y": 229,
+		"width": 30,
+		"height": 92,
+		"collider": {
+			"right": {
+				"x": -14,
+				"y": -7
+			}
+		}
+	},
+	"arm2l": {
+		"type": "arm",
+		"x": 60,
+		"y": 229,
+		"width": 27,
+		"height": 61,
 		"collider": {
 			"left": {
 				"x": 13,
-				"y": -4
+				"y": 7
+			}
+		}
+	},
+	"arm2r": {
+		"type": "arm",
+		"x": 87,
+		"y": 229,
+		"width": 27,
+		"height": 61,
+		"collider": {
+			"right": {
+				"x": -13,
+				"y": 7
 			}
 		}
 	}
