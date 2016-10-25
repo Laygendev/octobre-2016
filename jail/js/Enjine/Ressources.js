@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var Data;
 (function (Data) {
     var Ressources = (function () {
@@ -18,7 +14,7 @@ var Data;
                     Data.JSONLoader.Exec('jail/json/loadElements.json', function (data) {
                         _this.humanPart = data;
                         _this.isLoaded = true;
-                        SceneManager.Manager.SetScene(new MainScene());
+                        SceneManager.Manager.SetScene(new MainScene('body0'));
                     });
                 });
             });
@@ -32,10 +28,10 @@ var Data;
             var partName = "head0";
             return partName;
         };
-        Ressources.isLoaded = false;
-        Ressources.buttons = [];
         return Ressources;
-    })();
+    }());
+    Ressources.isLoaded = false;
+    Ressources.buttons = [];
     Data.Ressources = Ressources;
 })(Data || (Data = {}));
 //# sourceMappingURL=Ressources.js.map

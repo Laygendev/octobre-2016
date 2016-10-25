@@ -49,7 +49,7 @@ class EndScene extends Scene {
 		this.spriteManager.Update();
 
 		if (this.buttonRestart.ClickIn()) {
-			SceneManager.Manager.SetScene(new MainScene());
+			SceneManager.Manager.SetScene(new SelectBody());
 		}
   }
 

@@ -5,10 +5,10 @@ http://labodudev.fr
 
 class MainScene extends Scene {
   private spriteManager: SpriteManager = new SpriteManager();
-  private spawnManager: SpawnManager =  new SpawnManager(this.spriteManager, 1000);
-  private character: Character = new Character(0, 0, []);
+  private spawnManager: SpawnManager =  new SpawnManager(this.spriteManager, 2000);
+  private character: Character = new Character(this, 0, 0, []);
 
-  constructor() {
+  constructor(public selectedBody: string) {
     super();
   }
 
@@ -17,7 +17,7 @@ class MainScene extends Scene {
   }
 
   private InitCharacter():void {
-    var tmpSprite: Sprite = new Sprite(0, 0, Data.Ressources.bodies['body1'], 'body');
+    var tmpSprite: Sprite = new Sprite(0, 0, Data.Ressources.bodies[this.selectedBody], 'body');
     this.character.AddChild(tmpSprite);
   }
 
@@ -28,8 +28,7 @@ class MainScene extends Scene {
 
 		// Vérifie si on a tous les éléments
 		if(this.character.CheckElement()) {
-			this.Clear();
-			SceneManager.Manager.SetScene(new EndScene(this.character, false));
+      this.ChangeScene(false);
 		}
   }
 
@@ -41,4 +40,9 @@ class MainScene extends Scene {
 	public Clear():void {
 
 	}
+
+  public ChangeScene(gameOver:boolean):void {
+    this.Clear();
+    SceneManager.Manager.SetScene(new EndScene(this.character, gameOver));
+  }
 }

@@ -5,7 +5,7 @@ http://labodudev.fr
 
 class Sprite {
   public offset: any = {x: 0, y: 0};
-  public colliderPoint: ColliderPoint = undefined;
+  public colliderPoint: Array<ColliderPoint> = [];
 
   constructor(public x: number, public y:number, public zone: any, public type: string) {
     this.Init();
@@ -14,13 +14,15 @@ class Sprite {
   protected Init():void {
     if (this.zone.collider) {
       for (var key in this.zone.collider) {
-        this.colliderPoint = new ColliderPoint(this.zone.collider[key].x, this.zone.collider[key].y);
+        this.colliderPoint[key] = new ColliderPoint(this.zone.collider[key].x, this.zone.collider[key].y);
       }
     }
   }
 
   protected Update():void {
-    this.colliderPoint.Update(this.x, this.y);
+    for (var key in this.colliderPoint) {
+      this.colliderPoint[key].Update(this.x, this.y);
+    }
   }
 
   public Draw(context: any):void {
@@ -39,13 +41,13 @@ class Sprite {
 
       context.restore();
 
-      if (this.colliderPoint) {
-        this.colliderPoint.Draw(context);
+      for (var key in this.colliderPoint) {
+        this.colliderPoint[key].Draw(context);
       }
   }
 
   public Clear():void {
-    this.colliderPoint.Clear();
+    // this.colliderPoint.Clear();
     delete this.offset;
     delete this.zone;
   }

@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var CharacterCollider = (function () {
     function CharacterCollider(Rect) {
         this.Rect = Rect;
@@ -9,7 +5,7 @@ var CharacterCollider = (function () {
         this.angle = 0;
         this.speedAngle = 0.5728;
     }
-    CharacterCollider.prototype.Update = function (parentX, parentY) {
+    CharacterCollider.prototype.Update = function (parentX, parentY, parentAngle) {
         this.pos[0].x = parentX + this.Rect[0].x;
         this.pos[0].y = parentY + this.Rect[0].y;
         this.pos[1].x = parentX + this.Rect[1].x;
@@ -18,7 +14,7 @@ var CharacterCollider = (function () {
         this.pos[2].y = parentY + this.Rect[2].y;
         this.pos[3].x = parentX + this.Rect[3].x;
         this.pos[3].y = parentY + this.Rect[3].y;
-        this.angle += this.speedAngle;
+        this.angle = parentAngle * 57.3;
         this.Rotate(parentX, parentY);
     };
     CharacterCollider.prototype.Rotate = function (parentX, parentY) {
@@ -52,12 +48,15 @@ var CharacterCollider = (function () {
     CharacterCollider.prototype.CheckCollider = function (parent, listSprite, zone) {
         for (var type in listSprite) {
             for (var key in listSprite[type]) {
-                if (this.OnEnter(listSprite[type][key].colliderPoint, zone)) {
-                    return {
-                        sprite: listSprite[type][key],
-                        zone: zone
-                    };
-                }
+                for (var colliderPointKey in listSprite[type][key].colliderPoint)
+                    if (this.OnEnter(listSprite[type][key].colliderPoint[colliderPointKey], zone)) {
+                        return {
+                            valide: this.CheckIsValide(zone, colliderPointKey),
+                            sprite: listSprite[type][key],
+                            zoneCharacter: zone,
+                            zoneElement: colliderPointKey
+                        };
+                    }
             }
         }
         return undefined;
@@ -95,6 +94,23 @@ var CharacterCollider = (function () {
             return true;
         }
     };
+    CharacterCollider.prototype.CheckIsValide = function (zoneCharacter, zoneElement) {
+        console.log(zoneCharacter);
+        console.log(zoneElement);
+        if (zoneCharacter == "top" && zoneElement == "bottom") {
+            return true;
+        }
+        if (zoneCharacter == "left" && zoneElement == "right") {
+            return true;
+        }
+        if (zoneCharacter == "bottom" && zoneElement == "top") {
+            return true;
+        }
+        if (zoneCharacter == "right" && zoneElement == "left") {
+            return true;
+        }
+        return false;
+    };
     return CharacterCollider;
-})();
+}());
 //# sourceMappingURL=CharacterCollider.js.map

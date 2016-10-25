@@ -10,7 +10,7 @@ class CharacterCollider {
 
   constructor(public Rect: any) {}
 
-  public Update(parentX: number, parentY: number):void {
+  public Update(parentX: number, parentY: number, parentAngle: number):void {
     this.pos[0].x = parentX + this.Rect[0].x;
     this.pos[0].y = parentY + this.Rect[0].y;
 
@@ -23,7 +23,7 @@ class CharacterCollider {
     this.pos[3].x = parentX + this.Rect[3].x;
     this.pos[3].y = parentY + this.Rect[3].y;
 
-    this.angle += this.speedAngle;
+    this.angle = parentAngle * 57.3;
     this.Rotate(parentX, parentY);
   }
 
@@ -65,11 +65,14 @@ class CharacterCollider {
   public CheckCollider(parent: Character, listSprite: Array<Sprite>, zone: string):any {
     for(var type in listSprite) {
       for(var key in listSprite[type]) {
-        if (this.OnEnter(listSprite[type][key].colliderPoint, zone)) {
-          return {
-            sprite: listSprite[type][key],
-            zone: zone
-          };
+        for (var colliderPointKey in listSprite[type][key].colliderPoint)
+          if (this.OnEnter(listSprite[type][key].colliderPoint[colliderPointKey], zone)) {
+            return {
+              valide: this.CheckIsValide(zone, colliderPointKey),
+              sprite: listSprite[type][key],
+              zoneCharacter: zone,
+              zoneElement: colliderPointKey
+            };
         }
     	}
     }
@@ -112,5 +115,27 @@ class CharacterCollider {
   	if (collider) {
   		return true;
   	}
+  }
+
+  public CheckIsValide(zoneCharacter:string, zoneElement:string):boolean {
+    console.log(zoneCharacter);
+    console.log(zoneElement);
+    if (zoneCharacter == "top" && zoneElement == "bottom") {
+      return true;
+    }
+
+    if (zoneCharacter == "left" && zoneElement == "right") {
+      return true;
+    }
+
+    if (zoneCharacter == "bottom" && zoneElement == "top") {
+      return true;
+    }
+
+    if (zoneCharacter == "right" && zoneElement == "left") {
+      return true;
+    }
+
+    return false;
   }
 }

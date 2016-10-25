@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -9,15 +5,17 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var Character = (function (_super) {
     __extends(Character, _super);
-    function Character(x, y, zone) {
-        _super.call(this, x, y, zone, 'body');
-        this.x = x;
-        this.y = y;
-        this.zone = zone;
-        this.childs = { 'head': [], 'body': [], 'arm': [], 'leg': [] };
-        this.colliders = [];
-        this.angle = 0;
-        this.speedAngle = 0.01;
+    function Character(mainScene, x, y, zone) {
+        var _this = _super.call(this, x, y, zone, 'body') || this;
+        _this.mainScene = mainScene;
+        _this.x = x;
+        _this.y = y;
+        _this.zone = zone;
+        _this.childs = { 'head': [], 'body': [], 'arm': [], 'leg': [] };
+        _this.colliders = [];
+        _this.angle = 0;
+        _this.speedAngle = 0.5;
+        return _this;
     }
     Character.prototype.Init = function () {
         var _this = this;
@@ -34,43 +32,53 @@ var Character = (function (_super) {
     Character.prototype.Update = function () {
         this.x = EventMouse.Mouse.move.x;
         this.y = EventMouse.Mouse.move.y;
-        this.angle += this.speedAngle;
+        console.log(EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left));
+        if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left)) {
+            this.angle -= this.speedAngle;
+        }
+        if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.right)) {
+            this.angle += this.speedAngle;
+        }
         for (var key in this.colliders) {
-            this.colliders[key].Update(this.x, this.y);
+            this.colliders[key].Update(this.x, this.y, this.angle);
         }
     };
     Character.prototype.UpdateCollider = function (spriteManager, listSprite) {
         for (var key in this.colliders) {
             var contactInfo = this.colliders[key].CheckCollider(this, listSprite, key);
             if (contactInfo && contactInfo.sprite) {
-                console.log(contactInfo);
-                spriteManager.Remove(contactInfo.sprite);
-                contactInfo.sprite.SetPos(0, 0);
-                var offsetPos = {
-                    x: contactInfo.sprite.zone.collider[contactInfo.zone].x,
-                    y: contactInfo.sprite.zone.collider[contactInfo.zone].y
-                };
-                switch (contactInfo.zone) {
-                    case "top":
-                        offsetPos.y += this.childs['body'][0].zone.height / 2;
-                        break;
-                    case "bottom":
-                        offsetPos.y -= this.childs['body'][0].zone.height / 2;
-                        break;
-                    case "left":
-                        offsetPos.x -= this.childs['body'][0].zone.width / 2;
-                        break;
-                    case "right":
-                        offsetPos.x += this.childs['body'][0].zone.width / 2;
-                        break;
-                    default:
-                        break;
+                if (contactInfo.valide) {
+                    spriteManager.Remove(contactInfo.sprite);
+                    contactInfo.sprite.SetPos(0, 0);
+                    var offsetPos = {
+                        x: contactInfo.sprite.zone.collider[contactInfo.zoneElement].x,
+                        y: contactInfo.sprite.zone.collider[contactInfo.zoneElement].y
+                    };
+                    switch (contactInfo.zoneCharacter) {
+                        case "top":
+                            offsetPos.y += this.childs['body'][0].zone.height / 2;
+                            break;
+                        case "bottom":
+                            offsetPos.y -= this.childs['body'][0].zone.height / 2;
+                            break;
+                        case "left":
+                            offsetPos.x -= this.childs['body'][0].zone.width / 2;
+                            break;
+                        case "right":
+                            offsetPos.x += this.childs['body'][0].zone.width / 2;
+                            break;
+                        default:
+                            break;
+                    }
+                    offsetPos.x *= -1;
+                    offsetPos.y *= -1;
+                    contactInfo.sprite.SetOffset(offsetPos);
+                    this.AddChild(contactInfo.sprite);
+                    this.RemoveCollider(contactInfo.zoneCharacter);
                 }
-                offsetPos.x *= -1;
-                offsetPos.y *= -1;
-                contactInfo.sprite.SetOffset(offsetPos);
-                this.AddChild(contactInfo.sprite);
-                this.RemoveCollider(contactInfo.zone);
+                else {
+                    this.mainScene.ChangeScene(true);
+                }
                 break;
             }
         }
@@ -99,5 +107,5 @@ var Character = (function (_super) {
         return false;
     };
     return Character;
-})(Sprite);
+}(Sprite));
 //# sourceMappingURL=Character.js.map

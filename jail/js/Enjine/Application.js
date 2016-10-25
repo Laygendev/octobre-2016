@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var global = {};
 global.size = { width: 0, height: 0 };
 var Application = (function () {
@@ -19,7 +15,9 @@ var Application = (function () {
         this.context = this.canvas.getContext('2d');
         global.size.width = this.canvas.width;
         global.size.height = this.canvas.height;
+        window.addEventListener('resize', this.ResizeCanvas, false);
         EventMouse.Mouse.Event(this.canvas);
+        EventKeyboard.Input.Event(this.canvas);
     };
     Application.prototype.StartTimer = function () {
         var _this = this;
@@ -36,6 +34,12 @@ var Application = (function () {
             SceneManager.Manager.currentScene.Draw(this.context);
         }
     };
+    Application.prototype.ResizeCanvas = function () {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        global.size.width = this.canvas.width;
+        global.size.height = this.canvas.height;
+    };
     return Application;
-})();
+}());
 //# sourceMappingURL=Application.js.map

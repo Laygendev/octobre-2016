@@ -7,8 +7,8 @@ class Character extends Sprite {
   private childs: any = {'head': [], 'body': [], 'arm': [], 'leg': []};
   public colliders: Array<CharacterCollider> = [];
   public angle: number = 0;
-  public speedAngle: number = 0.01;
-  constructor(public x: number, public y:number, public zone: Array<any>) {
+  public speedAngle: number = 0.5;
+  constructor(public mainScene: MainScene, public x: number, public y:number, public zone: Array<any>) {
     super(x, y, zone, 'body');
   }
 
@@ -28,10 +28,18 @@ class Character extends Sprite {
   public Update():void {
     this.x = EventMouse.Mouse.move.x;
     this.y = EventMouse.Mouse.move.y;
-    this.angle += this.speedAngle;
+
+    console.log(EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left));
+    if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left)) {
+      this.angle -= this.speedAngle;
+    }
+
+    if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.right)) {
+      this.angle += this.speedAngle;
+    }
 
     for (var key in this.colliders) {
-      this.colliders[key].Update(this.x, this.y);
+      this.colliders[key].Update(this.x, this.y, this.angle);
     }
   }
 
@@ -40,39 +48,43 @@ class Character extends Sprite {
       var contactInfo: any = this.colliders[key].CheckCollider(this, listSprite, key);
 
       if (contactInfo && contactInfo.sprite) {
-        console.log(contactInfo);
-        spriteManager.Remove(contactInfo.sprite);
-        contactInfo.sprite.SetPos(0, 0);
+        if (contactInfo.valide) {
+          spriteManager.Remove(contactInfo.sprite);
+          contactInfo.sprite.SetPos(0, 0);
 
-        let offsetPos = {
-            x: contactInfo.sprite.zone.collider[contactInfo.zone].x,
-            y: contactInfo.sprite.zone.collider[contactInfo.zone].y
-        };
+          let offsetPos = {
+            x: contactInfo.sprite.zone.collider[contactInfo.zoneElement].x,
+            y: contactInfo.sprite.zone.collider[contactInfo.zoneElement].y
+          };
 
-        switch (contactInfo.zone) {
-          case "top":
+          switch (contactInfo.zoneCharacter) {
+            case "top":
             offsetPos.y += this.childs['body'][0].zone.height / 2;
             break;
-          case "bottom":
+            case "bottom":
             offsetPos.y -= this.childs['body'][0].zone.height / 2;
             break;
-          case "left":
+            case "left":
             offsetPos.x -= this.childs['body'][0].zone.width / 2;
             break;
-          case "right":
+            case "right":
             offsetPos.x += this.childs['body'][0].zone.width / 2;
             break;
-          default:
+            default:
             break;
+          }
+
+          offsetPos.x *= -1;
+          offsetPos.y *= - 1;
+
+          contactInfo.sprite.SetOffset(offsetPos);
+          this.AddChild(contactInfo.sprite);
+
+          this.RemoveCollider(contactInfo.zoneCharacter);
         }
-
-        offsetPos.x *= -1;
-        offsetPos.y *= - 1;
-
-        contactInfo.sprite.SetOffset(offsetPos);
-        this.AddChild(contactInfo.sprite);
-
-        this.RemoveCollider(contactInfo.zone);
+        else {
+          this.mainScene.ChangeScene(true);
+        }
         break;
       }
     }
@@ -100,15 +112,15 @@ class Character extends Sprite {
     delete this.colliders[zoneName];
   }
 
-	public CheckElement():boolean {
-		if (this.childs['head'].length > 0 && this.childs['body'].length > 0 && this.childs['arm'].length > 1 && this.childs['leg'].length > 0) {
-			return true;
-		}
-		// Fast test
-		// if ( this.childs['body'].length > 0 && this.childs['head'].length > 0) {
-		// 	return true;
-		// }
+  public CheckElement():boolean {
+    if (this.childs['head'].length > 0 && this.childs['body'].length > 0 && this.childs['arm'].length > 1 && this.childs['leg'].length > 0) {
+      return true;
+    }
+    // Fast test
+    // if ( this.childs['body'].length > 0 && this.childs['head'].length > 0) {
+    // 	return true;
+    // }
 
-		return false;
-	}
+    return false;
+  }
 }

@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -9,17 +5,19 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var MainScene = (function (_super) {
     __extends(MainScene, _super);
-    function MainScene() {
-        _super.call(this);
-        this.spriteManager = new SpriteManager();
-        this.spawnManager = new SpawnManager(this.spriteManager, 1000);
-        this.character = new Character(0, 0, []);
+    function MainScene(selectedBody) {
+        var _this = _super.call(this) || this;
+        _this.selectedBody = selectedBody;
+        _this.spriteManager = new SpriteManager();
+        _this.spawnManager = new SpawnManager(_this.spriteManager, 2000);
+        _this.character = new Character(_this, 0, 0, []);
+        return _this;
     }
     MainScene.prototype.Init = function () {
         this.InitCharacter();
     };
     MainScene.prototype.InitCharacter = function () {
-        var tmpSprite = new Sprite(0, 0, Data.Ressources.bodies['body1'], 'body');
+        var tmpSprite = new Sprite(0, 0, Data.Ressources.bodies[this.selectedBody], 'body');
         this.character.AddChild(tmpSprite);
     };
     MainScene.prototype.Update = function () {
@@ -27,8 +25,7 @@ var MainScene = (function (_super) {
         this.character.Update();
         this.spriteManager.Update();
         if (this.character.CheckElement()) {
-            this.Clear();
-            SceneManager.Manager.SetScene(new EndScene(this.character, false));
+            this.ChangeScene(false);
         }
     };
     MainScene.prototype.Draw = function (context) {
@@ -37,6 +34,10 @@ var MainScene = (function (_super) {
     };
     MainScene.prototype.Clear = function () {
     };
+    MainScene.prototype.ChangeScene = function (gameOver) {
+        this.Clear();
+        SceneManager.Manager.SetScene(new EndScene(this.character, gameOver));
+    };
     return MainScene;
-})(Scene);
+}(Scene));
 //# sourceMappingURL=MainScene.js.map

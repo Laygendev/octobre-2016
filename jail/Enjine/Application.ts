@@ -35,8 +35,11 @@ class Application {
 		global.size.width = this.canvas.width;
 		global.size.height = this.canvas.height;
 
+    window.addEventListener('resize', this.ResizeCanvas, false);
+
     // Initialise les évènements: souris, clavier
     EventMouse.Mouse.Event(this.canvas);
+    EventKeyboard.Input.Event(this.canvas);
   }
 
   /**
@@ -65,5 +68,13 @@ class Application {
       SceneManager.Manager.currentScene.Draw(this.context);
 
     }
+  }
+
+  ResizeCanvas():void {
+    this.canvas.width = window.innerWidth;
+		this.canvas.height = window.innerHeight;
+
+    global.size.width = this.canvas.width;
+		global.size.height = this.canvas.height;
   }
 }
