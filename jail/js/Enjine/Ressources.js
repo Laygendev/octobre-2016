@@ -14,7 +14,7 @@ var Data;
                     Data.JSONLoader.Exec('jail/json/loadElements.json', function (data) {
                         _this.humanPart = data;
                         _this.isLoaded = true;
-                        SceneManager.Manager.SetScene(new MainScene('body0'));
+                        SceneManager.Manager.SetScene(new SelectBody());
                     });
                 });
             });

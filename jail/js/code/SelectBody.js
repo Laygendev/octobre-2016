@@ -31,6 +31,10 @@ var SelectBody = (function (_super) {
         }
     };
     SelectBody.prototype.Draw = function (context) {
+        context.font = "60px Source Sans Pro Bold";
+        context.fillText("Make your funny character", (global.size.width / 2) - 350, 160);
+        context.font = "30px Source Sans Pro Bold";
+        context.fillText("Clic sur le corps de ton choix", (global.size.width / 2) - 200, 400);
         this.spriteManager.Draw(context);
     };
     SelectBody.prototype.ChangeScene = function (selectedBody) {

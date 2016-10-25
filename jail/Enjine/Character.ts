@@ -7,7 +7,7 @@ class Character extends Sprite {
   private childs: any = {'head': [], 'body': [], 'arm': [], 'leg': []};
   public colliders: Array<CharacterCollider> = [];
   public angle: number = 0;
-  public speedAngle: number = 0.5;
+  public speedAngle: number = 0.05;
   constructor(public mainScene: MainScene, public x: number, public y:number, public zone: Array<any>) {
     super(x, y, zone, 'body');
   }

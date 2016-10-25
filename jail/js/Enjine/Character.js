@@ -14,7 +14,7 @@ var Character = (function (_super) {
         _this.childs = { 'head': [], 'body': [], 'arm': [], 'leg': [] };
         _this.colliders = [];
         _this.angle = 0;
-        _this.speedAngle = 0.5;
+        _this.speedAngle = 0.05;
         return _this;
     }
     Character.prototype.Init = function () {

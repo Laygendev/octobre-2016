@@ -24,7 +24,7 @@ module Data {
           Data.JSONLoader.Exec('jail/json/loadElements.json', (data: Array<any>) => {
             this.humanPart = data;
             this.isLoaded = true;
-            SceneManager.Manager.SetScene(new MainScene('body0'));
+            SceneManager.Manager.SetScene(new SelectBody());
           });
         });
       });
