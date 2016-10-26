@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var SpriteGenerator = (function () {
     function SpriteGenerator() {
         this.randomSide = ["top", "bottom", "left", "right"];
@@ -133,5 +137,5 @@ var SpriteGenerator = (function () {
         return randomSide[randomSideKey];
     };
     return SpriteGenerator;
-}());
+})();
 //# sourceMappingURL=SpriteGenerator.js.map

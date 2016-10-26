@@ -1,3 +1,7 @@
+/**
+Code par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var EventKeyboard;
 (function (EventKeyboard) {
     var Input = (function () {
@@ -32,7 +36,7 @@ var EventKeyboard;
         Input.keys = { "left": 37, "right": 39 };
         Input.pressedKeys = { "left": false, "right": false };
         return Input;
-    }());
+    })();
     EventKeyboard.Input = Input;
 })(EventKeyboard || (EventKeyboard = {}));
 //# sourceMappingURL=EventKeyboard.js.map

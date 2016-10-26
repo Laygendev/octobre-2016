@@ -5,6 +5,7 @@ http://labodudev.fr
 
 module EventMouse {
   export class Mouse {
+    static pressedClics: any = {"left": false, "right": false};
     static click: any = {x: 0, y: 0};
     static move: any = {x: 0, y: 0};
     static isClicked: boolean = false;
@@ -13,6 +14,7 @@ module EventMouse {
       canvas.addEventListener('mousemove', (event: any) => { this.MouseMove(canvas, event); });
       canvas.addEventListener('mousedown', (event: any) => { this.MouseDown(canvas, event); });
       canvas.addEventListener('mouseup', (event: any) => { this.MouseUp(event); });
+			window.oncontextmenu = function() { return false; };
     };
 
     static MouseMove(canvas: any, event: any): void {
@@ -28,10 +30,23 @@ module EventMouse {
       this.click.x = event.clientX - Rect.left;
       this.click.y = event.clientY - Rect.top;
 
+			switch (event.which) {
+				case 1:
+					this.pressedClics['left'] = true;
+					this.pressedClics['right'] = false;
+					break;
+				case 3:
+					this.pressedClics['left'] = false;
+					this.pressedClics['right'] = true;
+					break;
+			}
+
       this.isClicked = true;
     };
 
     static MouseUp(event: any): void {
+			this.pressedClics['left'] = false;
+			this.pressedClics['right'] = false;
       this.isClicked = false;
     };
   }

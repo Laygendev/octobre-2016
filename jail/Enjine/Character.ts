@@ -7,13 +7,13 @@ class Character extends Sprite {
   private childs: any = {'head': [], 'body': [], 'arm': [], 'leg': []};
   public colliders: Array<CharacterCollider> = [];
   public angle: number = 0;
-  public speedAngle: number = 0.05;
+  public speedAngle: number = 0.1;
   constructor(public mainScene: MainScene, public x: number, public y:number, public zone: Array<any>) {
     super(x, y, zone, 'body');
   }
 
   protected Init():void {
-    Data.JSONLoader.Exec('jail/json/characterCollider', (data) => {
+    Data.JSONLoader.Exec('jail/json/characterCollider.json', (data) => {
       this.colliders["top"] = new CharacterCollider(data['top']);
       this.colliders["bottom"] = new CharacterCollider(data['bottom']);
       this.colliders["left"] = new CharacterCollider(data['left']);
@@ -29,11 +29,11 @@ class Character extends Sprite {
     this.x = EventMouse.Mouse.move.x;
     this.y = EventMouse.Mouse.move.y;
 
-    if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left)) {
+    if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left) || EventMouse.Mouse.pressedClics.left) {
       this.angle -= this.speedAngle;
     }
 
-    if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.right)) {
+    if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.right) || EventMouse.Mouse.pressedClics.right) {
       this.angle += this.speedAngle;
     }
 

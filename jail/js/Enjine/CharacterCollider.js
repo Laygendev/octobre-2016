@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var CharacterCollider = (function () {
     function CharacterCollider(Rect) {
         this.Rect = Rect;
@@ -112,5 +116,5 @@ var CharacterCollider = (function () {
         return false;
     };
     return CharacterCollider;
-}());
+})();
 //# sourceMappingURL=CharacterCollider.js.map

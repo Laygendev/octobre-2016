@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -43,5 +47,5 @@ var SelectBody = (function (_super) {
     SelectBody.prototype.Clear = function () {
     };
     return SelectBody;
-}(Scene));
+})(Scene);
 //# sourceMappingURL=SelectBody.js.map

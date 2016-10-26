@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var Sprite = (function () {
     function Sprite(x, y, zone, type) {
         this.x = x;
@@ -41,5 +45,5 @@ var Sprite = (function () {
         this.offset = offset;
     };
     return Sprite;
-}());
+})();
 //# sourceMappingURL=Sprite.js.map

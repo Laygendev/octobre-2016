@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -14,11 +18,11 @@ var Character = (function (_super) {
         this.childs = { 'head': [], 'body': [], 'arm': [], 'leg': [] };
         this.colliders = [];
         this.angle = 0;
-        this.speedAngle = 0.05;
+        this.speedAngle = 0.1;
     }
     Character.prototype.Init = function () {
         var _this = this;
-        Data.JSONLoader.Exec('jail/json/characterCollider', function (data) {
+        Data.JSONLoader.Exec('jail/json/characterCollider.json', function (data) {
             _this.colliders["top"] = new CharacterCollider(data['top']);
             _this.colliders["bottom"] = new CharacterCollider(data['bottom']);
             _this.colliders["left"] = new CharacterCollider(data['left']);
@@ -31,10 +35,10 @@ var Character = (function (_super) {
     Character.prototype.Update = function () {
         this.x = EventMouse.Mouse.move.x;
         this.y = EventMouse.Mouse.move.y;
-        if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left)) {
+        if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left) || EventMouse.Mouse.pressedClics.left) {
             this.angle -= this.speedAngle;
         }
-        if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.right)) {
+        if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.right) || EventMouse.Mouse.pressedClics.right) {
             this.angle += this.speedAngle;
         }
         for (var key in this.colliders) {
@@ -103,5 +107,5 @@ var Character = (function (_super) {
         return false;
     };
     return Character;
-}(Sprite));
+})(Sprite);
 //# sourceMappingURL=Character.js.map
