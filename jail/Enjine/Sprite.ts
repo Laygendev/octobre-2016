@@ -21,7 +21,7 @@ class Sprite {
 
   protected Update():void {
     for (var key in this.colliderPoint) {
-      this.colliderPoint[key].Update(this.x, this.y);
+      this.colliderPoint[key].Update(this.x, this.y, 0);
     }
   }
 
@@ -41,9 +41,9 @@ class Sprite {
 
       context.restore();
 
-      // for (var key in this.colliderPoint) {
-      //   this.colliderPoint[key].Draw(context);
-      // }
+      for (var key in this.colliderPoint) {
+        this.colliderPoint[key].Draw(context);
+      }
   }
 
   public Clear():void {

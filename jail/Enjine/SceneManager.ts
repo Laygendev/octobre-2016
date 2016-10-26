@@ -11,8 +11,8 @@ module SceneManager {
       levelScene.Init();
     }
 
-    static Update():void {
-      this.currentScene.Update();
+    static Update(delta: number):void {
+      this.currentScene.Update(delta);
     }
 
     static Draw(context: any):void {

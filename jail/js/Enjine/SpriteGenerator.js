@@ -19,7 +19,7 @@ var SpriteGenerator = (function () {
         return {
             key: this.randomSide[randomSide],
             x: Math.random() * (pos.min.x - (pos.max.x)) + pos.max.x,
-            y: Math.random() * (pos.min.y - (pos.max.y)) + pos.max.y,
+            y: Math.random() * (pos.min.y - (pos.max.y)) + pos.max.y
         };
     };
     SpriteGenerator.prototype.RandomAngle = function (key) {

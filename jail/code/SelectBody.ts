@@ -23,7 +23,7 @@ class SelectBody extends Scene {
     this.spriteManager.Add(tmpSprite);
   }
 
-  public Update():void {
+  public Update(delta: number):void {
     this.spriteManager.Update();
 
     for (var key in this.spriteManager.listSprite["body"]) {

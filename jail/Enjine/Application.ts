@@ -10,8 +10,8 @@ class Application {
   private canvas: any;
   private context: any;
 
-  private framesPerSecond: Number = 1000 / 30;
-  private lastTime: Number;
+  private framesPerSecond: number = 1000 / 30;
+  private lastTime: number = 0;
 
   private loader: Loader = undefined;
   /**
@@ -61,8 +61,12 @@ class Application {
   * Remplis le canvas d'une couleur uni et appelle la méthode Update et Draw de la scène actuelle.
   */
   Update():void {
+    let newTime: number = new Date().getTime();
+    let delta: number = (newTime - this.lastTime) / 1000;
+    this.lastTime = newTime;
+
     if (SceneManager.Manager.currentScene && Data.Ressources.isLoaded) {
-      SceneManager.Manager.currentScene.Update();
+      SceneManager.Manager.currentScene.Update(delta);
 
 		  this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
       SceneManager.Manager.currentScene.Draw(this.context);

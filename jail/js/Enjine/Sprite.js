@@ -17,7 +17,7 @@ var Sprite = (function () {
     };
     Sprite.prototype.Update = function () {
         for (var key in this.colliderPoint) {
-            this.colliderPoint[key].Update(this.x, this.y);
+            this.colliderPoint[key].Update(this.x, this.y, 0);
         }
     };
     Sprite.prototype.Draw = function (context) {
@@ -25,6 +25,9 @@ var Sprite = (function () {
         context.translate(this.x, this.y);
         context.drawImage(Data.Ressources.spriteSheet, this.zone.x, this.zone.y, this.zone.width, this.zone.height, -(this.zone.width / 2) + this.offset.x, -(this.zone.height / 2) + this.offset.y, this.zone.width, this.zone.height);
         context.restore();
+        for (var key in this.colliderPoint) {
+            this.colliderPoint[key].Draw(context);
+        }
     };
     Sprite.prototype.Clear = function () {
         delete this.offset;

@@ -6,12 +6,11 @@ var __extends = (this && this.__extends) || function (d, b) {
 var MainScene = (function (_super) {
     __extends(MainScene, _super);
     function MainScene(selectedBody) {
-        var _this = _super.call(this) || this;
-        _this.selectedBody = selectedBody;
-        _this.spriteManager = new SpriteManager();
-        _this.spawnManager = new SpawnManager(_this.spriteManager, 1000);
-        _this.character = new Character(_this, 0, 0, []);
-        return _this;
+        _super.call(this);
+        this.selectedBody = selectedBody;
+        this.spriteManager = new SpriteManager();
+        this.spawnManager = new SpawnManager(this.spriteManager, 1000);
+        this.character = new Character(this, 0, 0, []);
     }
     MainScene.prototype.Init = function () {
         this.InitCharacter();
@@ -20,7 +19,7 @@ var MainScene = (function (_super) {
         var tmpSprite = new Sprite(0, 0, Data.Ressources.bodies[this.selectedBody], 'body');
         this.character.AddChild(tmpSprite);
     };
-    MainScene.prototype.Update = function () {
+    MainScene.prototype.Update = function (delta) {
         this.character.UpdateCollider(this.spriteManager, this.spriteManager.listSprite);
         this.character.Update();
         this.spriteManager.Update();

@@ -29,7 +29,6 @@ class Character extends Sprite {
     this.x = EventMouse.Mouse.move.x;
     this.y = EventMouse.Mouse.move.y;
 
-    console.log(EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left));
     if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left)) {
       this.angle -= this.speedAngle;
     }
@@ -79,6 +78,7 @@ class Character extends Sprite {
 
           contactInfo.sprite.SetOffset(offsetPos);
           this.AddChild(contactInfo.sprite);
+          contactInfo.sprite.angle = 0;
 
           this.RemoveCollider(contactInfo.zoneCharacter);
         }

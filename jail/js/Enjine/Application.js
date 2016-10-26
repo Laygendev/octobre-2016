@@ -3,6 +3,7 @@ global.size = { width: 0, height: 0 };
 var Application = (function () {
     function Application() {
         this.framesPerSecond = 1000 / 30;
+        this.lastTime = 0;
         this.loader = undefined;
         this.LoadCanvas();
         this.StartTimer();
@@ -28,8 +29,11 @@ var Application = (function () {
         this.loader = new Loader();
     };
     Application.prototype.Update = function () {
+        var newTime = new Date().getTime();
+        var delta = (newTime - this.lastTime) / 1000;
+        this.lastTime = newTime;
         if (SceneManager.Manager.currentScene && Data.Ressources.isLoaded) {
-            SceneManager.Manager.currentScene.Update();
+            SceneManager.Manager.currentScene.Update(delta);
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             SceneManager.Manager.currentScene.Draw(this.context);
         }

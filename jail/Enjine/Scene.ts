@@ -11,7 +11,7 @@ class Scene {
 
   public Init():void {}
 
-  public Update():void {}
+  public Update(delta: number):void {}
 
   public Draw(context: any):void {}
 }

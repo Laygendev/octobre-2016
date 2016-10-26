@@ -6,15 +6,14 @@ var __extends = (this && this.__extends) || function (d, b) {
 var SpriteClickable = (function (_super) {
     __extends(SpriteClickable, _super);
     function SpriteClickable(image, x, y, zone, type) {
-        var _this = _super.call(this, x, y, zone, type) || this;
-        _this.image = image;
-        _this.x = x;
-        _this.y = y;
-        _this.zone = zone;
-        _this.type = type;
-        _this.speedAngle = 0.01;
-        _this.angle = 0;
-        return _this;
+        _super.call(this, x, y, zone, type);
+        this.image = image;
+        this.x = x;
+        this.y = y;
+        this.zone = zone;
+        this.type = type;
+        this.speedAngle = 0.01;
+        this.angle = 0;
     }
     SpriteClickable.prototype.Update = function () {
         if (this.image == undefined) {

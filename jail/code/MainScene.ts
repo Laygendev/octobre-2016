@@ -21,7 +21,7 @@ class MainScene extends Scene {
     this.character.AddChild(tmpSprite);
   }
 
-  public Update():void {
+  public Update(delta: number):void {
     this.character.UpdateCollider(this.spriteManager, this.spriteManager.listSprite);
     this.character.Update();
     this.spriteManager.Update();

@@ -6,10 +6,9 @@ var __extends = (this && this.__extends) || function (d, b) {
 var SelectBody = (function (_super) {
     __extends(SelectBody, _super);
     function SelectBody() {
-        var _this = _super.call(this) || this;
-        _this.spriteManager = new SpriteManager();
-        _this.Init();
-        return _this;
+        _super.call(this);
+        this.spriteManager = new SpriteManager();
+        this.Init();
     }
     SelectBody.prototype.Init = function () {
         var tmpSprite = undefined;
@@ -20,7 +19,7 @@ var SelectBody = (function (_super) {
         tmpSprite = new SpriteClickable(undefined, global.size.width / 2 + 100, global.size.height / 2 - 50, Data.Ressources.bodies['body2'], 'body');
         this.spriteManager.Add(tmpSprite);
     };
-    SelectBody.prototype.Update = function () {
+    SelectBody.prototype.Update = function (delta) {
         this.spriteManager.Update();
         for (var key in this.spriteManager.listSprite["body"]) {
             if (this.spriteManager.listSprite["body"][key].ClickIn()) {

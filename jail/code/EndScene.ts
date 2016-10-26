@@ -45,7 +45,7 @@ class EndScene extends Scene {
 
 	}
 
-  public Update():void {
+  public Update(delta: number):void {
 		this.spriteManager.Update();
 
 		if (this.buttonRestart.ClickIn()) {

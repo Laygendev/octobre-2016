@@ -29,10 +29,10 @@ var EventKeyboard;
                 event.preventDefault();
             }
         };
+        Input.keys = { "left": 37, "right": 39 };
+        Input.pressedKeys = { "left": false, "right": false };
         return Input;
     }());
-    Input.keys = { "left": 37, "right": 39 };
-    Input.pressedKeys = { "left": false, "right": false };
     EventKeyboard.Input = Input;
 })(EventKeyboard || (EventKeyboard = {}));
 //# sourceMappingURL=EventKeyboard.js.map

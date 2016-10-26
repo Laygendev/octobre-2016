@@ -6,21 +6,30 @@ var __extends = (this && this.__extends) || function (d, b) {
 var SpriteMovable = (function (_super) {
     __extends(SpriteMovable, _super);
     function SpriteMovable(x, y, zone, zoneType, speed, angle, speedAngle) {
-        var _this = _super.call(this, x, y, zone, zoneType) || this;
-        _this.x = x;
-        _this.y = y;
-        _this.zone = zone;
-        _this.speed = speed;
-        _this.angle = angle;
-        _this.speedAngle = speedAngle;
-        return _this;
+        _super.call(this, x, y, zone, zoneType);
+        this.x = x;
+        this.y = y;
+        this.zone = zone;
+        this.speed = speed;
+        this.angle = angle;
+        this.speedAngle = speedAngle;
     }
     SpriteMovable.prototype.Update = function () {
         this.x = this.x + this.speed * Math.cos(this.angle);
         this.y = this.y + this.speed * Math.sin(this.angle);
         this.angle += this.speedAngle;
         for (var key in this.colliderPoint) {
-            this.colliderPoint[key].Update(this.x, this.y);
+            this.colliderPoint[key].Update(this.x, this.y, this.angle);
+        }
+    };
+    SpriteMovable.prototype.Draw = function (context) {
+        context.save();
+        context.translate(this.x, this.y);
+        context.rotate(this.angle);
+        context.drawImage(Data.Ressources.spriteSheet, this.zone.x, this.zone.y, this.zone.width, this.zone.height, -(this.zone.width / 2) + this.offset.x, -(this.zone.height / 2) + this.offset.y, this.zone.width, this.zone.height);
+        context.restore();
+        for (var key in this.colliderPoint) {
+            this.colliderPoint[key].Draw(context);
         }
     };
     return SpriteMovable;

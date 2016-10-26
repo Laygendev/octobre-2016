@@ -6,16 +6,15 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Character = (function (_super) {
     __extends(Character, _super);
     function Character(mainScene, x, y, zone) {
-        var _this = _super.call(this, x, y, zone, 'body') || this;
-        _this.mainScene = mainScene;
-        _this.x = x;
-        _this.y = y;
-        _this.zone = zone;
-        _this.childs = { 'head': [], 'body': [], 'arm': [], 'leg': [] };
-        _this.colliders = [];
-        _this.angle = 0;
-        _this.speedAngle = 0.05;
-        return _this;
+        _super.call(this, x, y, zone, 'body');
+        this.mainScene = mainScene;
+        this.x = x;
+        this.y = y;
+        this.zone = zone;
+        this.childs = { 'head': [], 'body': [], 'arm': [], 'leg': [] };
+        this.colliders = [];
+        this.angle = 0;
+        this.speedAngle = 0.05;
     }
     Character.prototype.Init = function () {
         var _this = this;
@@ -32,7 +31,6 @@ var Character = (function (_super) {
     Character.prototype.Update = function () {
         this.x = EventMouse.Mouse.move.x;
         this.y = EventMouse.Mouse.move.y;
-        console.log(EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left));
         if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left)) {
             this.angle -= this.speedAngle;
         }
@@ -74,6 +72,7 @@ var Character = (function (_super) {
                     offsetPos.y *= -1;
                     contactInfo.sprite.SetOffset(offsetPos);
                     this.AddChild(contactInfo.sprite);
+                    contactInfo.sprite.angle = 0;
                     this.RemoveCollider(contactInfo.zoneCharacter);
                 }
                 else {

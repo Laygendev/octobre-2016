@@ -38,11 +38,11 @@ var Data;
             }
             return undefined;
         };
+        Ressources.isLoaded = false;
+        Ressources.buttons = [];
+        Ressources.numberHumanPart = 0;
         return Ressources;
     }());
-    Ressources.isLoaded = false;
-    Ressources.buttons = [];
-    Ressources.numberHumanPart = 0;
     Data.Ressources = Ressources;
 })(Data || (Data = {}));
 //# sourceMappingURL=Ressources.js.map
