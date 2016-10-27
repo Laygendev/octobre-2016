@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -6,21 +10,20 @@ var __extends = (this && this.__extends) || function (d, b) {
 var EndScene = (function (_super) {
     __extends(EndScene, _super);
     function EndScene(character, gameOver) {
-        var _this = _super.call(this) || this;
-        _this.spriteManager = new SpriteManager();
-        _this.buttonRestart = undefined;
-        _this.gameOver = true;
-        _this.character = undefined;
-        _this.character = character;
+        _super.call(this);
+        this.spriteManager = new SpriteManager();
+        this.buttonRestart = undefined;
+        this.gameOver = true;
+        this.character = undefined;
+        this.character = character;
         if (gameOver != undefined) {
-            _this.gameOver = gameOver;
+            this.gameOver = gameOver;
         }
-        if (_this.character) {
-            _this.character.x = global.size.width / 2;
-            _this.character.y = global.size.height / 2;
+        if (this.character) {
+            this.character.x = global.size.width / 2;
+            this.character.y = global.size.height / 2;
         }
-        _this.Init();
-        return _this;
+        this.Init();
     }
     EndScene.prototype.Init = function () {
         this.buttonRestart = new SpriteClickable(Data.Ressources.buttons['restart'], (global.size.width / 2) - (163 / 2), global.size.height - 200, { width: 163, height: 45 }, 'button');
@@ -57,5 +60,5 @@ var EndScene = (function (_super) {
         this.spriteManager.Draw(context);
     };
     return EndScene;
-}(Scene));
+})(Scene);
 //# sourceMappingURL=EndScene.js.map

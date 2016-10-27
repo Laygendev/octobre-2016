@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var OrderManager = (function () {
     function OrderManager() {
         this.listOrder = [];
@@ -15,5 +19,5 @@ var OrderManager = (function () {
         this.listOrder.push(order);
     };
     return OrderManager;
-}());
+})();
 //# sourceMappingURL=OrderManager.js.map

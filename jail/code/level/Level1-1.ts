@@ -13,7 +13,7 @@ class Level11 extends MainScene {
   }
 
   public InitOrder() {
-    this.spawnOrderManager = new SpawnOrderManager(this.orderManager, 'jail/json/level/order1-1.json');
+    this.spawnOrderManager = new SpawnOrderManager(this.spriteManager, this.orderManager, 'jail/json/level/order1-1.json');
   }
 
   public Spawn(currentTime: number):void {

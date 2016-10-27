@@ -1,17 +1,28 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var SpriteGenerator = (function () {
     function SpriteGenerator() {
         this.randomSide = ["top", "bottom", "left", "right"];
         this.speedGenerator = { min: 0.5, max: 5 };
         this.randomAngle = { min: -0.01, max: 0.01 };
     }
-    SpriteGenerator.prototype.Exec = function () {
+    SpriteGenerator.prototype.Exec = function (zoneName) {
         var pos = this.RandomPosition();
-        var zoneName = Data.Ressources.RandomHumanPart();
-        var zone = Data.Ressources.humanPart[zoneName];
-        var spriteMovable = new SpriteMovable(pos.x, pos.y, zone, zone.type, this.GenerateSpeed(), 0, 0);
-        spriteMovable.angle = this.RandomAngle(pos.key);
-        spriteMovable.speedAngle = this.GenerateSpeedAngle(pos);
-        return spriteMovable;
+        if (!zoneName) {
+            zoneName = Data.Ressources.RandomHumanPart();
+        }
+        if (Data.Ressources.humanPart[zoneName]) {
+            var zone = Data.Ressources.humanPart[zoneName];
+            var spriteMovable = new SpriteMovable(pos.x, pos.y, zone, zone.type, this.GenerateSpeed(), 0, 0);
+            spriteMovable.angle = this.RandomAngle(pos.key);
+            spriteMovable.speedAngle = this.GenerateSpeedAngle(pos);
+            return spriteMovable;
+        }
+        else {
+            return undefined;
+        }
     };
     SpriteGenerator.prototype.RandomPosition = function () {
         var randomSide = Math.floor(Math.random() * (0 - (this.randomSide.length))) + this.randomSide.length;
@@ -19,7 +30,7 @@ var SpriteGenerator = (function () {
         return {
             key: this.randomSide[randomSide],
             x: Math.random() * (pos.min.x - (pos.max.x)) + pos.max.x,
-            y: Math.random() * (pos.min.y - (pos.max.y)) + pos.max.y,
+            y: Math.random() * (pos.min.y - (pos.max.y)) + pos.max.y
         };
     };
     SpriteGenerator.prototype.RandomAngle = function (key) {
@@ -133,5 +144,5 @@ var SpriteGenerator = (function () {
         return randomSide[randomSideKey];
     };
     return SpriteGenerator;
-}());
+})();
 //# sourceMappingURL=SpriteGenerator.js.map

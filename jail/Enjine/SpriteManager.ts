@@ -11,12 +11,18 @@ class SpriteManager {
 
   }
 
-  public Update():void {
+  public Update():string {
     for (var type in this.listSprite) {
       for (var key in this.listSprite[type]) {
         this.listSprite[type][key].Update();
-      }
+
+				if (this.listSprite[type][key].ClickIn && this.listSprite[type][key].ClickIn()) {
+					return this.listSprite[type][key].key;
+				}
+		  }
     }
+
+		return undefined;
   }
 
   public Draw(context: any):void {
@@ -28,7 +34,9 @@ class SpriteManager {
   }
 
   Add(sprite: Sprite): void {
-    this.listSprite[sprite.type].push(sprite);
+		if (sprite) {
+	    this.listSprite[sprite.type].push(sprite);
+		}
   }
 
   Remove(sprite: Sprite): void {

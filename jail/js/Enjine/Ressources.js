@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var Data;
 (function (Data) {
     var Ressources = (function () {
@@ -40,12 +44,12 @@ var Data;
             }
             return undefined;
         };
+        Ressources.isLoaded = false;
+        Ressources.buttons = [];
+        Ressources.numberHumanPart = 0;
+        Ressources.staticImage = [];
         return Ressources;
-    }());
-    Ressources.isLoaded = false;
-    Ressources.buttons = [];
-    Ressources.numberHumanPart = 0;
-    Ressources.staticImage = [];
+    })();
     Data.Ressources = Ressources;
 })(Data || (Data = {}));
 //# sourceMappingURL=Ressources.js.map

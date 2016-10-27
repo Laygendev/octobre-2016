@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var SpriteManager = (function () {
     function SpriteManager() {
         this.listSprite = { "staticImage": [], "body": [], "head": [], "leg": [], "arm": [], "button": [] };
@@ -8,8 +12,12 @@ var SpriteManager = (function () {
         for (var type in this.listSprite) {
             for (var key in this.listSprite[type]) {
                 this.listSprite[type][key].Update();
+                if (this.listSprite[type][key].ClickIn && this.listSprite[type][key].ClickIn()) {
+                    return this.listSprite[type][key].key;
+                }
             }
         }
+        return undefined;
     };
     SpriteManager.prototype.Draw = function (context) {
         for (var type in this.listSprite) {
@@ -19,7 +27,9 @@ var SpriteManager = (function () {
         }
     };
     SpriteManager.prototype.Add = function (sprite) {
-        this.listSprite[sprite.type].push(sprite);
+        if (sprite) {
+            this.listSprite[sprite.type].push(sprite);
+        }
     };
     SpriteManager.prototype.Remove = function (sprite) {
         for (var type in this.listSprite) {
@@ -31,5 +41,5 @@ var SpriteManager = (function () {
         }
     };
     return SpriteManager;
-}());
+})();
 //# sourceMappingURL=SpriteManager.js.map
