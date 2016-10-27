@@ -12,7 +12,7 @@ class Sprite {
   }
 
   protected Init():void {
-    if (this.zone.collider) {
+    if (this.zone && this.zone.collider) {
       for (var key in this.zone.collider) {
         this.colliderPoint[key] = new ColliderPoint(this.zone.collider[key].x, this.zone.collider[key].y);
       }

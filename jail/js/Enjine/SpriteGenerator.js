@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var SpriteGenerator = (function () {
     function SpriteGenerator() {
         this.randomSide = ["top", "bottom", "left", "right"];
@@ -23,7 +19,7 @@ var SpriteGenerator = (function () {
         return {
             key: this.randomSide[randomSide],
             x: Math.random() * (pos.min.x - (pos.max.x)) + pos.max.x,
-            y: Math.random() * (pos.min.y - (pos.max.y)) + pos.max.y
+            y: Math.random() * (pos.min.y - (pos.max.y)) + pos.max.y,
         };
     };
     SpriteGenerator.prototype.RandomAngle = function (key) {
@@ -137,5 +133,5 @@ var SpriteGenerator = (function () {
         return randomSide[randomSideKey];
     };
     return SpriteGenerator;
-})();
+}());
 //# sourceMappingURL=SpriteGenerator.js.map

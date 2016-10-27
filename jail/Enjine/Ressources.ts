@@ -11,10 +11,14 @@ module Data {
     static bodies: Array<any>;
     static humanPart: Array<any>;
     static numberHumanPart: number = 0;
+    static staticImage: Array<any> = [];
 
     static Load():void {
 			this.buttons['restart'] = new Image();
 			this.buttons['restart'].src = 'jail/images/buttonRestart.png';
+
+      this.staticImage['tapis'] = new Image();
+      this.staticImage['tapis'].src = 'jail/images/tapis.png';
 
       this.LoadSpriteSheet( (spriteSheet: HTMLImageElement) => {
         this.spriteSheet = spriteSheet;
@@ -28,7 +32,7 @@ module Data {
                 this.numberHumanPart++;
             }
             this.isLoaded = true;
-            SceneManager.Manager.SetScene(new SelectBody());
+            SceneManager.Manager.SetScene(new Level11('body0'));
           });
         });
       });
