@@ -5,8 +5,8 @@ http://labodudev.fr
 
 class SpriteMovable extends Sprite {
 
-  constructor(public x: number, public y:number, public zone: any, zoneType: any, public speed: number, public angle: number, public speedAngle: number) {
-    super(x, y, zone, zoneType);
+  constructor(public x: number, public y:number, public zone: any, zoneType: any, public speed: number, public angle: number, public speedAngle: number, public name: string) {
+    super(x, y, zone, zoneType, name);
   }
 
   public Update():void {

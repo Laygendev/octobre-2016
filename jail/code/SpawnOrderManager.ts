@@ -17,17 +17,21 @@ class SpawnOrderManager {
   Exec(currentTime: number): void {
     // Traite la queue
     if (this.jsonLevel[currentTime]) {
-      this.orderManager.Add(new Order(currentTime, this.jsonLevel[currentTime]));
+      for (var key in this.jsonLevel[currentTime]) {
+        for (var x in this.jsonLevel[currentTime][key]) {
+          this.orderManager.Add(new Order(currentTime, this.jsonLevel[currentTime][key][x]));
 
-			for (var key in this.jsonLevel[currentTime]) {
-				let spriteMovable = this.spriteGenerator.Exec(this.jsonLevel[currentTime][key]);
+    			for (var i in this.jsonLevel[currentTime][key][x]) {
+    				let spriteMovable = this.spriteGenerator.Exec(this.jsonLevel[currentTime][key][x][i]);
 
-				if (!spriteMovable) { // C'est un corps
-					spriteMovable = new SpriteMovableAndClickable(global.size.width, global.size.height - 100, Data.Ressources.bodies[this.jsonLevel[currentTime][key]], "body", -1, 0, 0, this.jsonLevel[currentTime][key]);
-				}
+    				if (!spriteMovable) { // C'est un corps
+    					spriteMovable = new SpriteMovableAndClickable(global.size.width, global.size.height - 100, Data.Ressources.bodies[this.jsonLevel[currentTime][key][x][i]], "body", -1, 0, 0, this.jsonLevel[currentTime][key][x][i]);
+    				}
 
-				this.spriteManager.Add(spriteMovable);
-			}
+    				this.spriteManager.Add(spriteMovable);
+          }
+  			}
+      }
     }
   }
 }

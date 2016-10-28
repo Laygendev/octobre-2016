@@ -17,6 +17,14 @@ class OrderManager {
     }
   }
 
+  public Remove(order: Order) {
+    for (var key in this.listOrder) {
+      if (this.listOrder[key] === order) {
+        order.Clear();
+      }
+    }
+  }
+
   public Clear():void {
   }
 

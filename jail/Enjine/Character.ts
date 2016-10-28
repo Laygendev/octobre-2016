@@ -4,12 +4,20 @@ http://labodudev.fr
 */
 
 class Character extends Sprite {
-  private childs: any = {'head': [], 'body': [], 'arm': [], 'leg': []};
+  private childs: any = {'head': undefined, 'body': undefined, 'arml': undefined, 'armr': undefined, 'leg': undefined};
   public colliders: Array<CharacterCollider> = [];
   public angle: number = 0;
   public speedAngle: number = 0.1;
-  constructor(public mainScene: MainScene, public x: number, public y:number, public zone: Array<any>) {
-    super(x, y, zone, 'body');
+  public secondTime: number = 0;
+  public timeForDelivery: number = 2;
+  public interval: any = undefined;
+  public currentAction: string = "";
+  public can:any = {
+    delivery: false,
+    delete: false
+  }
+  constructor(public mainScene: MainScene, public x: number, public y:number, public zone: Array<any>, public name: string) {
+    super(x, y, zone, 'body', 'character');
   }
 
   protected Init():void {
@@ -22,7 +30,7 @@ class Character extends Sprite {
   }
 
   public AddChild(child: Sprite):void {
-    this.childs[child["type"]].push(child);
+    this.childs[child["type"]] = child;
   }
 
   public Update():void {
@@ -31,10 +39,27 @@ class Character extends Sprite {
 
     if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left) || EventMouse.Mouse.pressedClics.left) {
       this.angle -= this.speedAngle;
+      this.currentAction = "left";
+    }
+    else if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.right) || EventMouse.Mouse.pressedClics.right) {
+      this.angle += this.speedAngle;
+      this.currentAction = "right"
+    }
+    else {
+      this.currentAction = "";
     }
 
-    if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.right) || EventMouse.Mouse.pressedClics.right) {
-      this.angle += this.speedAngle;
+    if (this.currentAction != "") {
+      if (!this.interval) {
+        this.interval = setInterval(() => { this.WaitForDelivery(this.currentAction) }, 1000);
+      }
+    }
+    else {
+      clearInterval(this.interval);
+      this.interval = undefined;
+      this.secondTime = 0;
+      this.can.delivery = false;
+      this.can.delete = false;
     }
 
     for (var key in this.colliders) {
@@ -58,16 +83,16 @@ class Character extends Sprite {
 
           switch (contactInfo.zoneCharacter) {
             case "top":
-            offsetPos.y += this.childs['body'][0].zone.height / 2;
+            offsetPos.y += this.childs['body'].zone.height / 2;
             break;
             case "bottom":
-            offsetPos.y -= this.childs['body'][0].zone.height / 2;
+            offsetPos.y -= this.childs['body'].zone.height / 2;
             break;
             case "left":
-            offsetPos.x -= this.childs['body'][0].zone.width / 2;
+            offsetPos.x -= this.childs['body'].zone.width / 2;
             break;
             case "right":
-            offsetPos.x += this.childs['body'][0].zone.width / 2;
+            offsetPos.x += this.childs['body'].zone.width / 2;
             break;
             default:
             break;
@@ -91,13 +116,16 @@ class Character extends Sprite {
   }
 
   public Draw(context: any):void {
+    context.font = "30px Source Sans Pro Bold";
+    context.fillText("Actions dans: " + (this.secondTime), (global.size.width - 300), 50);
+
     context.save();
     context.translate(this.x, this.y);
     context.rotate(this.angle);
 
-    for (var type in this.childs) {
-      for (var key in this.childs[type]) {
-        this.childs[type][key].Draw(context);
+    for (var key in this.childs) {
+      if (this.childs[key]) {
+        this.childs[key].Draw(context);
       }
     }
 
@@ -112,15 +140,59 @@ class Character extends Sprite {
     delete this.colliders[zoneName];
   }
 
-  public CheckElement():boolean {
-    if (this.childs['head'].length > 0 && this.childs['body'].length > 0 && this.childs['arm'].length > 1 && this.childs['leg'].length > 0) {
-      return true;
+  public CheckElement(orderManager: OrderManager):any {
+    let found: any = true;
+
+    for (var i in orderManager.listOrder) {
+      found = orderManager.listOrder[i];
+      for (var key in this.childs) {
+        if (this.childs[key]) {
+          if (!orderManager.listOrder[i].listSprite.indexOf(this.childs[key].name)) {
+            found = false;
+          }
+        }
+        else {
+          found = false;
+        }
+      }
     }
-    // Fast test
-    // if ( this.childs['body'].length > 0 && this.childs['head'].length > 0) {
-    // 	return true;
-    // }
+
+    if (found) {
+      orderManager.Remove(found);
+      return found;
+    }
 
     return false;
+  }
+
+  public WaitForDelivery(direction: string):void {
+    this.secondTime += 1;
+
+    if (this.secondTime >= this.timeForDelivery) {
+      if (direction == "left") {
+        this.can.delivery = true;
+      }
+      else {
+        this.can.delete = true;
+      }
+    }
+  }
+
+  public Clear():void {
+    delete this.childs.head;
+    delete this.childs.body;
+    delete this.childs.arm;
+    delete this.childs.leg;
+    delete this.colliders;
+    this.angle = 0;
+    this.speedAngle = 0;
+    this.secondTime = 0;
+    this.timeForDelivery = 5;
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+    delete this.interval;
+    delete this.can.delivery;
+    delete this.can.delete;
   }
 }

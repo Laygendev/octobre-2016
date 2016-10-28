@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -17,26 +13,25 @@ var MainScene = (function (_super) {
         this.timer = new Timer(1000, 800, this);
     }
     MainScene.prototype.Init = function () {
-        this.spawnHumanPartSprite = new SpriteRepeat(Data.Ressources.staticImage['tapis'], 0, global.size.height - 41, { width: 100, height: 41 }, "x");
+        this.spawnHumanPartSprite = new SpriteRepeat(Data.Ressources.staticImage['tapis'], 0, global.size.height - 41, { width: 100, height: 41 }, "x", "tapis");
         this.spriteManager.Add(this.spawnHumanPartSprite);
     };
     MainScene.prototype.Spawn = function (currentTime) { };
     MainScene.prototype.InitCharacter = function (spriteKey) {
-        console.log(spriteKey);
-        var tmpSprite = new Sprite(0, 0, Data.Ressources.bodies[spriteKey], 'body');
-        this.character = new Character(this, 0, 0, []);
+        var tmpSprite = new Sprite(0, 0, Data.Ressources.bodies[spriteKey], 'body', spriteKey);
+        this.character = new Character(this, 0, 0, [], 'character');
         this.character.AddChild(tmpSprite);
     };
     MainScene.prototype.Update = function (delta) {
         if (this.character) {
             this.character.UpdateCollider(this.spriteManager, this.spriteManager.listSprite);
             this.character.Update();
-            if (this.character.CheckElement()) {
-                this.ChangeScene(false);
+            if (this.character.can.delete) {
+                this.character.Clear();
+                this.character = undefined;
             }
         }
         var spriteKey = this.spriteManager.Update();
-        console.log(spriteKey);
         if (spriteKey && !this.character) {
             this.InitCharacter(spriteKey);
         }
@@ -62,5 +57,5 @@ var MainScene = (function (_super) {
         SceneManager.Manager.SetScene(new EndScene(this.character, gameOver));
     };
     return MainScene;
-})(Scene);
+}(Scene));
 //# sourceMappingURL=MainScene.js.map

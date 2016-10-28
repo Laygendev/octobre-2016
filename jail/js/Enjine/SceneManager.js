@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var SceneManager;
 (function (SceneManager) {
     var Manager = (function () {
@@ -18,7 +14,7 @@ var SceneManager;
             this.currentScene.Draw(context);
         };
         return Manager;
-    })();
+    }());
     SceneManager.Manager = Manager;
 })(SceneManager || (SceneManager = {}));
 //# sourceMappingURL=SceneManager.js.map

@@ -90,7 +90,7 @@
 		}
 	},
 	"arm0l": {
-		"type": "arm",
+		"type": "arml",
 		"x": 0,
 		"y": 229,
 		"width": 30,
@@ -103,7 +103,7 @@
 		}
 	},
 	"arm0r": {
-		"type": "arm",
+		"type": "armr",
 		"x": 144,
 		"y": 229,
 		"width": 30,
@@ -116,7 +116,7 @@
 		}
 	},
 	"arm1l": {
-		"type": "arm",
+		"type": "arml",
 		"x": 30,
 		"y": 229,
 		"width": 30,
@@ -129,7 +129,7 @@
 		}
 	},
 	"arm1r": {
-		"type": "arm",
+		"type": "armr",
 		"x": 114,
 		"y": 229,
 		"width": 30,
@@ -142,7 +142,7 @@
 		}
 	},
 	"arm2l": {
-		"type": "arm",
+		"type": "arml",
 		"x": 60,
 		"y": 229,
 		"width": 27,
@@ -155,7 +155,7 @@
 		}
 	},
 	"arm2r": {
-		"type": "arm",
+		"type": "armr",
 		"x": 87,
 		"y": 229,
 		"width": 27,

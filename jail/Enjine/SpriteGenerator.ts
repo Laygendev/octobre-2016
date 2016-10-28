@@ -18,7 +18,7 @@ class SpriteGenerator {
 
 		if (Data.Ressources.humanPart[zoneName]) {
 	    let zone = Data.Ressources.humanPart[zoneName];
-	    let spriteMovable: SpriteMovable = new SpriteMovable(pos.x, pos.y, zone, zone.type, this.GenerateSpeed(), 0, 0);
+	    let spriteMovable: SpriteMovable = new SpriteMovable(pos.x, pos.y, zone, zone.type, this.GenerateSpeed(), 0, 0, zoneName);
 	    spriteMovable.angle = this.RandomAngle(pos.key);
 	    spriteMovable.speedAngle = this.GenerateSpeedAngle(pos);
 	    return spriteMovable;

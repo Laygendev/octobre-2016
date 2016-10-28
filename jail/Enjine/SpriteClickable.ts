@@ -7,8 +7,8 @@ class SpriteClickable extends Sprite {
 	private speedAngle: number = 0.01;
 	private angle: number = 0;
 
-	constructor(public image: any, public x: number, public y:number, public zone: any, public type: string) {
-		super(x, y, zone, type);
+	constructor(public image: any, public x: number, public y:number, public zone: any, public type: string, public name: string) {
+		super(x, y, zone, type, name);
 	}
 
 	public Update():void {

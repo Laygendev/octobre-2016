@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var SpriteGenerator = (function () {
     function SpriteGenerator() {
         this.randomSide = ["top", "bottom", "left", "right"];
@@ -15,7 +11,7 @@ var SpriteGenerator = (function () {
         }
         if (Data.Ressources.humanPart[zoneName]) {
             var zone = Data.Ressources.humanPart[zoneName];
-            var spriteMovable = new SpriteMovable(pos.x, pos.y, zone, zone.type, this.GenerateSpeed(), 0, 0);
+            var spriteMovable = new SpriteMovable(pos.x, pos.y, zone, zone.type, this.GenerateSpeed(), 0, 0, zoneName);
             spriteMovable.angle = this.RandomAngle(pos.key);
             spriteMovable.speedAngle = this.GenerateSpeedAngle(pos);
             return spriteMovable;
@@ -144,5 +140,5 @@ var SpriteGenerator = (function () {
         return randomSide[randomSideKey];
     };
     return SpriteGenerator;
-})();
+}());
 //# sourceMappingURL=SpriteGenerator.js.map

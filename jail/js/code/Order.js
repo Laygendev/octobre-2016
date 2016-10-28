@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var Order = (function () {
     function Order(spawnedTime, listSprite) {
         this.spawnedTime = spawnedTime;
@@ -20,10 +16,11 @@ var Order = (function () {
         context.restore();
     };
     Order.prototype.Clear = function () {
+        delete this.listSprite;
     };
     Order.prototype.SetCharacter = function (character) {
         this.character = character;
     };
     return Order;
-})();
+}());
 //# sourceMappingURL=Order.js.map

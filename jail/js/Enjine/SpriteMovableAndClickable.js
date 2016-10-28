@@ -5,16 +5,15 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var SpriteMovableAndClickable = (function (_super) {
     __extends(SpriteMovableAndClickable, _super);
-    function SpriteMovableAndClickable(x, y, zone, zoneType, speed, angle, speedAngle, key) {
-        var _this = _super.call(this, x, y, zone, zoneType) || this;
-        _this.x = x;
-        _this.y = y;
-        _this.zone = zone;
-        _this.speed = speed;
-        _this.angle = angle;
-        _this.speedAngle = speedAngle;
-        _this.key = key;
-        return _this;
+    function SpriteMovableAndClickable(x, y, zone, zoneType, speed, angle, speedAngle, name) {
+        _super.call(this, x, y, zone, zoneType, name);
+        this.x = x;
+        this.y = y;
+        this.zone = zone;
+        this.speed = speed;
+        this.angle = angle;
+        this.speedAngle = speedAngle;
+        this.name = name;
     }
     SpriteMovableAndClickable.prototype.Update = function () {
         this.x = this.x + this.speed * Math.cos(this.angle);

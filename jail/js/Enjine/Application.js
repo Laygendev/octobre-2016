@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var global = {};
 global.size = { width: 0, height: 0 };
 var Application = (function () {
@@ -49,5 +45,5 @@ var Application = (function () {
         global.size.height = this.canvas.height;
     };
     return Application;
-})();
+}());
 //# sourceMappingURL=Application.js.map

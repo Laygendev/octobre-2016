@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -9,14 +5,15 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var SpriteMovable = (function (_super) {
     __extends(SpriteMovable, _super);
-    function SpriteMovable(x, y, zone, zoneType, speed, angle, speedAngle) {
-        _super.call(this, x, y, zone, zoneType);
+    function SpriteMovable(x, y, zone, zoneType, speed, angle, speedAngle, name) {
+        _super.call(this, x, y, zone, zoneType, name);
         this.x = x;
         this.y = y;
         this.zone = zone;
         this.speed = speed;
         this.angle = angle;
         this.speedAngle = speedAngle;
+        this.name = name;
     }
     SpriteMovable.prototype.Update = function () {
         this.x = this.x + this.speed * Math.cos(this.angle);
@@ -37,5 +34,5 @@ var SpriteMovable = (function (_super) {
         }
     };
     return SpriteMovable;
-})(Sprite);
+}(Sprite));
 //# sourceMappingURL=SpriteMovable.js.map

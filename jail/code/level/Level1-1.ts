@@ -20,6 +20,19 @@ class Level11 extends MainScene {
     this.spawnOrderManager.Exec(currentTime);
   }
 
+  protected UpdateChildScene(delta: number):void {
+    if (this.character) {
+      if (this.character.can.delivery) {
+        if (this.character.CheckElement(this.orderManager)) {
+          // this.orderManager.delete();
+        }
+        else {
+          console.log('unfound!');
+        }
+      }
+    }
+  }
+
   protected DrawChildScene(context: any):void {
     this.orderManager.Draw(context);
   }

@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var Timer = (function () {
     function Timer(time, maxTime, mainScene) {
         this.time = time;
@@ -31,5 +27,5 @@ var Timer = (function () {
         delete this.mainScene;
     };
     return Timer;
-})();
+}());
 //# sourceMappingURL=Timer.js.map

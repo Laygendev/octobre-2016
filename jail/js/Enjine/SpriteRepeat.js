@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -9,13 +5,14 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var SpriteRepeat = (function (_super) {
     __extends(SpriteRepeat, _super);
-    function SpriteRepeat(image, x, y, zone, repeat) {
-        _super.call(this, x, y, undefined, "staticImage");
+    function SpriteRepeat(image, x, y, zone, repeat, name) {
+        _super.call(this, x, y, undefined, "staticImage", name);
         this.image = image;
         this.x = x;
         this.y = y;
         this.zone = zone;
         this.repeat = repeat;
+        this.name = name;
     }
     SpriteRepeat.prototype.Update = function () {
     };
@@ -27,5 +24,5 @@ var SpriteRepeat = (function (_super) {
         }
     };
     return SpriteRepeat;
-})(Sprite);
+}(Sprite));
 //# sourceMappingURL=SpriteRepeat.js.map

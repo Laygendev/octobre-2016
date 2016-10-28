@@ -6,7 +6,7 @@ http://labodudev.fr
 class MainScene extends Scene {
   protected spriteManager: SpriteManager = new SpriteManager();
   // private spawnManager: SpawnManager =  new SpawnManager(this.spriteManager, 1000);
-  private character: Character = undefined;
+  protected character: Character = undefined;
   private spawnHumanPartSprite: Sprite;
   private timer: Timer = new Timer(1000, 800, this);
 
@@ -15,16 +15,15 @@ class MainScene extends Scene {
   }
 
   public Init():void {
-    this.spawnHumanPartSprite = new SpriteRepeat(Data.Ressources.staticImage['tapis'], 0, global.size.height - 41, {width: 100, height: 41 }, "x");
+    this.spawnHumanPartSprite = new SpriteRepeat(Data.Ressources.staticImage['tapis'], 0, global.size.height - 41, {width: 100, height: 41 }, "x", "tapis");
     this.spriteManager.Add(this.spawnHumanPartSprite);
   }
 
   public Spawn(currentTime: number):void {}
 
   private InitCharacter(spriteKey: string):void {
-		console.log(spriteKey);
-    var tmpSprite: Sprite = new Sprite(0, 0, Data.Ressources.bodies[spriteKey], 'body');
-		this.character = new Character(this, 0, 0, []);
+    var tmpSprite: Sprite = new Sprite(0, 0, Data.Ressources.bodies[spriteKey], 'body', spriteKey);
+		this.character = new Character(this, 0, 0, [], 'character');
     this.character.AddChild(tmpSprite);
   }
 
@@ -33,14 +32,13 @@ class MainScene extends Scene {
 	    this.character.UpdateCollider(this.spriteManager, this.spriteManager.listSprite);
 	    this.character.Update();
 
-			// Vérifie si on a tous les éléments
-			if(this.character.CheckElement()) {
-	      this.ChangeScene(false);
-			}
+      if (this.character.can.delete) {
+        this.character.Clear();
+        this.character = undefined;
+      }
 	}
 
 		let spriteKey = this.spriteManager.Update();
-		console.log(spriteKey);
 
 		if (spriteKey && !this.character) {
 			this.InitCharacter(spriteKey);

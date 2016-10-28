@@ -4,7 +4,7 @@ http://labodudev.fr
 */
 
 class SpriteManager {
-  listSprite: any = {"staticImage": [], "body": [], "head": [], "leg": [], "arm": [], "button": []};
+  listSprite: any = {"staticImage": [], "body": [], "head": [], "leg": [], "arml": [], "armr": [], "button": []};
   constructor() {}
 
   protected Init():void {
@@ -17,7 +17,9 @@ class SpriteManager {
         this.listSprite[type][key].Update();
 
 				if (this.listSprite[type][key].ClickIn && this.listSprite[type][key].ClickIn()) {
-					return this.listSprite[type][key].key;
+          let keyElement: any = this.listSprite[type][key];
+          this.Remove(this.listSprite[type][key]);
+					return keyElement.name;
 				}
 		  }
     }

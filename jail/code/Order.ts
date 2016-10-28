@@ -22,6 +22,7 @@ class Order {
   }
 
   public Clear():void {
+    delete this.listSprite;
   }
 
   public SetCharacter(character: Character):void {

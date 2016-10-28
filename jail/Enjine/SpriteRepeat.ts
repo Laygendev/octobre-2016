@@ -5,8 +5,8 @@ http://labodudev.fr
 
 class SpriteRepeat extends Sprite {
 
-  constructor(public image: any, public x: number, public y:number, public zone: any, public repeat: string) {
-    super(x, y, undefined, "staticImage");
+  constructor(public image: any, public x: number, public y:number, public zone: any, public repeat: string, public name: string) {
+    super(x, y, undefined, "staticImage", name);
   }
 
   public Update():void {
