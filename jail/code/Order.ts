@@ -9,16 +9,10 @@ class Order {
 
   constructor(public spawnedTime: Number, public listSprite: Array<string>) {}
 
-
   public Draw(context: any):void {
-		context.save();
-		context.scale(0.7, 0.7);
-		let i = 0;
     for(var key in this.listSprite) {
-      Helper.DrawImage.Draw(this.listSprite[key], context, 1 * (100 * i), 0);
-			i++;
+      Helper.DrawImage.Draw(this.listSprite[key], context);
     }
-		context.restore();
   }
 
   public Clear():void {

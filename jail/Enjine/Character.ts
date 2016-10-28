@@ -108,7 +108,8 @@ class Character extends Sprite {
           this.RemoveCollider(contactInfo.zoneCharacter);
         }
         else {
-          this.mainScene.ChangeScene(true);
+					// Perte de tous ses membres
+          // this.mainScene.ChangeScene(true);
         }
         break;
       }
@@ -142,12 +143,13 @@ class Character extends Sprite {
 
   public CheckElement(orderManager: OrderManager):any {
     let found: any = true;
+		let foundI: number = 0;
 
     for (var i in orderManager.listOrder) {
       found = orderManager.listOrder[i];
       for (var key in this.childs) {
         if (this.childs[key]) {
-          if (!orderManager.listOrder[i].listSprite.indexOf(this.childs[key].name)) {
+          if (orderManager.listOrder[i].listSprite.indexOf(this.childs[key].name) == -1) {
             found = false;
           }
         }
@@ -155,12 +157,14 @@ class Character extends Sprite {
           found = false;
         }
       }
-    }
 
-    if (found) {
-      orderManager.Remove(found);
-      return found;
-    }
+	    if (found) {
+				let iNumber: any = i;
+				orderManager.listOrder.splice(iNumber, 1);
+	      orderManager.Remove(found);
+	      return found;
+	    }
+		}
 
     return false;
   }

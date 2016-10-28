@@ -26,7 +26,7 @@ class EndScene extends Scene {
   }
 
   public Init():void {
-		this.buttonRestart = new SpriteClickable(Data.Ressources.buttons['restart'], (global.size.width / 2) - (163 / 2), global.size.height - 200, {width: 163, height: 45}, 'button');
+		this.buttonRestart = new SpriteClickable(Data.Ressources.buttons['restart'], (global.size.width / 2) - (163 / 2), global.size.height - 200, {width: 163, height: 45}, 'button', 'button');
 		this.spriteManager.Add(this.buttonRestart);
 
 		if (!this.gameOver) {

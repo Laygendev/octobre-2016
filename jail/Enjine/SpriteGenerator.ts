@@ -24,7 +24,8 @@ class SpriteGenerator {
 	    return spriteMovable;
 		}
 		else {
-			return undefined;
+			let spriteMovable: SpriteMovableAndClickable = new SpriteMovableAndClickable(global.size.width, global.size.height - 100, Data.Ressources.bodies[zoneName], "body", -1, 0, 0, zoneName);
+			return spriteMovable;
 		}
   }
 

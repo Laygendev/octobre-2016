@@ -1,3 +1,7 @@
+/**
+Code par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var EventMouse;
 (function (EventMouse) {
     var Mouse = (function () {
@@ -45,7 +49,7 @@ var EventMouse;
         Mouse.move = { x: 0, y: 0 };
         Mouse.isClicked = false;
         return Mouse;
-    }());
+    })();
     EventMouse.Mouse = Mouse;
 })(EventMouse || (EventMouse = {}));
 //# sourceMappingURL=EventMouse.js.map

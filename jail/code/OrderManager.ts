@@ -12,8 +12,14 @@ class OrderManager {
   private Init():void { }
 
   public Draw(context: any):void {
+
     for(var key in this.listOrder) {
+			let keyNumber: any = key;
+			context.save();
+			context.scale(0.45, 0.45);
+			context.translate((150 * keyNumber) + 10, 10);
       this.listOrder[key].Draw(context);
+			context.restore();
     }
   }
 

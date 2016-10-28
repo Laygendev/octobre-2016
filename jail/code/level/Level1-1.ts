@@ -24,10 +24,9 @@ class Level11 extends MainScene {
     if (this.character) {
       if (this.character.can.delivery) {
         if (this.character.CheckElement(this.orderManager)) {
-          // this.orderManager.delete();
-        }
-        else {
-          console.log('unfound!');
+          this.character.Clear();
+					this.point.Add(20);
+					delete this.character;
         }
       }
     }

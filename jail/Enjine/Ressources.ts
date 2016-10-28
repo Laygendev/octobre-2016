@@ -9,7 +9,8 @@ module Data {
     static spriteSheet: HTMLImageElement;
     static buttons: Array<HTMLImageElement> = [];
     static bodies: Array<any>;
-    static humanPart: Array<any>;
+    static numberBodies: number = 0;
+		static humanPart: Array<any>;
     static numberHumanPart: number = 0;
     static staticImage: Array<any> = [];
 
@@ -25,6 +26,9 @@ module Data {
 
         Data.JSONLoader.Exec('jail/json/loadBodies.json', (data: Array<any>) => {
           this.bodies = data;
+					for (var key in this.bodies ) {
+						this.numberBodies++;
+					}
 
           Data.JSONLoader.Exec('jail/json/loadElements.json', (data: Array<any>) => {
             this.humanPart = data;
@@ -48,6 +52,19 @@ module Data {
       var randomNumber: number = Math.floor(Math.random() * (0 - (this.numberHumanPart))) + this.numberHumanPart;
       var i = 0;
       for (var key in this.humanPart) {
+        if (i == randomNumber) {
+          return key;
+        }
+        i++;
+      }
+
+			return undefined;
+		}
+
+		static RandomBody():string {
+      var randomNumber: number = Math.floor(Math.random() * (0 - (this.numberBodies))) + this.numberBodies;
+      var i = 0;
+      for (var key in this.bodies) {
         if (i == randomNumber) {
           return key;
         }

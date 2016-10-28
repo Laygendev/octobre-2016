@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var SpriteGenerator = (function () {
     function SpriteGenerator() {
         this.randomSide = ["top", "bottom", "left", "right"];
@@ -17,7 +21,8 @@ var SpriteGenerator = (function () {
             return spriteMovable;
         }
         else {
-            return undefined;
+            var spriteMovable = new SpriteMovableAndClickable(global.size.width, global.size.height - 100, Data.Ressources.bodies[zoneName], "body", -1, 0, 0, zoneName);
+            return spriteMovable;
         }
     };
     SpriteGenerator.prototype.RandomPosition = function () {
@@ -140,5 +145,5 @@ var SpriteGenerator = (function () {
         return randomSide[randomSideKey];
     };
     return SpriteGenerator;
-}());
+})();
 //# sourceMappingURL=SpriteGenerator.js.map

@@ -5,10 +5,11 @@ http://labodudev.fr
 
 class MainScene extends Scene {
   protected spriteManager: SpriteManager = new SpriteManager();
-  // private spawnManager: SpawnManager =  new SpawnManager(this.spriteManager, 1000);
+  private spawnManager: SpawnManager =  new SpawnManager(this.spriteManager, 2000);
   protected character: Character = undefined;
   private spawnHumanPartSprite: Sprite;
   private timer: Timer = new Timer(1000, 800, this);
+  protected point: Point = new Point(this);
 
   constructor(public selectedBody: string) {
     super();
@@ -59,6 +60,7 @@ class MainScene extends Scene {
 		}
 
     this.spriteManager.Draw(context);
+		this.point.Draw(context);
 
     this.DrawChildScene(context);
   }

@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -103,7 +107,6 @@ var Character = (function (_super) {
                     this.RemoveCollider(contactInfo.zoneCharacter);
                 }
                 else {
-                    this.mainScene.ChangeScene(true);
                 }
                 break;
             }
@@ -127,11 +130,12 @@ var Character = (function (_super) {
     };
     Character.prototype.CheckElement = function (orderManager) {
         var found = true;
+        var foundI = 0;
         for (var i in orderManager.listOrder) {
             found = orderManager.listOrder[i];
             for (var key in this.childs) {
                 if (this.childs[key]) {
-                    if (!orderManager.listOrder[i].listSprite.indexOf(this.childs[key].name)) {
+                    if (orderManager.listOrder[i].listSprite.indexOf(this.childs[key].name) == -1) {
                         found = false;
                     }
                 }
@@ -139,10 +143,12 @@ var Character = (function (_super) {
                     found = false;
                 }
             }
-        }
-        if (found) {
-            orderManager.Remove(found);
-            return found;
+            if (found) {
+                var iNumber = i;
+                orderManager.listOrder.splice(iNumber, 1);
+                orderManager.Remove(found);
+                return found;
+            }
         }
         return false;
     };
@@ -175,5 +181,5 @@ var Character = (function (_super) {
         delete this.can.delete;
     };
     return Character;
-}(Sprite));
+})(Sprite);
 //# sourceMappingURL=Character.js.map

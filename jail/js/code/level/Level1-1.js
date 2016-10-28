@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -22,9 +26,9 @@ var Level11 = (function (_super) {
         if (this.character) {
             if (this.character.can.delivery) {
                 if (this.character.CheckElement(this.orderManager)) {
-                }
-                else {
-                    console.log('unfound!');
+                    this.character.Clear();
+                    this.point.Add(20);
+                    delete this.character;
                 }
             }
         }
@@ -35,5 +39,5 @@ var Level11 = (function (_super) {
     Level11.prototype.Clear = function () {
     };
     return Level11;
-}(MainScene));
+})(MainScene);
 //# sourceMappingURL=Level1-1.js.map

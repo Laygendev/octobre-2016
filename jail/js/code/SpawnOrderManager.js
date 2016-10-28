@@ -1,3 +1,7 @@
+/**
+Créer par Jimmy Latour, 2016
+http://labodudev.fr
+*/
 var SpawnOrderManager = (function () {
     function SpawnOrderManager(spriteManager, orderManager, pathToJson) {
         var _this = this;
@@ -27,5 +31,5 @@ var SpawnOrderManager = (function () {
         }
     };
     return SpawnOrderManager;
-}());
+})();
 //# sourceMappingURL=SpawnOrderManager.js.map
