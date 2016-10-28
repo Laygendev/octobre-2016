@@ -48,6 +48,7 @@ class SpriteMovableAndClickable extends Sprite {
 			if (EventMouse.Mouse.isClicked &&
 				EventMouse.Mouse.click.x > this.x && EventMouse.Mouse.click.x < this.x + this.zone.width &&
 				EventMouse.Mouse.click.y > this.y && EventMouse.Mouse.click.y < this.y + this.zone.height) {
+          Data.Sound.PlaySound('takeBody', false);
 					return true;
 				}
 				return false;

@@ -35,6 +35,7 @@ class OrderManager {
   }
 
   public Add(order: Order) {
+    Data.Sound.PlaySound('orderPop', false);
     this.listOrder.push(order);
   }
 }

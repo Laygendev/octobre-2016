@@ -66,7 +66,9 @@ class Application {
     this.lastTime = newTime;
 
     if (SceneManager.Manager.currentScene && Data.Ressources.isLoaded) {
-      SceneManager.Manager.currentScene.Update(delta);
+      if (SceneManager.Manager.currentScene.started) {
+        SceneManager.Manager.currentScene.Update(delta);
+      }
 
 		  this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
       SceneManager.Manager.currentScene.Draw(this.context);

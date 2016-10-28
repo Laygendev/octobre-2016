@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -10,24 +6,25 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Character = (function (_super) {
     __extends(Character, _super);
     function Character(mainScene, x, y, zone, name) {
-        _super.call(this, x, y, zone, 'body', 'character');
-        this.mainScene = mainScene;
-        this.x = x;
-        this.y = y;
-        this.zone = zone;
-        this.name = name;
-        this.childs = { 'head': undefined, 'body': undefined, 'arml': undefined, 'armr': undefined, 'leg': undefined };
-        this.colliders = [];
-        this.angle = 0;
-        this.speedAngle = 0.1;
-        this.secondTime = 0;
-        this.timeForDelivery = 2;
-        this.interval = undefined;
-        this.currentAction = "";
-        this.can = {
+        var _this = _super.call(this, x, y, zone, 'body', 'character') || this;
+        _this.mainScene = mainScene;
+        _this.x = x;
+        _this.y = y;
+        _this.zone = zone;
+        _this.name = name;
+        _this.childs = { 'head': undefined, 'body': undefined, 'arml': undefined, 'armr': undefined, 'leg': undefined };
+        _this.colliders = [];
+        _this.angle = 0;
+        _this.speedAngle = 0.1;
+        _this.secondTime = 0;
+        _this.timeForDelivery = 2;
+        _this.interval = undefined;
+        _this.currentAction = "";
+        _this.can = {
             delivery: false,
             delete: false
         };
+        return _this;
     }
     Character.prototype.Init = function () {
         var _this = this;
@@ -39,6 +36,7 @@ var Character = (function (_super) {
         });
     };
     Character.prototype.AddChild = function (child) {
+        Data.Sound.PlaySound('joinOk', false);
         this.childs[child["type"]] = child;
     };
     Character.prototype.Update = function () {
@@ -145,8 +143,7 @@ var Character = (function (_super) {
             }
             if (found) {
                 var iNumber = i;
-                orderManager.listOrder.splice(iNumber, 1);
-                orderManager.Remove(found);
+                found.done = true;
                 return found;
             }
         }
@@ -154,6 +151,14 @@ var Character = (function (_super) {
     };
     Character.prototype.WaitForDelivery = function (direction) {
         this.secondTime += 1;
+        if (this.secondTime == 1) {
+            if (direction == "left") {
+                Data.Sound.PlaySound('sendHuman', false);
+            }
+            else {
+                Data.Sound.PlaySound('deleteHuman', false);
+            }
+        }
         if (this.secondTime >= this.timeForDelivery) {
             if (direction == "left") {
                 this.can.delivery = true;
@@ -181,5 +186,5 @@ var Character = (function (_super) {
         delete this.can.delete;
     };
     return Character;
-})(Sprite);
+}(Sprite));
 //# sourceMappingURL=Character.js.map

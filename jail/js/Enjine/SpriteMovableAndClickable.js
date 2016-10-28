@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -10,14 +6,15 @@ var __extends = (this && this.__extends) || function (d, b) {
 var SpriteMovableAndClickable = (function (_super) {
     __extends(SpriteMovableAndClickable, _super);
     function SpriteMovableAndClickable(x, y, zone, zoneType, speed, angle, speedAngle, name) {
-        _super.call(this, x, y, zone, zoneType, name);
-        this.x = x;
-        this.y = y;
-        this.zone = zone;
-        this.speed = speed;
-        this.angle = angle;
-        this.speedAngle = speedAngle;
-        this.name = name;
+        var _this = _super.call(this, x, y, zone, zoneType, name) || this;
+        _this.x = x;
+        _this.y = y;
+        _this.zone = zone;
+        _this.speed = speed;
+        _this.angle = angle;
+        _this.speedAngle = speedAngle;
+        _this.name = name;
+        return _this;
     }
     SpriteMovableAndClickable.prototype.Update = function () {
         this.x = this.x + this.speed * Math.cos(this.angle);
@@ -44,10 +41,11 @@ var SpriteMovableAndClickable = (function (_super) {
         if (EventMouse.Mouse.isClicked &&
             EventMouse.Mouse.click.x > this.x && EventMouse.Mouse.click.x < this.x + this.zone.width &&
             EventMouse.Mouse.click.y > this.y && EventMouse.Mouse.click.y < this.y + this.zone.height) {
+            Data.Sound.PlaySound('takeBody', false);
             return true;
         }
         return false;
     };
     return SpriteMovableAndClickable;
-})(Sprite);
+}(Sprite));
 //# sourceMappingURL=SpriteMovableAndClickable.js.map

@@ -5,7 +5,6 @@ http://labodudev.fr
 
 class Level11 extends MainScene {
   spawnOrderManager: SpawnOrderManager = undefined;
-  orderManager: OrderManager = new OrderManager();
 
   constructor(public selectedBody: string) {
     super(selectedBody);
@@ -23,7 +22,9 @@ class Level11 extends MainScene {
   protected UpdateChildScene(delta: number):void {
     if (this.character) {
       if (this.character.can.delivery) {
-        if (this.character.CheckElement(this.orderManager)) {
+        let order = this.character.CheckElement(this.orderManager);
+        if (order) {
+          order.SetCharacter(this.character);
           this.character.Clear();
 					this.point.Add(20);
 					delete this.character;

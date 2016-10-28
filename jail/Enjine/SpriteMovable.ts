@@ -4,15 +4,26 @@ http://labodudev.fr
 */
 
 class SpriteMovable extends Sprite {
+  private timeOut: number = 2000;
+  private inScreen: boolean = false;
 
   constructor(public x: number, public y:number, public zone: any, zoneType: any, public speed: number, public angle: number, public speedAngle: number, public name: string) {
     super(x, y, zone, zoneType, name);
+
+     setTimeout(() => { this.inScreen = true; }, this.timeOut);
   }
 
   public Update():void {
     this.x = this.x + this.speed * Math.cos(this.angle);
     this.y = this.y + this.speed * Math.sin(this.angle);
     this.angle += this.speedAngle;
+
+    if (this.inScreen && (this.x < -50 || this.x > global.size.width + 50 || this.y < -50 || this.y > global.size.height + 50) ) {
+      if (this.spriteManager) {
+        this.spriteManager.Remove(this);
+      }
+      this.Clear();
+    }
 
 
     for (var key in this.colliderPoint) {

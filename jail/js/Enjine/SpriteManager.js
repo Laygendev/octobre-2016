@@ -1,10 +1,7 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var SpriteManager = (function () {
     function SpriteManager() {
         this.listSprite = { "body": [], "head": [], "leg": [], "arml": [], "armr": [], "button": [], "staticImage": [] };
+        this.numberSprite = 0;
     }
     SpriteManager.prototype.Init = function () {
     };
@@ -22,6 +19,8 @@ var SpriteManager = (function () {
         return undefined;
     };
     SpriteManager.prototype.Draw = function (context) {
+        context.font = "12px Source Sans Pro Bold";
+        context.fillText("Sprite: " + this.numberSprite, global.size.width - 50, 50);
         for (var type in this.listSprite) {
             for (var key in this.listSprite[type]) {
                 this.listSprite[type][key].Draw(context);
@@ -30,6 +29,7 @@ var SpriteManager = (function () {
     };
     SpriteManager.prototype.Add = function (sprite) {
         if (sprite) {
+            this.numberSprite++;
             this.listSprite[sprite.type].push(sprite);
         }
     };
@@ -38,10 +38,11 @@ var SpriteManager = (function () {
             for (var i = 0; i < this.listSprite[type].length; i++) {
                 if (this.listSprite[type][i] == sprite) {
                     this.listSprite[type].splice(i, 1);
+                    this.numberSprite--;
                 }
             }
         }
     };
     return SpriteManager;
-})();
+}());
 //# sourceMappingURL=SpriteManager.js.map

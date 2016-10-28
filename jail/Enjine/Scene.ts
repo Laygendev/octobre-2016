@@ -4,6 +4,8 @@ http://labodudev.fr
 */
 
 class Scene {
+  public started: boolean = false;
+  
   /**
   * Le constructeur permet appelle LoadCanvas
   */

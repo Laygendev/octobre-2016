@@ -8,8 +8,10 @@ class MainScene extends Scene {
   private spawnManager: SpawnManager =  new SpawnManager(this.spriteManager, 2000);
   protected character: Character = undefined;
   private spawnHumanPartSprite: Sprite;
-  private timer: Timer = new Timer(1000, 800, this);
+  private timer: Timer = new Timer(1000, 30, this);
   protected point: Point = new Point(this);
+  public orderManager: OrderManager = new OrderManager();
+
 
   constructor(public selectedBody: string) {
     super();
@@ -72,8 +74,8 @@ class MainScene extends Scene {
     delete this.timer;
 	}
 
-  public ChangeScene(gameOver:boolean):void {
+  public ChangeScene():void {
     this.Clear();
-    SceneManager.Manager.SetScene(new EndScene(this.character, gameOver));
+    SceneManager.Manager.SetScene(new EndScene(this.orderManager));
   }
 }

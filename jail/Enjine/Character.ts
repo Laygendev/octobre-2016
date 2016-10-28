@@ -30,6 +30,7 @@ class Character extends Sprite {
   }
 
   public AddChild(child: Sprite):void {
+    Data.Sound.PlaySound('joinOk', false);
     this.childs[child["type"]] = child;
   }
 
@@ -160,8 +161,9 @@ class Character extends Sprite {
 
 	    if (found) {
 				let iNumber: any = i;
-				orderManager.listOrder.splice(iNumber, 1);
-	      orderManager.Remove(found);
+        found.done = true;
+				// orderManager.listOrder.splice(iNumber, 1);
+	      // orderManager.Remove(found);
 	      return found;
 	    }
 		}
@@ -171,6 +173,15 @@ class Character extends Sprite {
 
   public WaitForDelivery(direction: string):void {
     this.secondTime += 1;
+
+    if (this.secondTime == 1) {
+      if (direction == "left") {
+        Data.Sound.PlaySound('sendHuman', false);
+      }
+      else {
+        Data.Sound.PlaySound('deleteHuman', false);
+      }
+    }
 
     if (this.secondTime >= this.timeForDelivery) {
       if (direction == "left") {

@@ -5,6 +5,7 @@ http://labodudev.fr
 
 class SpriteManager {
   listSprite: any = {"body": [], "head": [], "leg": [], "arml": [], "armr": [], "button": [], "staticImage": []};
+  numberSprite: number = 0;
   constructor() {}
 
   protected Init():void {
@@ -28,6 +29,9 @@ class SpriteManager {
   }
 
   public Draw(context: any):void {
+    context.font = "12px Source Sans Pro Bold";
+    context.fillText("Sprite: " + this.numberSprite, global.size.width - 50, 50);
+
     for (var type in this.listSprite) {
       for (var key in this.listSprite[type]) {
         this.listSprite[type][key].Draw(context);
@@ -37,6 +41,7 @@ class SpriteManager {
 
   Add(sprite: Sprite): void {
 		if (sprite) {
+      this.numberSprite++;
 	    this.listSprite[sprite.type].push(sprite);
 		}
   }
@@ -46,7 +51,7 @@ class SpriteManager {
       for (var i = 0; i < this.listSprite[type].length; i++) {
         if (this.listSprite[type][i] == sprite) {
           this.listSprite[type].splice(i, 1);
-
+          this.numberSprite--;
         }
       }
     }

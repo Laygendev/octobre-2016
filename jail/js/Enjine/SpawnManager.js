@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var SpawnManager = (function () {
     function SpawnManager(spriteManager, time) {
         var _this = this;
@@ -13,6 +9,7 @@ var SpawnManager = (function () {
     }
     SpawnManager.prototype.Exec = function () {
         var tmpSprite = this.spriteGenerator.Exec(undefined);
+        tmpSprite.SetSpriteManager(this.spriteManager);
         this.spriteManager.Add(tmpSprite);
     };
     SpawnManager.prototype.ExecBody = function () {
@@ -20,5 +17,5 @@ var SpawnManager = (function () {
         this.spriteManager.Add(tmpSprite);
     };
     return SpawnManager;
-})();
+}());
 //# sourceMappingURL=SpawnManager.js.map

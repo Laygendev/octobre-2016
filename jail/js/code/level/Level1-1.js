@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -10,11 +6,11 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Level11 = (function (_super) {
     __extends(Level11, _super);
     function Level11(selectedBody) {
-        _super.call(this, selectedBody);
-        this.selectedBody = selectedBody;
-        this.spawnOrderManager = undefined;
-        this.orderManager = new OrderManager();
-        this.InitOrder();
+        var _this = _super.call(this, selectedBody) || this;
+        _this.selectedBody = selectedBody;
+        _this.spawnOrderManager = undefined;
+        _this.InitOrder();
+        return _this;
     }
     Level11.prototype.InitOrder = function () {
         this.spawnOrderManager = new SpawnOrderManager(this.spriteManager, this.orderManager, 'jail/json/level/order1-1.json');
@@ -25,7 +21,9 @@ var Level11 = (function (_super) {
     Level11.prototype.UpdateChildScene = function (delta) {
         if (this.character) {
             if (this.character.can.delivery) {
-                if (this.character.CheckElement(this.orderManager)) {
+                var order = this.character.CheckElement(this.orderManager);
+                if (order) {
+                    order.SetCharacter(this.character);
                     this.character.Clear();
                     this.point.Add(20);
                     delete this.character;
@@ -39,5 +37,5 @@ var Level11 = (function (_super) {
     Level11.prototype.Clear = function () {
     };
     return Level11;
-})(MainScene);
+}(MainScene));
 //# sourceMappingURL=Level1-1.js.map

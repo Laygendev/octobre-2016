@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var Sprite = (function () {
     function Sprite(x, y, zone, type, name) {
         this.x = x;
@@ -11,8 +7,12 @@ var Sprite = (function () {
         this.name = name;
         this.offset = { x: 0, y: 0 };
         this.colliderPoint = [];
+        this.spriteManager = undefined;
         this.Init();
     }
+    Sprite.prototype.SetSpriteManager = function (spriteManager) {
+        this.spriteManager = spriteManager;
+    };
     Sprite.prototype.Init = function () {
         if (this.zone && this.zone.collider) {
             for (var key in this.zone.collider) {
@@ -35,6 +35,7 @@ var Sprite = (function () {
         }
     };
     Sprite.prototype.Clear = function () {
+        delete this.colliderPoint;
         delete this.offset;
         delete this.zone;
     };
@@ -46,5 +47,5 @@ var Sprite = (function () {
         this.offset = offset;
     };
     return Sprite;
-})();
+}());
 //# sourceMappingURL=Sprite.js.map

@@ -28,6 +28,7 @@ class SpawnOrderManager {
     					spriteMovable = new SpriteMovableAndClickable(global.size.width, global.size.height - 100, Data.Ressources.bodies[this.jsonLevel[currentTime][key][x][i]], "body", -1, 0, 0, this.jsonLevel[currentTime][key][x][i]);
     				}
 
+            spriteMovable.SetSpriteManager(this.spriteManager);
     				this.spriteManager.Add(spriteMovable);
           }
   			}

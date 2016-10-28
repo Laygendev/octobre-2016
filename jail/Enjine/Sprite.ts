@@ -6,9 +6,15 @@ http://labodudev.fr
 class Sprite {
   public offset: any = {x: 0, y: 0};
   public colliderPoint: Array<ColliderPoint> = [];
+  public spriteManager: SpriteManager = undefined;
+
 
   constructor(public x: number, public y:number, public zone: any, public type: string, public name: string) {
     this.Init();
+  }
+
+  public SetSpriteManager(spriteManager: SpriteManager) {
+    this.spriteManager = spriteManager;
   }
 
   protected Init():void {
@@ -47,7 +53,8 @@ class Sprite {
   }
 
   public Clear():void {
-    // this.colliderPoint.Clear();
+    // this.colliderPoint.splice(0, this.colliderPoint.length - 1);
+    delete this.colliderPoint;
     delete this.offset;
     delete this.zone;
   }

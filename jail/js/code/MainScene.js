@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -10,13 +6,15 @@ var __extends = (this && this.__extends) || function (d, b) {
 var MainScene = (function (_super) {
     __extends(MainScene, _super);
     function MainScene(selectedBody) {
-        _super.call(this);
-        this.selectedBody = selectedBody;
-        this.spriteManager = new SpriteManager();
-        this.spawnManager = new SpawnManager(this.spriteManager, 2000);
-        this.character = undefined;
-        this.timer = new Timer(1000, 800, this);
-        this.point = new Point(this);
+        var _this = _super.call(this) || this;
+        _this.selectedBody = selectedBody;
+        _this.spriteManager = new SpriteManager();
+        _this.spawnManager = new SpawnManager(_this.spriteManager, 2000);
+        _this.character = undefined;
+        _this.timer = new Timer(1000, 30, _this);
+        _this.point = new Point(_this);
+        _this.orderManager = new OrderManager();
+        return _this;
     }
     MainScene.prototype.Init = function () {
         this.spawnHumanPartSprite = new SpriteRepeat(Data.Ressources.staticImage['tapis'], 0, global.size.height - 41, { width: 100, height: 41 }, "x", "tapis");
@@ -59,10 +57,10 @@ var MainScene = (function (_super) {
         this.timer.Clear();
         delete this.timer;
     };
-    MainScene.prototype.ChangeScene = function (gameOver) {
+    MainScene.prototype.ChangeScene = function () {
         this.Clear();
-        SceneManager.Manager.SetScene(new EndScene(this.character, gameOver));
+        SceneManager.Manager.SetScene(new EndScene(this.orderManager));
     };
     return MainScene;
-})(Scene);
+}(Scene));
 //# sourceMappingURL=MainScene.js.map

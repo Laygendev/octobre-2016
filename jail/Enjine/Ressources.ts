@@ -14,7 +14,7 @@ module Data {
     static numberHumanPart: number = 0;
     static staticImage: Array<any> = [];
 
-    static Load():void {
+    static Load(callback: () => void):void {
 			this.buttons['restart'] = new Image();
 			this.buttons['restart'].src = 'jail/images/buttonRestart.png';
 
@@ -36,7 +36,7 @@ module Data {
                 this.numberHumanPart++;
             }
             this.isLoaded = true;
-            SceneManager.Manager.SetScene(new Level11('body0'));
+            callback();
           });
         });
       });

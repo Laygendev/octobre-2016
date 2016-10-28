@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var global = {};
 global.size = { width: 0, height: 0 };
 var Application = (function () {
@@ -37,7 +33,9 @@ var Application = (function () {
         var delta = (newTime - this.lastTime) / 1000;
         this.lastTime = newTime;
         if (SceneManager.Manager.currentScene && Data.Ressources.isLoaded) {
-            SceneManager.Manager.currentScene.Update(delta);
+            if (SceneManager.Manager.currentScene.started) {
+                SceneManager.Manager.currentScene.Update(delta);
+            }
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
             SceneManager.Manager.currentScene.Draw(this.context);
         }
@@ -49,5 +47,5 @@ var Application = (function () {
         global.size.height = this.canvas.height;
     };
     return Application;
-})();
+}());
 //# sourceMappingURL=Application.js.map

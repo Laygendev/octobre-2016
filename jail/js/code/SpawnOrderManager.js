@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var SpawnOrderManager = (function () {
     function SpawnOrderManager(spriteManager, orderManager, pathToJson) {
         var _this = this;
@@ -24,6 +20,7 @@ var SpawnOrderManager = (function () {
                         if (!spriteMovable) {
                             spriteMovable = new SpriteMovableAndClickable(global.size.width, global.size.height - 100, Data.Ressources.bodies[this.jsonLevel[currentTime][key][x][i]], "body", -1, 0, 0, this.jsonLevel[currentTime][key][x][i]);
                         }
+                        spriteMovable.SetSpriteManager(this.spriteManager);
                         this.spriteManager.Add(spriteMovable);
                     }
                 }
@@ -31,5 +28,5 @@ var SpawnOrderManager = (function () {
         }
     };
     return SpawnOrderManager;
-})();
+}());
 //# sourceMappingURL=SpawnOrderManager.js.map

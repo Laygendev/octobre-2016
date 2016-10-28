@@ -12,6 +12,8 @@ class Loader {
   }
 
   StartLoad():void {
-    Data.Ressources.Load();
+    Data.Ressources.Load( () => {
+      Data.Sound.Load();
+    });
   }
 }

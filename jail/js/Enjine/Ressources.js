@@ -1,13 +1,9 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var Data;
 (function (Data) {
     var Ressources = (function () {
         function Ressources() {
         }
-        Ressources.Load = function () {
+        Ressources.Load = function (callback) {
             var _this = this;
             this.buttons['restart'] = new Image();
             this.buttons['restart'].src = 'jail/images/buttonRestart.png';
@@ -26,7 +22,7 @@ var Data;
                             _this.numberHumanPart++;
                         }
                         _this.isLoaded = true;
-                        SceneManager.Manager.SetScene(new Level11('body0'));
+                        callback();
                     });
                 });
             });
@@ -58,13 +54,13 @@ var Data;
             }
             return undefined;
         };
-        Ressources.isLoaded = false;
-        Ressources.buttons = [];
-        Ressources.numberBodies = 0;
-        Ressources.numberHumanPart = 0;
-        Ressources.staticImage = [];
         return Ressources;
-    })();
+    }());
+    Ressources.isLoaded = false;
+    Ressources.buttons = [];
+    Ressources.numberBodies = 0;
+    Ressources.numberHumanPart = 0;
+    Ressources.staticImage = [];
     Data.Ressources = Ressources;
 })(Data || (Data = {}));
 //# sourceMappingURL=Ressources.js.map

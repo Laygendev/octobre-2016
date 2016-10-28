@@ -13,6 +13,7 @@ class SpawnManager {
 
   Exec():void {
     let tmpSprite: Sprite = this.spriteGenerator.Exec(undefined);
+    tmpSprite.SetSpriteManager(this.spriteManager);
     this.spriteManager.Add(tmpSprite);
   }
 
