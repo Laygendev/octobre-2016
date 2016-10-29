@@ -7,6 +7,10 @@ class Sprite {
   public offset: any = {x: 0, y: 0};
   public colliderPoint: Array<ColliderPoint> = [];
   public spriteManager: SpriteManager = undefined;
+  public scale: any = {
+    x: 1.0,
+    y: 1.0
+  }
 
 
   constructor(public x: number, public y:number, public zone: any, public type: string, public name: string) {
@@ -34,7 +38,7 @@ class Sprite {
   public Draw(context: any):void {
     context.save();
     context.translate(this.x, this.y);
-
+    context.scale(this.scale.x, this.scale.y);
     context.drawImage(Data.Ressources.spriteSheet,
       this.zone.x,
       this.zone.y,
@@ -66,5 +70,9 @@ class Sprite {
 
   public SetOffset(offset: any):void {
     this.offset = offset;
+  }
+
+  public AnimateScale():void {
+    setInterval(() => { this.scale = Utils.Animate.Scale(this.scale); }, 80);
   }
 }

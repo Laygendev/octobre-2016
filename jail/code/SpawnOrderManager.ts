@@ -25,14 +25,25 @@ class SpawnOrderManager {
     				let spriteMovable = this.spriteGenerator.Exec(this.jsonLevel[currentTime][key][x][i]);
 
     				if (!spriteMovable) { // C'est un corps
-    					spriteMovable = new SpriteMovableAndClickable(global.size.width, global.size.height - 100, Data.Ressources.bodies[this.jsonLevel[currentTime][key][x][i]], "body", -1, 0, 0, this.jsonLevel[currentTime][key][x][i]);
-    				}
-
-            spriteMovable.SetSpriteManager(this.spriteManager);
-    				this.spriteManager.Add(spriteMovable);
+              let posBody: any = Data.Ressources.RandomPosBody();
+    					let spriteClickable = new SpriteClickable(undefined, global.size.width / 2 + posBody.x, global.size.height + posBody.y, Data.Ressources.bodies[this.jsonLevel[currentTime][key][x][i]], "body", this.jsonLevel[currentTime][key][x][i]);
+              spriteClickable.angle = posBody.angle;
+              spriteClickable.SetSpriteManager(this.spriteManager);
+              this.spriteManager.Add(spriteClickable);
+            }
+            else {
+              spriteMovable.SetSpriteManager(this.spriteManager);
+              this.spriteManager.Add(spriteMovable);
+            }
           }
   			}
       }
     }
+  }
+
+  Clear():void {
+    delete this.jsonLevel;
+    this.spriteGenerator.Clear();
+    delete this.spriteGenerator;
   }
 }

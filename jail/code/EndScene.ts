@@ -9,36 +9,47 @@ class EndScene extends Scene {
 	private gameOver: boolean = true;
 	private character: Character = undefined;
 
-  constructor(public orderManager: OrderManager) {
+  constructor(public orderManager: OrderManager, public point: Point) {
     super();
-		console.log(this.orderManager);
-		
+		this.started = true;
 		this.Init();
   }
 
   public Init():void {
 		this.buttonRestart = new SpriteClickable(Data.Ressources.buttons['restart'], (global.size.width / 2) - (163 / 2), global.size.height - 200, {width: 163, height: 45}, 'button', 'button');
-  }
-
-	InitWin():void {
-
-	}
-
-	InitGameOver():void {
-
+		this.spriteManager.Add(this.buttonRestart);
+		for (var key in this.orderManager.listOrder) {
+			if (this.orderManager.listOrder[key].done) {
+				let keyNumber: any = key;
+				this.orderManager.listOrder[key].character.SetPos(keyNumber * 150, 0);
+			}
+		}
 	}
 
   public Update(delta: number):void {
 		this.spriteManager.Update();
 
 		if (this.buttonRestart.ClickIn()) {
-			SceneManager.Manager.SetScene(new SelectBody());
+			SceneManager.Manager.SetScene(new SelectLevelScene());
 		}
   }
 
 	public Draw(context: any):void {
-			context.font = "80px Source Sans Pro Bold";
-			context.fillText("Victoire!", (global.size.width / 2) - 140, 160);
+		context.font = "80px Source Sans Pro Bold";
+		context.fillText("Mission terminée", (global.size.width / 2) - 200, 160);
+		context.font = "20px Source Sans Pro Bold";
+		context.fillText("Score: " + this.point.point, (global.size.width / 2) - 200, 200);
+
+		context.save();
+		context.translate(global.size.width / 2 - 200, global.size.height / 2 - 20);
+		context.scale(0.5, 0.5);
+		for (var key in this.orderManager.listOrder) {
+			if (this.orderManager.listOrder[key].done) {
+				console.log(this.orderManager.listOrder[key].character);
+				this.orderManager.listOrder[key].character.Draw(context);
+			}
+		}
+		context.restore();
 
 		this.spriteManager.Draw(context);
   }

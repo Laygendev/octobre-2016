@@ -6,25 +6,17 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Character = (function (_super) {
     __extends(Character, _super);
     function Character(mainScene, x, y, zone, name) {
-        var _this = _super.call(this, x, y, zone, 'body', 'character') || this;
-        _this.mainScene = mainScene;
-        _this.x = x;
-        _this.y = y;
-        _this.zone = zone;
-        _this.name = name;
-        _this.childs = { 'head': undefined, 'body': undefined, 'arml': undefined, 'armr': undefined, 'leg': undefined };
-        _this.colliders = [];
-        _this.angle = 0;
-        _this.speedAngle = 0.1;
-        _this.secondTime = 0;
-        _this.timeForDelivery = 2;
-        _this.interval = undefined;
-        _this.currentAction = "";
-        _this.can = {
-            delivery: false,
-            delete: false
-        };
-        return _this;
+        _super.call(this, x, y, zone, 'body', 'character');
+        this.mainScene = mainScene;
+        this.x = x;
+        this.y = y;
+        this.zone = zone;
+        this.name = name;
+        this.childs = { 'head': undefined, 'body': undefined, 'arml': undefined, 'armr': undefined, 'leg': undefined };
+        this.colliders = [];
+        this.angle = 0;
+        this.speedAngle = 0.1;
+        this.secondTime = 0;
     }
     Character.prototype.Init = function () {
         var _this = this;
@@ -40,31 +32,13 @@ var Character = (function (_super) {
         this.childs[child["type"]] = child;
     };
     Character.prototype.Update = function () {
-        var _this = this;
         this.x = EventMouse.Mouse.move.x;
         this.y = EventMouse.Mouse.move.y;
         if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left) || EventMouse.Mouse.pressedClics.left) {
             this.angle -= this.speedAngle;
-            this.currentAction = "left";
         }
         else if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.right) || EventMouse.Mouse.pressedClics.right) {
             this.angle += this.speedAngle;
-            this.currentAction = "right";
-        }
-        else {
-            this.currentAction = "";
-        }
-        if (this.currentAction != "") {
-            if (!this.interval) {
-                this.interval = setInterval(function () { _this.WaitForDelivery(_this.currentAction); }, 1000);
-            }
-        }
-        else {
-            clearInterval(this.interval);
-            this.interval = undefined;
-            this.secondTime = 0;
-            this.can.delivery = false;
-            this.can.delete = false;
         }
         for (var key in this.colliders) {
             this.colliders[key].Update(this.x, this.y, this.angle);
@@ -111,8 +85,6 @@ var Character = (function (_super) {
         }
     };
     Character.prototype.Draw = function (context) {
-        context.font = "30px Source Sans Pro Bold";
-        context.fillText("Actions dans: " + (this.secondTime), (global.size.width - 300), 50);
         context.save();
         context.translate(this.x, this.y);
         context.rotate(this.angle);
@@ -149,41 +121,11 @@ var Character = (function (_super) {
         }
         return false;
     };
-    Character.prototype.WaitForDelivery = function (direction) {
-        this.secondTime += 1;
-        if (this.secondTime == 1) {
-            if (direction == "left") {
-                Data.Sound.PlaySound('sendHuman', false);
-            }
-            else {
-                Data.Sound.PlaySound('deleteHuman', false);
-            }
-        }
-        if (this.secondTime >= this.timeForDelivery) {
-            if (direction == "left") {
-                this.can.delivery = true;
-            }
-            else {
-                this.can.delete = true;
-            }
-        }
-    };
     Character.prototype.Clear = function () {
-        delete this.childs.head;
-        delete this.childs.body;
-        delete this.childs.arm;
-        delete this.childs.leg;
         delete this.colliders;
         this.angle = 0;
         this.speedAngle = 0;
         this.secondTime = 0;
-        this.timeForDelivery = 5;
-        if (this.interval) {
-            clearInterval(this.interval);
-        }
-        delete this.interval;
-        delete this.can.delivery;
-        delete this.can.delete;
     };
     return Character;
 }(Sprite));

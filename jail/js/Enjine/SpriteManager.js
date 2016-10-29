@@ -9,7 +9,7 @@ var SpriteManager = (function () {
         for (var type in this.listSprite) {
             for (var key in this.listSprite[type]) {
                 this.listSprite[type][key].Update();
-                if (this.listSprite[type][key].ClickIn && this.listSprite[type][key].ClickIn()) {
+                if (this.listSprite[type][key] && this.listSprite[type][key].type && this.listSprite[type][key].type == "body" && this.listSprite[type][key].ClickIn()) {
                     var keyElement = this.listSprite[type][key];
                     this.Remove(this.listSprite[type][key]);
                     return keyElement.name;
@@ -42,6 +42,8 @@ var SpriteManager = (function () {
                 }
             }
         }
+    };
+    SpriteManager.prototype.Clear = function () {
     };
     return SpriteManager;
 }());

@@ -4,11 +4,11 @@ http://labodudev.fr
 */
 
 class Level11 extends MainScene {
-  spawnOrderManager: SpawnOrderManager = undefined;
-
-  constructor(public selectedBody: string) {
-    super(selectedBody);
+  constructor() {
+    super();
+    this.Start();
     this.InitOrder();
+    this.timer = new Timer(1000, 25, this);
   }
 
   public InitOrder() {
@@ -19,25 +19,7 @@ class Level11 extends MainScene {
     this.spawnOrderManager.Exec(currentTime);
   }
 
-  protected UpdateChildScene(delta: number):void {
-    if (this.character) {
-      if (this.character.can.delivery) {
-        let order = this.character.CheckElement(this.orderManager);
-        if (order) {
-          order.SetCharacter(this.character);
-          this.character.Clear();
-					this.point.Add(20);
-					delete this.character;
-        }
-      }
-    }
-  }
-
   protected DrawChildScene(context: any):void {
     this.orderManager.Draw(context);
   }
-
-	public Clear():void {
-
-	}
 }

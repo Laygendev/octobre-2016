@@ -6,18 +6,18 @@ var __extends = (this && this.__extends) || function (d, b) {
 var SpriteMovable = (function (_super) {
     __extends(SpriteMovable, _super);
     function SpriteMovable(x, y, zone, zoneType, speed, angle, speedAngle, name) {
-        var _this = _super.call(this, x, y, zone, zoneType, name) || this;
-        _this.x = x;
-        _this.y = y;
-        _this.zone = zone;
-        _this.speed = speed;
-        _this.angle = angle;
-        _this.speedAngle = speedAngle;
-        _this.name = name;
-        _this.timeOut = 2000;
-        _this.inScreen = false;
-        setTimeout(function () { _this.inScreen = true; }, _this.timeOut);
-        return _this;
+        var _this = this;
+        _super.call(this, x, y, zone, zoneType, name);
+        this.x = x;
+        this.y = y;
+        this.zone = zone;
+        this.speed = speed;
+        this.angle = angle;
+        this.speedAngle = speedAngle;
+        this.name = name;
+        this.timeOut = 2000;
+        this.inScreen = false;
+        setTimeout(function () { _this.inScreen = true; }, this.timeOut);
     }
     SpriteMovable.prototype.Update = function () {
         this.x = this.x + this.speed * Math.cos(this.angle);

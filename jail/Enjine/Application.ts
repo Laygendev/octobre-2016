@@ -30,6 +30,7 @@ class Application {
     this.canvas = document.getElementById("canvas");
 		this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight
+    global.canvas = this.canvas;
 
     this.context = this.canvas.getContext('2d');
 		global.size.width = this.canvas.width;
@@ -65,13 +66,17 @@ class Application {
     let delta: number = (newTime - this.lastTime) / 1000;
     this.lastTime = newTime;
 
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
     if (SceneManager.Manager.currentScene && Data.Ressources.isLoaded) {
       if (SceneManager.Manager.currentScene.started) {
         SceneManager.Manager.currentScene.Update(delta);
+        SceneManager.Manager.currentScene.Draw(this.context);
       }
-
-		  this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      SceneManager.Manager.currentScene.Draw(this.context);
+      else {
+        SceneManager.Manager.currentScene.UpdateNoStarted(delta);
+        SceneManager.Manager.currentScene.DrawNoStarted(this.context);
+      }
 
     }
   }

@@ -5,7 +5,7 @@ http://labodudev.fr
 
 class SpriteClickable extends Sprite {
 	private speedAngle: number = 0.01;
-	private angle: number = 0;
+	public angle: number = 0;
 
 	constructor(public image: any, public x: number, public y:number, public zone: any, public type: string, public name: string) {
 		super(x, y, zone, type, name);
@@ -13,8 +13,7 @@ class SpriteClickable extends Sprite {
 
 	public Update():void {
 		if (this.image == undefined ) {
-			this.MouseIn();
-			this.angle += this.speedAngle;
+			// this.MouseIn();
 		}
 	}
 
@@ -44,10 +43,8 @@ class SpriteClickable extends Sprite {
 		public MouseIn():void {
 			if (EventMouse.Mouse.move.x > this.x && EventMouse.Mouse.move.x < this.x + this.zone.width &&
 				EventMouse.Mouse.move.y > this.y && EventMouse.Mouse.move.y < this.y + this.zone.height) {
-					this.speedAngle = 2;
 				}
 				else {
-					this.speedAngle = 0.02;
 				}
 			}
 

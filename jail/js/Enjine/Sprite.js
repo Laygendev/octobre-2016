@@ -8,6 +8,10 @@ var Sprite = (function () {
         this.offset = { x: 0, y: 0 };
         this.colliderPoint = [];
         this.spriteManager = undefined;
+        this.scale = {
+            x: 1.0,
+            y: 1.0
+        };
         this.Init();
     }
     Sprite.prototype.SetSpriteManager = function (spriteManager) {
@@ -28,6 +32,7 @@ var Sprite = (function () {
     Sprite.prototype.Draw = function (context) {
         context.save();
         context.translate(this.x, this.y);
+        context.scale(this.scale.x, this.scale.y);
         context.drawImage(Data.Ressources.spriteSheet, this.zone.x, this.zone.y, this.zone.width, this.zone.height, -(this.zone.width / 2) + this.offset.x, -(this.zone.height / 2) + this.offset.y, this.zone.width, this.zone.height);
         context.restore();
         for (var key in this.colliderPoint) {
@@ -45,6 +50,10 @@ var Sprite = (function () {
     };
     Sprite.prototype.SetOffset = function (offset) {
         this.offset = offset;
+    };
+    Sprite.prototype.AnimateScale = function () {
+        var _this = this;
+        setInterval(function () { _this.scale = Utils.Animate.Scale(_this.scale); }, 80);
     };
     return Sprite;
 }());

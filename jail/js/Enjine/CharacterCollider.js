@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var CharacterCollider = (function () {
     function CharacterCollider(Rect) {
         this.Rect = Rect;
@@ -99,8 +95,6 @@ var CharacterCollider = (function () {
         }
     };
     CharacterCollider.prototype.CheckIsValide = function (zoneCharacter, zoneElement) {
-        console.log(zoneCharacter);
-        console.log(zoneElement);
         if (zoneCharacter == "top" && zoneElement == "bottom") {
             return true;
         }
@@ -116,5 +110,5 @@ var CharacterCollider = (function () {
         return false;
     };
     return CharacterCollider;
-})();
+}());
 //# sourceMappingURL=CharacterCollider.js.map

@@ -6,6 +6,9 @@ http://labodudev.fr
 class Timer {
   secondTime: number = 0;
   countdown: number = 3;
+  intervalTimer: any = undefined;
+  notifications: any = undefined;
+  notificationManager: NotificationManager = undefined;
   /**
   * Le constructeur permet appelle LoadCanvas
   */
@@ -16,18 +19,19 @@ class Timer {
   public Init():void {
     Data.Sound.PlaySound('countdown', false);
 
-    setInterval(() => { this.Update() }, this.time);
+    this.intervalTimer = setInterval(() => { this.Update() }, this.time);
   }
 
   public Update():void {
     this.secondTime += 1;
+    this.CheckNotification();
 
     if (this.countdown > 0) {
       this.countdown--;
     }
     else {
       if (!this.mainScene.started) {
-        this.mainScene.started = true;
+        // this.mainScene.started = true;
       }
     }
 
@@ -48,7 +52,27 @@ class Timer {
     }
   }
 
+  public LoadNotification(notificationManager: NotificationManager, pathJson: string):void {
+    this.notificationManager = notificationManager;
+    Data.JSONLoader.Exec(pathJson, (data: Array<any>) => {
+      this.notifications = data;
+    });
+  }
+
+  public CheckNotification():void {
+      // this.secondTime
+      if (this.notificationManager) {
+        if (this.notifications && this.notifications[this.secondTime]) {
+          for (var key in this.notifications[this.secondTime]) {
+            this.notificationManager.Add(new Notification(this.notifications[this.secondTime][key].text, { x: this.notifications[this.secondTime][key].x, y: this.notifications[this.secondTime][key].y}, this.notifications[this.secondTime][key].size ))
+          }
+        }
+      }
+  }
+
   public Clear():void {
+    clearInterval(this.intervalTimer);
+    delete this.intervalTimer;
     delete this.maxTime;
     delete this.secondTime;
     delete this.mainScene;

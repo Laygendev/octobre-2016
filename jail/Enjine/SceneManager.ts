@@ -11,6 +11,14 @@ module SceneManager {
       levelScene.Init();
     }
 
+    static Pause():void {
+      this.currentScene.started = false;
+    }
+
+    static Resume():void {
+      this.currentScene.started = true;
+    }
+
     static Update(delta: number):void {
       this.currentScene.Update(delta);
     }

@@ -5,21 +5,30 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var MainScene = (function (_super) {
     __extends(MainScene, _super);
-    function MainScene(selectedBody) {
-        var _this = _super.call(this) || this;
-        _this.selectedBody = selectedBody;
-        _this.spriteManager = new SpriteManager();
-        _this.spawnManager = new SpawnManager(_this.spriteManager, 2000);
-        _this.character = undefined;
-        _this.timer = new Timer(1000, 30, _this);
-        _this.point = new Point(_this);
-        _this.orderManager = new OrderManager();
-        return _this;
+    function MainScene() {
+        _super.call(this);
+        this.spriteManager = new SpriteManager();
+        this.spawnManager = undefined;
+        this.character = undefined;
+        this.timer = undefined;
+        this.point = new Point(this);
+        this.orderManager = new OrderManager();
+        this.spawnOrderManager = undefined;
+        this.dialogManager = undefined;
+        this.dialogManager = new DialogManager(this);
     }
-    MainScene.prototype.Init = function () {
-        this.spawnHumanPartSprite = new SpriteRepeat(Data.Ressources.staticImage['tapis'], 0, global.size.height - 41, { width: 100, height: 41 }, "x", "tapis");
-        this.spriteManager.Add(this.spawnHumanPartSprite);
+    MainScene.prototype.Start = function () {
+        delete this.dialogManager;
+        this.started = true;
+        this.spriteClickableTerre = new SpriteClickable(Data.Ressources.staticImage['terre'], global.size.width / 2 - (873 / 2), global.size.height - 176, { width: 873, height: 176 }, "staticImage", "terre");
+        this.spriteManager.Add(this.spriteClickableTerre);
+        this.spriteClickableTrash = new SpriteClickable(Data.Ressources.staticImage['trash'], 20, global.size.height - 130, { width: 111, height: 119 }, "staticImage", "terre");
+        this.spriteManager.Add(this.spriteClickableTrash);
+        this.spawnManager = new SpawnManager(this.spriteManager, 5000);
+        this.StartChild();
     };
+    MainScene.prototype.StartChild = function () { };
+    MainScene.prototype.Init = function () { };
     MainScene.prototype.Spawn = function (currentTime) { };
     MainScene.prototype.InitCharacter = function (spriteKey) {
         var tmpSprite = new Sprite(0, 0, Data.Ressources.bodies[spriteKey], 'body', spriteKey);
@@ -30,18 +39,24 @@ var MainScene = (function (_super) {
         if (this.character) {
             this.character.UpdateCollider(this.spriteManager, this.spriteManager.listSprite);
             this.character.Update();
-            if (this.character.can.delete) {
-                this.character.Clear();
-                this.character = undefined;
-            }
         }
         var spriteKey = this.spriteManager.Update();
         if (spriteKey && !this.character) {
             this.InitCharacter(spriteKey);
         }
-        this.UpdateChildScene(delta);
-    };
-    MainScene.prototype.UpdateChildScene = function (delta) {
+        if (this.spriteClickableTerre.ClickIn() && this.character) {
+            var order = this.character.CheckElement(this.orderManager);
+            if (order) {
+                Data.Sound.PlaySound('sendHuman', false);
+                order.SetCharacter(this.character);
+                this.character.Clear();
+                this.point.Add(20);
+                delete this.character;
+            }
+            else {
+                Data.Sound.PlaySound('wrong', false);
+            }
+        }
     };
     MainScene.prototype.Draw = function (context) {
         this.timer.Draw(context);
@@ -51,15 +66,26 @@ var MainScene = (function (_super) {
         this.spriteManager.Draw(context);
         this.point.Draw(context);
         this.DrawChildScene(context);
+        this.notificationManager.Draw(context);
     };
     MainScene.prototype.DrawChildScene = function (context) { };
     MainScene.prototype.Clear = function () {
+        this.spriteManager.Clear();
+        delete this.spriteManager;
+        this.spawnManager.Clear();
+        delete this.spawnManager;
+        if (this.character) {
+            this.character.Clear();
+            delete this.character;
+        }
+        this.spawnOrderManager.Clear();
+        delete this.spawnOrderManager;
         this.timer.Clear();
         delete this.timer;
     };
     MainScene.prototype.ChangeScene = function () {
         this.Clear();
-        SceneManager.Manager.SetScene(new EndScene(this.orderManager));
+        SceneManager.Manager.SetScene(new EndScene(this.orderManager, this.point));
     };
     return MainScene;
 }(Scene));

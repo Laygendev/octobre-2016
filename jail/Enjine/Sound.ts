@@ -19,9 +19,10 @@ module Data {
         .AddSound("takeBody", "jail/sounds/takeBody.mp3", 1) // OK
         .AddSound("countdown", "jail/sounds/countdown.mp3", 3) // OK
         .AddSound("timer", "jail/sounds/timer.mp3", 1) // OK
+        .AddSound("wrong", "jail/sounds/wrong.mp3", 1) // OK
 
-      Data.Sound.PlaySound("ambiant", true);
-      SceneManager.Manager.SetScene(new Level11('body0'));
+      // Data.Sound.PlaySound("ambiant", true);
+      SceneManager.Manager.SetScene(new LevelDidacticiel());
     }
 
     static AddSound(name: string, src: string, maxChannels: number):any {

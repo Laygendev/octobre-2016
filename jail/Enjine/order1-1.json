@@ -1,0 +1,26 @@
+{
+  "3": [
+    {
+      "object":
+      [
+        "head0",
+        "leg0",
+        "arm0l",
+        "arm0r",
+        "body0"
+      ]
+    }
+  ],
+  "15": [
+    {
+      "object":
+      [
+        "head1",
+        "leg1",
+        "arm0l",
+        "arm1r",
+        "body1"
+      ]
+    }
+  ]
+}

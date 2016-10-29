@@ -5,10 +5,12 @@ http://labodudev.fr
 
 class SpawnManager {
   spriteGenerator: SpriteGenerator = new SpriteGenerator();
+  intervalExec: any = undefined;
+  intervalBody: any = undefined;
 
   constructor(public spriteManager: SpriteManager, public time: number) {
-    setInterval( () => { this.Exec() }, time );
-    setInterval( () => { this.ExecBody() }, time * 3 );
+    this.intervalExec = setInterval( () => { this.Exec() }, time );
+    this.intervalBody = setInterval( () => { this.ExecBody() }, time * 3 );
   }
 
   Exec():void {
@@ -21,4 +23,8 @@ class SpawnManager {
 		let tmpSprite: Sprite = this.spriteGenerator.Exec(Data.Ressources.RandomBody());
 		this.spriteManager.Add(tmpSprite);
 	}
+
+  Clear():void {
+    
+  }
 }

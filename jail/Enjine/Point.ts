@@ -4,7 +4,7 @@ http://labodudev.fr
 */
 
 class Point {
-  point: number = 0;
+  public point: number = 0;
   /**
   * Le constructeur permet appelle LoadCanvas
   */

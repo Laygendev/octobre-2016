@@ -5,22 +5,43 @@ http://labodudev.fr
 
 class MainScene extends Scene {
   protected spriteManager: SpriteManager = new SpriteManager();
-  private spawnManager: SpawnManager =  new SpawnManager(this.spriteManager, 2000);
+  private spawnManager: SpawnManager =  undefined;
   protected character: Character = undefined;
   private spawnHumanPartSprite: Sprite;
-  private timer: Timer = new Timer(1000, 30, this);
+  private spriteClickableTerre: SpriteClickable;
+  private spriteClickableTrash: SpriteClickable;
+  protected timer: Timer = undefined;
   protected point: Point = new Point(this);
   public orderManager: OrderManager = new OrderManager();
+  protected spawnOrderManager: SpawnOrderManager = undefined;
+  protected dialogManager: DialogManager = undefined;
 
-
-  constructor(public selectedBody: string) {
+  constructor() {
     super();
+    this.dialogManager = new DialogManager(this);
   }
 
-  public Init():void {
-    this.spawnHumanPartSprite = new SpriteRepeat(Data.Ressources.staticImage['tapis'], 0, global.size.height - 41, {width: 100, height: 41 }, "x", "tapis");
-    this.spriteManager.Add(this.spawnHumanPartSprite);
+  public Start():void {
+    delete this.dialogManager;
+    this.started = true;
+
+    // this.spawnHumanPartSprite = new SpriteRepeat(Data.Ressources.staticImage['tapis'], 0, global.size.height - 41, {width: 100, height: 41 }, "x", "tapis");
+    // this.spriteManager.Add(this.spawnHumanPartSprite);
+
+    this.spriteClickableTerre = new SpriteClickable(Data.Ressources.staticImage['terre'], global.size.width / 2  - (873 / 2), global.size.height - 176, {width: 873, height: 176}, "staticImage", "terre");
+    this.spriteManager.Add(this.spriteClickableTerre);
+
+    this.spriteClickableTrash = new SpriteClickable(Data.Ressources.staticImage['trash'], 20, global.size.height - 130, {width: 111, height: 119}, "staticImage", "terre");
+    this.spriteManager.Add(this.spriteClickableTrash);
+
+    this.spawnManager = new SpawnManager(this.spriteManager, 5000);
+
+    this.StartChild();
   }
+
+  public StartChild():void {}
+
+  public Init():void {}
 
   public Spawn(currentTime: number):void {}
 
@@ -34,11 +55,6 @@ class MainScene extends Scene {
 		if (this.character) {
 	    this.character.UpdateCollider(this.spriteManager, this.spriteManager.listSprite);
 	    this.character.Update();
-
-      if (this.character.can.delete) {
-        this.character.Clear();
-        this.character = undefined;
-      }
 	}
 
 		let spriteKey = this.spriteManager.Update();
@@ -48,11 +64,19 @@ class MainScene extends Scene {
 		}
 
 
-    this.UpdateChildScene(delta);
-  }
-
-  protected UpdateChildScene(delta: number):void {
-
+    if (this.spriteClickableTerre.ClickIn() && this.character) {
+      let order = this.character.CheckElement(this.orderManager);
+       if (order) {
+         Data.Sound.PlaySound('sendHuman', false);
+         order.SetCharacter(this.character);
+         this.character.Clear();
+         this.point.Add(20);
+         delete this.character;
+       }
+       else {
+          Data.Sound.PlaySound('wrong', false);
+       }
+    }
   }
 
   public Draw(context: any):void {
@@ -65,17 +89,33 @@ class MainScene extends Scene {
 		this.point.Draw(context);
 
     this.DrawChildScene(context);
+    this.notificationManager.Draw(context);
+
   }
 
   protected DrawChildScene(context: any):void {}
 
 	public Clear():void {
+    this.spriteManager.Clear();
+    delete this.spriteManager;
+
+    this.spawnManager.Clear();
+    delete this.spawnManager;
+
+    if (this.character) {
+      this.character.Clear();
+      delete this.character;
+    }
+
+    this.spawnOrderManager.Clear();
+    delete this.spawnOrderManager;
+
     this.timer.Clear();
     delete this.timer;
 	}
 
   public ChangeScene():void {
     this.Clear();
-    SceneManager.Manager.SetScene(new EndScene(this.orderManager));
+    SceneManager.Manager.SetScene(new EndScene(this.orderManager, this.point));
   }
 }

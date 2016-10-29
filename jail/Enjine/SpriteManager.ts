@@ -17,7 +17,7 @@ class SpriteManager {
       for (var key in this.listSprite[type]) {
         this.listSprite[type][key].Update();
 
-				if (this.listSprite[type][key].ClickIn && this.listSprite[type][key].ClickIn()) {
+				if (this.listSprite[type][key] && this.listSprite[type][key].type && this.listSprite[type][key].type == "body" && this.listSprite[type][key].ClickIn()) {
           let keyElement: any = this.listSprite[type][key];
           this.Remove(this.listSprite[type][key]);
 					return keyElement.name;
@@ -55,5 +55,9 @@ class SpriteManager {
         }
       }
     }
+  }
+
+  Clear():void {
+
   }
 }

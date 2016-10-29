@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var Data;
 (function (Data) {
     var JSONLoader = (function () {
@@ -21,7 +17,7 @@ var Data;
             xobj.send(null);
         };
         return JSONLoader;
-    })();
+    }());
     Data.JSONLoader = JSONLoader;
 })(Data || (Data = {}));
 //# sourceMappingURL=JSON.js.map

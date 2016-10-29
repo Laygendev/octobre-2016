@@ -1,7 +1,3 @@
-/**
-Créer par Jimmy Latour, 2016
-http://labodudev.fr
-*/
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -22,8 +18,6 @@ var SpriteClickable = (function (_super) {
     }
     SpriteClickable.prototype.Update = function () {
         if (this.image == undefined) {
-            this.MouseIn();
-            this.angle += this.speedAngle;
         }
     };
     SpriteClickable.prototype.Draw = function (context) {
@@ -41,10 +35,8 @@ var SpriteClickable = (function (_super) {
     SpriteClickable.prototype.MouseIn = function () {
         if (EventMouse.Mouse.move.x > this.x && EventMouse.Mouse.move.x < this.x + this.zone.width &&
             EventMouse.Mouse.move.y > this.y && EventMouse.Mouse.move.y < this.y + this.zone.height) {
-            this.speedAngle = 2;
         }
         else {
-            this.speedAngle = 0.02;
         }
     };
     SpriteClickable.prototype.ClickIn = function () {
@@ -56,5 +48,5 @@ var SpriteClickable = (function (_super) {
         return false;
     };
     return SpriteClickable;
-})(Sprite);
+}(Sprite));
 //# sourceMappingURL=SpriteClickable.js.map

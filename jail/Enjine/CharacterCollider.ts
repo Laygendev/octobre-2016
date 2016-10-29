@@ -118,8 +118,6 @@ class CharacterCollider {
   }
 
   public CheckIsValide(zoneCharacter:string, zoneElement:string):boolean {
-    console.log(zoneCharacter);
-    console.log(zoneElement);
     if (zoneCharacter == "top" && zoneElement == "bottom") {
       return true;
     }

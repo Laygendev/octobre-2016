@@ -24,8 +24,7 @@ class SpriteGenerator {
 	    return spriteMovable;
 		}
 		else {
-			let spriteMovable: SpriteMovableAndClickable = new SpriteMovableAndClickable(global.size.width, global.size.height - 100, Data.Ressources.bodies[zoneName], "body", -1, 0, 0, zoneName);
-			return spriteMovable;
+			return undefined;
 		}
   }
 
@@ -159,5 +158,9 @@ class SpriteGenerator {
     };
 
     return randomSide[randomSideKey];
+  }
+
+  Clear():void {
+
   }
 }
