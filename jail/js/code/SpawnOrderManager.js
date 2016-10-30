@@ -14,7 +14,7 @@ var SpawnOrderManager = (function () {
         if (this.jsonLevel[currentTime]) {
             for (var key in this.jsonLevel[currentTime]) {
                 for (var x in this.jsonLevel[currentTime][key]) {
-                    this.orderManager.Add(new Order(currentTime, this.jsonLevel[currentTime][key][x]));
+                    this.orderManager.Add(new Order(currentTime, this.jsonLevel[currentTime][key][x], Data.Ressources.RandomPosOrder()));
                     for (var i in this.jsonLevel[currentTime][key][x]) {
                         var spriteMovable = this.spriteGenerator.Exec(this.jsonLevel[currentTime][key][x][i]);
                         if (!spriteMovable) {

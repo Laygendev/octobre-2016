@@ -1,7 +1,17 @@
 {
   "dialog":
   [
-    "Bonjour l'aventurier djaziodj ioazjd ioazjiodj ioazjiodj aziojdio azjiodjoiaz jdioazjio djaziodj ioazjdio j",
-    "Don't worry chocapic, on est la pour toi!"
+    {
+      "rect": {
+        "width": 500,
+        "height": 120
+      },
+      "text": {
+        "x": 0,
+        "y": 0,
+        "string": "Hmm.. Je crois bien avoir anéantis la Terre... Navré, vraiment navré!",
+        "backLineSpecial": true
+      }
+    }
   ]
 }

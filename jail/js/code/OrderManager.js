@@ -6,10 +6,10 @@ var OrderManager = (function () {
     OrderManager.prototype.Init = function () { };
     OrderManager.prototype.Draw = function (context) {
         for (var key in this.listOrder) {
-            var keyNumber = key;
             context.save();
+            context.translate(global.size.width / 2 - 50, global.size.height - 150);
+            context.globalAlpha = 0.5;
             context.scale(0.45, 0.45);
-            context.translate((150 * keyNumber) + 10, 10);
             this.listOrder[key].Draw(context);
             context.restore();
         }
@@ -26,6 +26,12 @@ var OrderManager = (function () {
     OrderManager.prototype.Add = function (order) {
         Data.Sound.PlaySound('orderPop', false);
         this.listOrder.push(order);
+    };
+    OrderManager.prototype.Resize = function () {
+        for (var key in this.listOrder) {
+            for (var key in this.listOrder) {
+            }
+        }
     };
     return OrderManager;
 }());

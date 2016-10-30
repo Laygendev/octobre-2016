@@ -23,4 +23,6 @@ class Scene {
   public UpdateNoStarted(delta: number):void {}
 
   public DrawNoStarted(context: any):void {}
+
+  public Resize():void {}
 }

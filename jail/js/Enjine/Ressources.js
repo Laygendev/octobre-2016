@@ -17,24 +17,35 @@ var Data;
             this.staticImage['map'].src = 'jail/images/map.png';
             this.staticImage['trash'] = new Image();
             this.staticImage['trash'].src = 'jail/images/trash.png';
+            this.staticImage['helpCorpsEtCommande'] = new Image();
+            this.staticImage['helpCorpsEtCommande'].src = 'jail/images/helpCorpsEtCommande.png';
+            this.staticImage['helpPoubelle'] = new Image();
+            this.staticImage['helpPoubelle'].src = 'jail/images/helpPoubelle.png';
+            this.staticImage['openMenu'] = new Image();
+            this.staticImage['openMenu'].src = 'jail/images/openMenu.png';
+            this.staticImage['openMenuHover'] = new Image();
+            this.staticImage['openMenuHover'].src = 'jail/images/openMenuHover.png';
             this.staticImage['mapFrance'] = new Image();
             this.staticImage['mapFrance'].src = 'jail/images/mapFrance.png';
             this.LoadSpriteSheet(function (spriteSheet) {
                 _this.spriteSheet = spriteSheet;
                 Data.JSONLoader.Exec('jail/json/bodySpawn.json', function (data) {
                     _this.bodySpawn = data;
-                    Data.JSONLoader.Exec('jail/json/loadBodies.json', function (data) {
-                        _this.bodies = data;
-                        for (var key in _this.bodies) {
-                            _this.numberBodies++;
-                        }
-                        Data.JSONLoader.Exec('jail/json/loadElements.json', function (data) {
-                            _this.humanPart = data;
-                            for (var key in _this.humanPart) {
-                                _this.numberHumanPart++;
+                    Data.JSONLoader.Exec('jail/json/orderSpawn.json', function (data) {
+                        _this.orderSpawn = data;
+                        Data.JSONLoader.Exec('jail/json/loadBodies.json', function (data) {
+                            _this.bodies = data;
+                            for (var key in _this.bodies) {
+                                _this.numberBodies++;
                             }
-                            _this.isLoaded = true;
-                            callback();
+                            Data.JSONLoader.Exec('jail/json/loadElements.json', function (data) {
+                                _this.humanPart = data;
+                                for (var key in _this.humanPart) {
+                                    _this.numberHumanPart++;
+                                }
+                                _this.isLoaded = true;
+                                callback();
+                            });
                         });
                     });
                 });
@@ -73,13 +84,19 @@ var Data;
             this.bodySpawn.splice(randomNumber, 1);
             return tmp;
         };
-        Ressources.isLoaded = false;
-        Ressources.buttons = [];
-        Ressources.numberBodies = 0;
-        Ressources.numberHumanPart = 0;
-        Ressources.staticImage = [];
+        Ressources.RandomPosOrder = function () {
+            var randomNumber = Math.floor(Math.random() * (0 - (this.orderSpawn.length))) + this.orderSpawn.length;
+            var tmp = this.orderSpawn[randomNumber];
+            this.orderSpawn.splice(randomNumber, 1);
+            return tmp;
+        };
         return Ressources;
     }());
+    Ressources.isLoaded = false;
+    Ressources.buttons = [];
+    Ressources.numberBodies = 0;
+    Ressources.numberHumanPart = 0;
+    Ressources.staticImage = [];
     Data.Ressources = Ressources;
 })(Data || (Data = {}));
 //# sourceMappingURL=Ressources.js.map

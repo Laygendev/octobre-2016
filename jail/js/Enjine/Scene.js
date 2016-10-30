@@ -9,6 +9,7 @@ var Scene = (function () {
     Scene.prototype.Draw = function (context) { };
     Scene.prototype.UpdateNoStarted = function (delta) { };
     Scene.prototype.DrawNoStarted = function (context) { };
+    Scene.prototype.Resize = function () { };
     return Scene;
 }());
 //# sourceMappingURL=Scene.js.map

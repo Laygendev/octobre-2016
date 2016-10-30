@@ -8,7 +8,7 @@ class Level11 extends MainScene {
     super();
     this.Start();
     this.InitOrder();
-    this.timer = new Timer(1000, 25, this);
+    this.timer = new Timer(1000, 120, this);
   }
 
   public InitOrder() {

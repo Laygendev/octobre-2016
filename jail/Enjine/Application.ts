@@ -5,6 +5,7 @@ http://labodudev.fr
 
 let global:any = {};
 global.size = {width: 0, height: 0};
+global.lastSize = {width: 0, height: 0};
 
 class Application {
   private canvas: any;
@@ -35,6 +36,8 @@ class Application {
     this.context = this.canvas.getContext('2d');
 		global.size.width = this.canvas.width;
 		global.size.height = this.canvas.height;
+		global.lastSize.width = this.canvas.width;
+		global.lastSize.height = this.canvas.height;
 
     window.addEventListener('resize', this.ResizeCanvas, false);
 
@@ -87,5 +90,7 @@ class Application {
 
     global.size.width = this.canvas.width;
 		global.size.height = this.canvas.height;
+
+    SceneManager.Manager.currentScene.Resize();
   }
 }

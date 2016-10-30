@@ -5,24 +5,28 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var SpriteClickable = (function (_super) {
     __extends(SpriteClickable, _super);
-    function SpriteClickable(image, x, y, zone, type, name) {
-        _super.call(this, x, y, zone, type, name);
-        this.image = image;
-        this.x = x;
-        this.y = y;
-        this.zone = zone;
-        this.type = type;
-        this.name = name;
-        this.speedAngle = 0.01;
-        this.angle = 0;
+    function SpriteClickable(image, x, y, zone, type, name, imageHover) {
+        var _this = _super.call(this, x, y, zone, type, name) || this;
+        _this.image = image;
+        _this.x = x;
+        _this.y = y;
+        _this.zone = zone;
+        _this.type = type;
+        _this.name = name;
+        _this.imageHover = imageHover;
+        _this.speedAngle = 0.01;
+        _this.angle = 0;
+        _this.currentImage = _this.image;
+        return _this;
     }
     SpriteClickable.prototype.Update = function () {
-        if (this.image == undefined) {
+        if (this.image != undefined) {
+            this.MouseIn();
         }
     };
     SpriteClickable.prototype.Draw = function (context) {
         if (this.image != undefined) {
-            context.drawImage(this.image, this.x, this.y);
+            context.drawImage(this.currentImage, this.x, this.y);
         }
         else {
             context.save();
@@ -35,8 +39,12 @@ var SpriteClickable = (function (_super) {
     SpriteClickable.prototype.MouseIn = function () {
         if (EventMouse.Mouse.move.x > this.x && EventMouse.Mouse.move.x < this.x + this.zone.width &&
             EventMouse.Mouse.move.y > this.y && EventMouse.Mouse.move.y < this.y + this.zone.height) {
+            if (this.imageHover) {
+                this.currentImage = this.imageHover;
+            }
         }
         else {
+            this.currentImage = this.image;
         }
     };
     SpriteClickable.prototype.ClickIn = function () {

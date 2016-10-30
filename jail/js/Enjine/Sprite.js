@@ -12,6 +12,9 @@ var Sprite = (function () {
             x: 1.0,
             y: 1.0
         };
+        this.basePos = { x: 0, y: 0 };
+        this.basePos.x = x;
+        this.basePos.y = y;
         this.Init();
     }
     Sprite.prototype.SetSpriteManager = function (spriteManager) {
@@ -54,6 +57,10 @@ var Sprite = (function () {
     Sprite.prototype.AnimateScale = function () {
         var _this = this;
         setInterval(function () { _this.scale = Utils.Animate.Scale(_this.scale); }, 80);
+    };
+    Sprite.prototype.Resize = function () {
+        this.diff = global.lastSize.height - global.size.height;
+        this.y = this.basePos.y - this.diff;
     };
     return Sprite;
 }());

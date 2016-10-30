@@ -4,7 +4,7 @@ http://labodudev.fr
 */
 
 class SpriteManager {
-  listSprite: any = {"body": [], "head": [], "leg": [], "arml": [], "armr": [], "button": [], "staticImage": []};
+  listSprite: any = {"body": [], "head": [], "leg": [], "arml": [], "armr": [], "button": [], "staticImage": [], "clickableImage": []};
   numberSprite: number = 0;
   constructor() {}
 
@@ -59,5 +59,11 @@ class SpriteManager {
 
   Clear():void {
 
+  }
+
+  Resize():void {
+    for (var i = 0; i < this.listSprite["body"].length; i++) {
+        this.listSprite["body"][i].Resize();
+    }
   }
 }

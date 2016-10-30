@@ -1,50 +1,88 @@
 var Dialog = (function () {
-    function Dialog(text, speedText, pos) {
+    function Dialog(data, speedText) {
         var _this = this;
-        this.text = text;
-        this.pos = pos;
+        this.data = data;
         this.currentText = "";
         this.currentChar = 0;
-        this.maxWidth = 500;
-        this.lineHeight = 30;
+        this.maxWidth = 480;
+        this.lineHeight = 40;
         this.done = false;
+        this.pos = { x: 0, y: 0 };
+        this.sprite = undefined;
+        this.pos.x = data.text.x;
+        this.pos.y = data.text.y;
+        if (data.image) {
+            this.sprite = new SpriteClickable(Data.Ressources.staticImage[data.image.name], data.image.x, data.image.y, { width: 860, height: 199 }, "staticImage", "terre");
+        }
         this.interval = setInterval(function () { _this.Update(); }, speedText);
     }
     Dialog.prototype.Update = function () {
-        if (this.currentChar < this.text.length) {
-            this.currentText += this.text[this.currentChar];
+        if (this.currentChar < this.data.text.string.length) {
+            this.currentText += this.data.text.string[this.currentChar];
             this.currentChar++;
         }
         else {
             this.done = true;
         }
     };
-    Dialog.prototype.Draw = function (context) {
-        context.fillStyle = "black";
-        context.font = "30px Source Sans Pro Bold";
-        var words = this.currentText.split(' ');
-        var line = '';
-        var y = 0;
-        for (var n = 0; n < words.length; n++) {
-            var testLine = line + words[n] + ' ';
-            var metrics = context.measureText(testLine);
-            var testWidth = metrics.width;
-            if (testWidth > this.maxWidth && n > 0) {
-                context.fillText(line, this.pos.x, this.pos.y + y);
-                line = words[n] + ' ';
-                y += this.lineHeight;
-            }
-            else {
-                line = testLine;
-            }
+    Dialog.prototype.DrawRect = function (mouseSprite, context) {
+        context.translate(global.size.width / 2 - this.data.rect.width / 2, global.size.height / 2 - this.data.rect.height / 2);
+        context.fillRect(0, 0, this.data.rect.width, this.data.rect.height);
+        mouseSprite.Draw(context);
+        mouseSprite.SetPos(this.data.rect.width - 50, this.data.rect.height - 50);
+        context.translate(20, 50);
+    };
+    Dialog.prototype.Draw = function (mouseSprite, context) {
+        this.DrawRect(mouseSprite, context);
+        if (this.sprite) {
+            this.sprite.Draw(context);
         }
-        context.fillText(line, this.pos.x, y);
+        context.fillStyle = "black";
+        context.font = "26px Source Sans Pro Bold";
+        if (this.data.text.backLineSpecial) {
+            var words = this.currentText.split(' ');
+            var line = '';
+            var y = this.pos.y;
+            for (var n = 0; n < words.length; n++) {
+                var testLine = line + words[n] + ' ';
+                var metrics = context.measureText(testLine);
+                var testWidth = metrics.width;
+                if (testWidth > this.maxWidth && n > 0) {
+                    context.fillText(line, this.pos.x, y);
+                    line = words[n] + ' ';
+                    y += this.lineHeight;
+                }
+                else {
+                    line = testLine;
+                }
+            }
+            context.fillText(line, this.pos.x, y);
+        }
+        else {
+            var words = this.currentText.split('\n');
+            var line = '';
+            var y = this.pos.y;
+            for (var n = 0; n < words.length; n++) {
+                var testLine = line + words[n] + ' ';
+                var metrics = context.measureText(testLine);
+                var testWidth = metrics.width;
+                if (n > 0) {
+                    context.fillText(line, this.pos.x, y);
+                    line = words[n] + ' ';
+                    y += this.lineHeight;
+                }
+                else {
+                    line = testLine;
+                }
+            }
+            context.fillText(line, this.pos.x, y);
+        }
     };
     Dialog.prototype.CompleteDialog = function () {
         this.done = true;
         clearInterval(this.interval);
-        for (var i = this.currentChar; i < this.text.length; i++) {
-            this.currentText += this.text[this.currentChar];
+        for (var i = this.currentChar; i < this.data.text.string.length; i++) {
+            this.currentText += this.data.text.string[this.currentChar];
             this.currentChar++;
         }
     };

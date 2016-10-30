@@ -6,17 +6,18 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Character = (function (_super) {
     __extends(Character, _super);
     function Character(mainScene, x, y, zone, name) {
-        _super.call(this, x, y, zone, 'body', 'character');
-        this.mainScene = mainScene;
-        this.x = x;
-        this.y = y;
-        this.zone = zone;
-        this.name = name;
-        this.childs = { 'head': undefined, 'body': undefined, 'arml': undefined, 'armr': undefined, 'leg': undefined };
-        this.colliders = [];
-        this.angle = 0;
-        this.speedAngle = 0.1;
-        this.secondTime = 0;
+        var _this = _super.call(this, x, y, zone, 'body', 'character') || this;
+        _this.mainScene = mainScene;
+        _this.x = x;
+        _this.y = y;
+        _this.zone = zone;
+        _this.name = name;
+        _this.childs = { 'head': undefined, 'body': undefined, 'arml': undefined, 'armr': undefined, 'leg': undefined };
+        _this.colliders = [];
+        _this.angle = 0;
+        _this.speedAngle = 0.1;
+        _this.secondTime = 0;
+        return _this;
     }
     Character.prototype.Init = function () {
         var _this = this;

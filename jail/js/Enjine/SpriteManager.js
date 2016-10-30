@@ -1,6 +1,6 @@
 var SpriteManager = (function () {
     function SpriteManager() {
-        this.listSprite = { "body": [], "head": [], "leg": [], "arml": [], "armr": [], "button": [], "staticImage": [] };
+        this.listSprite = { "body": [], "head": [], "leg": [], "arml": [], "armr": [], "button": [], "staticImage": [], "clickableImage": [] };
         this.numberSprite = 0;
     }
     SpriteManager.prototype.Init = function () {
@@ -44,6 +44,11 @@ var SpriteManager = (function () {
         }
     };
     SpriteManager.prototype.Clear = function () {
+    };
+    SpriteManager.prototype.Resize = function () {
+        for (var i = 0; i < this.listSprite["body"].length; i++) {
+            this.listSprite["body"][i].Resize();
+        }
     };
     return SpriteManager;
 }());

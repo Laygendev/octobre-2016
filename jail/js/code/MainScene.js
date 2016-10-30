@@ -6,23 +6,24 @@ var __extends = (this && this.__extends) || function (d, b) {
 var MainScene = (function (_super) {
     __extends(MainScene, _super);
     function MainScene() {
-        _super.call(this);
-        this.spriteManager = new SpriteManager();
-        this.spawnManager = undefined;
-        this.character = undefined;
-        this.timer = undefined;
-        this.point = new Point(this);
-        this.orderManager = new OrderManager();
-        this.spawnOrderManager = undefined;
-        this.dialogManager = undefined;
-        this.dialogManager = new DialogManager(this);
+        var _this = _super.call(this) || this;
+        _this.spriteManager = new SpriteManager();
+        _this.spawnManager = undefined;
+        _this.character = undefined;
+        _this.timer = undefined;
+        _this.point = new Point(_this);
+        _this.orderManager = new OrderManager();
+        _this.spawnOrderManager = undefined;
+        _this.dialogManager = undefined;
+        _this.dialogManager = new DialogManager(_this);
+        return _this;
     }
     MainScene.prototype.Start = function () {
         delete this.dialogManager;
         this.started = true;
-        this.spriteClickableTerre = new SpriteClickable(Data.Ressources.staticImage['terre'], global.size.width / 2 - (873 / 2), global.size.height - 176, { width: 873, height: 176 }, "staticImage", "terre");
+        this.spriteClickableTerre = new SpriteClickable(Data.Ressources.staticImage['terre'], global.size.width / 2 - (873 / 2), global.size.height - 176, { width: 873, height: 176 }, "clickableImage", "terre", undefined);
         this.spriteManager.Add(this.spriteClickableTerre);
-        this.spriteClickableTrash = new SpriteClickable(Data.Ressources.staticImage['trash'], 20, global.size.height - 130, { width: 111, height: 119 }, "staticImage", "terre");
+        this.spriteClickableTrash = new SpriteClickable(Data.Ressources.staticImage['trash'], 20, global.size.height - 130, { width: 111, height: 119 }, "clickableImage", "trash", undefined);
         this.spriteManager.Add(this.spriteClickableTrash);
         this.spawnManager = new SpawnManager(this.spriteManager, 5000);
         this.StartChild();
@@ -60,13 +61,13 @@ var MainScene = (function (_super) {
     };
     MainScene.prototype.Draw = function (context) {
         this.timer.Draw(context);
-        if (this.character) {
-            this.character.Draw(context);
-        }
         this.spriteManager.Draw(context);
         this.point.Draw(context);
         this.DrawChildScene(context);
         this.notificationManager.Draw(context);
+        if (this.character) {
+            this.character.Draw(context);
+        }
     };
     MainScene.prototype.DrawChildScene = function (context) { };
     MainScene.prototype.Clear = function () {
@@ -86,6 +87,11 @@ var MainScene = (function (_super) {
     MainScene.prototype.ChangeScene = function () {
         this.Clear();
         SceneManager.Manager.SetScene(new EndScene(this.orderManager, this.point));
+    };
+    MainScene.prototype.Resize = function () {
+        this.spriteClickableTerre.SetPos(global.size.width / 2 - (873 / 2), global.size.height - 176);
+        this.spriteClickableTrash.SetPos(20, global.size.height - 130);
+        this.spriteManager.Resize();
     };
     return MainScene;
 }(Scene));

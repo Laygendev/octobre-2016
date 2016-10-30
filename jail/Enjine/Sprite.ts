@@ -11,9 +11,13 @@ class Sprite {
     x: 1.0,
     y: 1.0
   }
+  public diff: number;
+  public basePos: any = {x: 0, y: 0};
 
 
   constructor(public x: number, public y:number, public zone: any, public type: string, public name: string) {
+    this.basePos.x = x;
+    this.basePos.y = y;
     this.Init();
   }
 
@@ -74,5 +78,10 @@ class Sprite {
 
   public AnimateScale():void {
     setInterval(() => { this.scale = Utils.Animate.Scale(this.scale); }, 80);
+  }
+
+  public Resize():void {
+    this.diff = global.lastSize.height - global.size.height;
+    this.y = this.basePos.y - this.diff
   }
 }

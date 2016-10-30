@@ -14,6 +14,7 @@ module Data {
     static numberHumanPart: number = 0;
     static staticImage: Array<any> = [];
     static bodySpawn: any;
+    static orderSpawn: any;
 
     static Load(callback: () => void):void {
 			this.buttons['restart'] = new Image();
@@ -34,6 +35,18 @@ module Data {
       this.staticImage['trash'] = new Image();
       this.staticImage['trash'].src = 'jail/images/trash.png';
 
+      this.staticImage['helpCorpsEtCommande'] = new Image();
+      this.staticImage['helpCorpsEtCommande'].src = 'jail/images/helpCorpsEtCommande.png';
+
+      this.staticImage['helpPoubelle'] = new Image();
+      this.staticImage['helpPoubelle'].src = 'jail/images/helpPoubelle.png';
+
+      this.staticImage['openMenu'] = new Image();
+      this.staticImage['openMenu'].src = 'jail/images/openMenu.png';
+
+      this.staticImage['openMenuHover'] = new Image();
+      this.staticImage['openMenuHover'].src = 'jail/images/openMenuHover.png';
+
       this.staticImage['mapFrance'] = new Image();
       this.staticImage['mapFrance'].src = 'jail/images/mapFrance.png';
 
@@ -43,19 +56,23 @@ module Data {
         Data.JSONLoader.Exec('jail/json/bodySpawn.json', (data: Array<any>) => {
           this.bodySpawn = data;
 
-          Data.JSONLoader.Exec('jail/json/loadBodies.json', (data: Array<any>) => {
-            this.bodies = data;
-  					for (var key in this.bodies ) {
-  						this.numberBodies++;
-  					}
+          Data.JSONLoader.Exec('jail/json/orderSpawn.json', (data: Array<any>) => {
+            this.orderSpawn = data;
 
-            Data.JSONLoader.Exec('jail/json/loadElements.json', (data: Array<any>) => {
-              this.humanPart = data;
-              for (var key in this.humanPart) {
-                  this.numberHumanPart++;
-              }
-              this.isLoaded = true;
-              callback();
+            Data.JSONLoader.Exec('jail/json/loadBodies.json', (data: Array<any>) => {
+              this.bodies = data;
+    					for (var key in this.bodies ) {
+    						this.numberBodies++;
+    					}
+
+              Data.JSONLoader.Exec('jail/json/loadElements.json', (data: Array<any>) => {
+                this.humanPart = data;
+                for (var key in this.humanPart) {
+                    this.numberHumanPart++;
+                }
+                this.isLoaded = true;
+                callback();
+              });
             });
           });
         });
@@ -98,6 +115,13 @@ module Data {
       var randomNumber: number = Math.floor(Math.random() * (0 - (this.bodySpawn.length))) + this.bodySpawn.length;
       let tmp = this.bodySpawn[randomNumber];
       this.bodySpawn.splice(randomNumber, 1);
+      return tmp;
+		}
+
+		static RandomPosOrder():any {
+      var randomNumber: number = Math.floor(Math.random() * (0 - (this.orderSpawn.length))) + this.orderSpawn.length;
+      let tmp = this.orderSpawn[randomNumber];
+      this.orderSpawn.splice(randomNumber, 1);
       return tmp;
 		}
   }

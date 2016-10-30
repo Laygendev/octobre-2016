@@ -14,10 +14,10 @@ class OrderManager {
   public Draw(context: any):void {
 
     for(var key in this.listOrder) {
-			let keyNumber: any = key;
 			context.save();
-			context.scale(0.45, 0.45);
-			context.translate((150 * keyNumber) + 10, 10);
+			context.translate(global.size.width / 2 - 50, global.size.height - 150);
+      context.globalAlpha = 0.5;
+      context.scale(0.45, 0.45);
       this.listOrder[key].Draw(context);
 			context.restore();
     }
@@ -37,5 +37,12 @@ class OrderManager {
   public Add(order: Order) {
     Data.Sound.PlaySound('orderPop', false);
     this.listOrder.push(order);
+  }
+
+  public Resize():void {
+    for (var key in this.listOrder) {
+      for(var key in this.listOrder) {
+      }
+    }
   }
 }

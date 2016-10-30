@@ -135,8 +135,6 @@ class Character extends Sprite {
 	    if (found) {
 				let iNumber: any = i;
         found.done = true;
-				// orderManager.listOrder.splice(iNumber, 1);
-	      // orderManager.Remove(found);
 	      return found;
 	    }
 		}

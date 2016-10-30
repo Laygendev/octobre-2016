@@ -30,7 +30,7 @@ class DialogManager {
   public Load(pathJson: string):void {
     Data.JSONLoader.Exec(pathJson, (data: Array<any>) => {
       for (var i = 0; i < data.dialog.length; i++) {
-        this.AddDialog(new Dialog(data.dialog[i], 50, {x: 0, y:0}));
+        this.AddDialog(new Dialog(data.dialog[i], 50));
       }
     });
   }
@@ -47,12 +47,7 @@ class DialogManager {
     context.save();
     context.fillStyle = "white";
     if (this.dialogs[this.currentKeyDialog]) {
-      context.translate(global.size.width / 2 - 250, global.size.height / 2 - 150);
-      context.fillRect(0, 0, 500, 300);
-      this.mouseSprite.Draw(context);
-      this.mouseSprite.SetPos(450, 250);
-      context.translate(20, 50);
-      this.dialogs[this.currentKeyDialog].Draw(context);
+      this.dialogs[this.currentKeyDialog].Draw(this.mouseSprite, context);
     }
     context.restore();
   }

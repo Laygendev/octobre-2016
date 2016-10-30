@@ -1,5 +1,6 @@
 var global = {};
 global.size = { width: 0, height: 0 };
+global.lastSize = { width: 0, height: 0 };
 var Application = (function () {
     function Application() {
         this.framesPerSecond = 1000 / 30;
@@ -17,6 +18,8 @@ var Application = (function () {
         this.context = this.canvas.getContext('2d');
         global.size.width = this.canvas.width;
         global.size.height = this.canvas.height;
+        global.lastSize.width = this.canvas.width;
+        global.lastSize.height = this.canvas.height;
         window.addEventListener('resize', this.ResizeCanvas, false);
         EventMouse.Mouse.Event(this.canvas);
         EventKeyboard.Input.Event(this.canvas);
@@ -50,6 +53,7 @@ var Application = (function () {
         this.canvas.height = window.innerHeight;
         global.size.width = this.canvas.width;
         global.size.height = this.canvas.height;
+        SceneManager.Manager.currentScene.Resize();
     };
     return Application;
 }());
