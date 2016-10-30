@@ -4,27 +4,22 @@ http://labodudev.fr
 */
 
 class EndScene extends Scene {
-	private spriteManager: SpriteManager = new SpriteManager();
 	private buttonRestart: any = undefined;
-	private gameOver: boolean = true;
-	private character: Character = undefined;
 
-  constructor(public orderManager: OrderManager, public point: Point) {
+  constructor(public orderManager: OrderManager, public score: Score) {
     super();
-		this.started = true;
-		this.Init();
   }
 
-  public Init():void {
-		this.buttonRestart = new SpriteClickable(Data.Ressources.buttons['restart'], (global.size.width / 2) - (163 / 2), global.size.height - 200, {width: 163, height: 45}, 'button', 'button');
-		this.spriteManager.Add(this.buttonRestart);
-		for (var key in this.orderManager.listOrder) {
-			if (this.orderManager.listOrder[key].done) {
-				let keyNumber: any = key;
-				this.orderManager.listOrder[key].character.SetPos(keyNumber * 150, 0);
-			}
-		}
-	}
+  // public Init():void {
+	// 	this.buttonRestart = new SpriteClickable(Data.Ressources.buttons['restart'], (global.size.width / 2) - (163 / 2), global.size.height - 200, {width: 163, height: 45}, 'button', 'button');
+	// 	this.spriteManager.Add(this.buttonRestart);
+	// 	for (var key in this.orderManager.listOrder) {
+	// 		if (this.orderManager.listOrder[key].done) {
+	// 			let keyNumber: any = key;
+	// 			this.orderManager.listOrder[key].character.SetPos(keyNumber * 150, 0);
+	// 		}
+	// 	}
+	// }
 
   public Update(delta: number):void {
 		super.Update(delta);

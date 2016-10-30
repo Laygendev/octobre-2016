@@ -1,10 +1,9 @@
 var Order = (function () {
-    function Order(spawnedTime, listSprite, pos) {
-        this.spawnedTime = spawnedTime;
-        this.listSprite = listSprite;
-        this.pos = pos;
+    function Order(listHumanPartKey) {
+        this.listHumanPartKey = listHumanPartKey;
         this.done = false;
         this.character = undefined;
+        this.pos = { x: 0, y: 0 };
     }
     Order.prototype.Draw = function (context) {
         context.save();
@@ -12,13 +11,13 @@ var Order = (function () {
             context.globalAlpha = 1;
         }
         context.translate(this.pos.x, this.pos.y);
-        for (var key in this.listSprite) {
-            Helper.DrawImage.Draw(this.listSprite[key], context);
+        for (var key in this.listHumanPartKey) {
+            Helper.DrawImage.Draw(this.listHumanPartKey[key], context);
         }
         context.restore();
     };
     Order.prototype.Clear = function () {
-        delete this.listSprite;
+        delete this.listHumanPartKey;
     };
     Order.prototype.SetCharacter = function (character) {
         this.character = character;

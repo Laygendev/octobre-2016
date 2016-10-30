@@ -1,47 +1,38 @@
-var global = {};
-global.size = { width: 0, height: 0 };
+var global = { width: 0, height: 0 };
 var Application = (function () {
     function Application() {
-        this.framesPerSecond = 1000 / 30;
-        this.lastTime = 0;
-        this.loader = undefined;
+        var _this = this;
+        this.canvas = undefined;
+        this.context = undefined;
+        this.timer = undefined;
+        this.loader = new Loader();
         this.LoadCanvas();
-        this.StartTimer();
-        this.StartLoadData();
+        this.StartLoadData(function () {
+            _this.timer = new Timer(_this);
+        });
     }
     Application.prototype.LoadCanvas = function () {
         this.canvas = document.getElementById("canvas");
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
-        global.canvas = this.canvas;
+        global["width"] = this.canvas.width;
+        global["height"] = this.canvas.height;
+        global["hWidth"] = this.canvas.width / 2;
+        global["hHeight"] = this.canvas.height / 2;
         this.context = this.canvas.getContext('2d');
-        global.size.width = this.canvas.width;
-        global.size.height = this.canvas.height;
         EventMouse.Mouse.Event(this.canvas);
         EventKeyboard.Input.Event(this.canvas);
     };
-    Application.prototype.StartTimer = function () {
-        var _this = this;
-        this.lastTime = new Date().getTime();
-        setInterval(function () { _this.Update(); }, this.framesPerSecond);
+    Application.prototype.StartLoadData = function (cb) {
+        this.loader.Exec(function () {
+            cb();
+        });
     };
-    Application.prototype.StartLoadData = function () {
-        this.loader = new Loader();
-    };
-    Application.prototype.Update = function () {
-        var newTime = new Date().getTime();
-        var delta = (newTime - this.lastTime) / 1000;
-        this.lastTime = newTime;
+    Application.prototype.Update = function (deltaTime) {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        if (SceneManager.Manager.currentScene && Data.Ressources.isLoaded) {
-            if (SceneManager.Manager.currentScene.started) {
-                SceneManager.Manager.currentScene.Update(delta);
-                SceneManager.Manager.currentScene.Draw(this.context);
-            }
-            else {
-                SceneManager.Manager.currentScene.UpdateNoStarted(delta);
-                SceneManager.Manager.currentScene.DrawNoStarted(this.context);
-            }
+        if (SceneManager.Manager.currentScene) {
+            SceneManager.Manager.currentScene.Update(deltaTime);
+            SceneManager.Manager.currentScene.Draw(this.context);
         }
     };
     return Application;

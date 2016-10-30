@@ -3,7 +3,7 @@ Créer par Jimmy Latour, 2016
 http://labodudev.fr
 */
 
-class Point {
+class Score {
   public point: number = 0;
   /**
   * Le constructeur permet appelle LoadCanvas

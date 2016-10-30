@@ -4,10 +4,13 @@ http://labodudev.fr
 */
 
 class Order {
-  done: Boolean = false;
-  character: Character = undefined;
+  private done: Boolean = false;
+  private character: Character = undefined;
+  private pos: any = {x: 0, y: 0};
 
-  constructor(public spawnedTime: Number, public listSprite: Array<string>, public pos: any) {  }
+  constructor(public listHumanPartKey: Array<string>) {
+
+  }
 
   public Draw(context: any):void {
     context.save();
@@ -15,14 +18,14 @@ class Order {
       context.globalAlpha = 1;
     }
     context.translate(this.pos.x, this.pos.y);
-    for(var key in this.listSprite) {
-      Helper.DrawImage.Draw(this.listSprite[key], context);
+    for(var key in this.listHumanPartKey) {
+      Helper.DrawImage.Draw(this.listHumanPartKey[key], context);
     }
     context.restore();
   }
 
   public Clear():void {
-    delete this.listSprite;
+    delete this.listHumanPartKey;
   }
 
   public SetCharacter(character: Character):void {

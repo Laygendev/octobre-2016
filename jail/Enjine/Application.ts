@@ -1,41 +1,74 @@
 /**
 Créer par Jimmy Latour, 2016
 http://labodudev.fr
+Le fichier boot du jeu: charge le canvas, et initialise l'objet "Loader" et "Timer"
+Gère la boucle principale du jeu
 */
 
+/**
+ * Permet d'accéder à la taille du canvas dans tous les fichiers
+ * @type {any}
+ */
+let global: any = { width: 0, height: 0 };
 
-let global:any = {};
-global.size = {width: 0, height: 0};
-
+/**
+ * Charges le canvas
+ */
 class Application {
-  private canvas: any;
-  private context: any;
-
-  private framesPerSecond: number = 1000 / 30;
-  private lastTime: number = 0;
-
-  private loader: Loader = undefined;
   /**
-  * Le constructeur permet appelle LoadCanvas
-  */
+   * La fenêtre ou le jeu est dessiné
+   * @type {any}
+   */
+  private canvas: any = undefined;
+
+  /**
+   * Le contexte de dessin
+   * @type {CanvasRenderingContext2D}
+   */
+  private context: CanvasRenderingContext2D = undefined;
+
+  /**
+   * L'objet qui vas gérer la boucle principale du jeu (Également le deltaTime)
+   * @type {Timer}
+   */
+  private timer: Timer = undefined;
+
+  /**
+   * Charges toutes les ressources (images, musiques, bruitages)
+   * @type {Loader}
+   */
+  private loader: Loader = new Loader();
+
+  /**
+   * Le constructeur déclenche la fonction pour charger le canvas,
+   * ainsi que la fonction pour charger les ressources.
+   * Lances le timer (L'objet qui permet de gérer la boucle principale du jeu)
+   * @return {void}
+   */
   constructor() {
     this.LoadCanvas();
-    this.StartTimer();
-    this.StartLoadData();
+    this.StartLoadData( () => {
+      this.timer = new Timer(this);
+    } );
   }
 
   /**
-  * Initialise le canvas avec la taille du navigateur de l'utilisateur
-  */
+   * Charges le canvas et le contexte 2D.
+   * Définis la taille du canvas à la taille du navigateur, et met ses valeurs dans l'Objet global.
+   * Initialises également les évènements du jeu: Souris, clavier.
+   * @return {void}
+   */
   LoadCanvas():void {
     this.canvas = document.getElementById("canvas");
 		this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight
-    global.canvas = this.canvas;
+    this.canvas.height = window.innerHeight;
+    global["width"] = this.canvas.width;
+    global["height"] = this.canvas.height;
+    // h for half
+    global["hWidth"] = this.canvas.width / 2;
+    global["hHeight"] = this.canvas.height / 2;
 
     this.context = this.canvas.getContext('2d');
-		global.size.width = this.canvas.width;
-		global.size.height = this.canvas.height;
 
     // Initialise les évènements: souris, clavier
     EventMouse.Mouse.Event(this.canvas);
@@ -43,40 +76,30 @@ class Application {
   }
 
   /**
-  * Démarres la boucle infini du jeu, cette méthode appelle Update toutes les X secondes.
-  */
-  StartTimer():void {
-    this.lastTime = new Date().getTime();
-    setInterval( () => { this.Update(); }, this.framesPerSecond);
+   * Appelle la méthode Exec de l'Objet loader pour charger toutes les
+   * ressources du jeu.
+   * @param  {cb}      La fonction de callback
+   * @return {void}
+   */
+  StartLoadData(cb: () => void):void {
+    this.loader.Exec(() => {
+        cb();
+    });
   }
 
   /**
-  * Démarres le chargement des données du jeu (image, son, ..)
-  */
-  StartLoadData():void {
-    this.loader = new Loader();
-  }
-
-  /**
-  * Remplis le canvas d'une couleur uni et appelle la méthode Update et Draw de la scène actuelle.
-  */
-  Update():void {
-    let newTime: number = new Date().getTime();
-    let delta: number = (newTime - this.lastTime) / 1000;
-    this.lastTime = newTime;
-
+   * La boucle principale du jeu. Elle est appelée toutes les 1000 / 30 secondes.
+   * Elle nettoie l'affichage de l'écran à chaque tour.
+   * Si l'Objet currentScene de SceneManager.Manager existe, cette méthode
+   * appelle les méthodes Update et Draw de celui-ci.
+   * @param {number} deltaTime
+   */
+  Update(deltaTime: number):void {
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    if (SceneManager.Manager.currentScene && Data.Ressources.isLoaded) {
-      if (SceneManager.Manager.currentScene.started) {
-        SceneManager.Manager.currentScene.Update(delta);
-        SceneManager.Manager.currentScene.Draw(this.context);
-      }
-      else {
-        SceneManager.Manager.currentScene.UpdateNoStarted(delta);
-        SceneManager.Manager.currentScene.DrawNoStarted(this.context);
-      }
-
+    if (SceneManager.Manager.currentScene) {
+      SceneManager.Manager.currentScene.Update(deltaTime);
+      SceneManager.Manager.currentScene.Draw(this.context);
     }
   }
 }

@@ -1,9 +1,7 @@
 var OrderManager = (function () {
     function OrderManager() {
         this.listOrder = [];
-        this.Init();
     }
-    OrderManager.prototype.Init = function () { };
     OrderManager.prototype.Draw = function (context) {
         for (var key in this.listOrder) {
             context.save();
@@ -24,7 +22,7 @@ var OrderManager = (function () {
     OrderManager.prototype.Clear = function () {
     };
     OrderManager.prototype.Add = function (order) {
-        Data.Sound.PlaySound('orderPop', false);
+        Data.Sounds.PlaySound('orderPop', false);
         this.listOrder.push(order);
     };
     OrderManager.prototype.Resize = function () {

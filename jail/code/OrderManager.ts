@@ -5,11 +5,7 @@ http://labodudev.fr
 
 class OrderManager {
   listOrder: Array<Order> = [];
-  constructor() {
-    this.Init();
-  }
-
-  private Init():void { }
+  constructor() {}
 
   public Draw(context: any):void {
 
@@ -35,7 +31,7 @@ class OrderManager {
   }
 
   public Add(order: Order) {
-    Data.Sound.PlaySound('orderPop', false);
+    Data.Sounds.PlaySound('orderPop', false);
     this.listOrder.push(order);
   }
 

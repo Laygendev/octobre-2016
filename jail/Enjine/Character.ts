@@ -1,30 +1,62 @@
 /**
 Créer par Jimmy Latour, 2016
 http://labodudev.fr
+Gères le personnage du jeu:
+-Gères les différentes parties d'un personnage: Corps, Tête, Bras, Jambe.
+-Gères la collision du corps vers les autres parties humaines.
+-Gères le déplacement par rapport au curseur de la souris.
+-Gères la rotation par rapport au clique de la souris, ou au clavier.
 */
 
-class Character extends Sprite {
+class Character {
+  /**
+   * Cette objet contient plusieurs clés pour respecter l'ordre lors de l'affichage.
+   * @type {any}
+   */
   private childs: any = {'head': undefined, 'body': undefined, 'arml': undefined, 'armr': undefined, 'leg': undefined};
-  public colliders: Array<CharacterCollider> = [];
+
+  /**
+   * Le tableau qui contient les objets CharacterCollider
+   * @type {Array<CharacterCollider>}
+   */
+  public characterColliders: any = {
+    "top": undefined,
+    "bottom": undefined,
+    "left": undefined,
+    "right": undefined
+  };
+
+  /**
+   * L'angle du personnage
+   * @type {number}
+   */
   public angle: number = 0;
+
+  /**
+   * La vitesse de la rotation
+   * @type {number}
+   */
   public speedAngle: number = 0.1;
-  public secondTime: number = 0;
 
-  constructor(public mainScene: MainScene, public x: number, public y:number, public zone: Array<any>, public name: string) {
-    super(x, y, zone, 'body', 'character');
-  }
-
-  protected Init():void {
+  /**
+   * Le constructeur initialise les collisions du personnage
+   * @return {void}
+   */
+  constructor() {
     Data.JSONLoader.Exec('jail/json/characterCollider.json', (data) => {
-      this.colliders["top"] = new CharacterCollider(data['top']);
-      this.colliders["bottom"] = new CharacterCollider(data['bottom']);
-      this.colliders["left"] = new CharacterCollider(data['left']);
-      this.colliders["right"] = new CharacterCollider(data['right']);
+      for (var key in data) {
+        this.characterColliders[key] = new CharacterCollider(data[key]);
+      }
     });
   }
 
+  /**
+   * Ajoutes une partie humaine au personnage.
+   * @param {Sprite} child [description]
+   * @return {void}
+   */
   public AddChild(child: Sprite):void {
-    Data.Sound.PlaySound('joinOk', false);
+    Data.Sounds.PlaySound('joinOk', false);
     this.childs[child["type"]] = child;
   }
 
@@ -44,55 +76,6 @@ class Character extends Sprite {
     }
   }
 
-  public UpdateCollider(spriteManager: SpriteManager, listSprite: Array<Sprite>):void {
-    for (var key in this.colliders) {
-      var contactInfo: any = this.colliders[key].CheckCollider(this, listSprite, key);
-
-      if (contactInfo && contactInfo.sprite) {
-        if (contactInfo.valide) {
-          spriteManager.Remove(contactInfo.sprite);
-          contactInfo.sprite.SetPos(0, 0);
-
-          let offsetPos = {
-            x: contactInfo.sprite.zone.collider[contactInfo.zoneElement].x,
-            y: contactInfo.sprite.zone.collider[contactInfo.zoneElement].y
-          };
-
-          switch (contactInfo.zoneCharacter) {
-            case "top":
-            offsetPos.y += this.childs['body'].zone.height / 2;
-            break;
-            case "bottom":
-            offsetPos.y -= this.childs['body'].zone.height / 2;
-            break;
-            case "left":
-            offsetPos.x -= this.childs['body'].zone.width / 2;
-            break;
-            case "right":
-            offsetPos.x += this.childs['body'].zone.width / 2;
-            break;
-            default:
-            break;
-          }
-
-          offsetPos.x *= -1;
-          offsetPos.y *= - 1;
-
-          contactInfo.sprite.SetOffset(offsetPos);
-          this.AddChild(contactInfo.sprite);
-          contactInfo.sprite.angle = 0;
-
-          this.RemoveCollider(contactInfo.zoneCharacter);
-        }
-        else {
-					// Perte de tous ses membres
-          // this.mainScene.ChangeScene(true);
-        }
-        break;
-      }
-    }
-  }
-
   public Draw(context: any):void {
     context.save();
     context.translate(this.x, this.y);
@@ -105,41 +88,10 @@ class Character extends Sprite {
     }
 
     context.restore();
-
-    // for (var key in this.colliders) {
-    //   this.colliders[key].Draw(context);
-    // }
   }
 
   public RemoveCollider(zoneName: string):void {
     delete this.colliders[zoneName];
-  }
-
-  public CheckElement(orderManager: OrderManager):any {
-    let found: any = true;
-		let foundI: number = 0;
-
-    for (var i in orderManager.listOrder) {
-      found = orderManager.listOrder[i];
-      for (var key in this.childs) {
-        if (this.childs[key]) {
-          if (orderManager.listOrder[i].listSprite.indexOf(this.childs[key].name) == -1) {
-            found = false;
-          }
-        }
-        else {
-          found = false;
-        }
-      }
-
-	    if (found) {
-				let iNumber: any = i;
-        found.done = true;
-	      return found;
-	    }
-		}
-
-    return false;
   }
 
   public Clear():void {

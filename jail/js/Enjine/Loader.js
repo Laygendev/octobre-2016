@@ -1,10 +1,11 @@
 var Loader = (function () {
     function Loader() {
-        this.StartLoad();
     }
-    Loader.prototype.StartLoad = function () {
-        Data.Ressources.Load(function () {
-            Data.Sound.Load();
+    Loader.prototype.Exec = function (cb) {
+        Data.Images.Load(function () {
+            Data.Sounds.Load(function () {
+                cb();
+            });
         });
     };
     return Loader;
