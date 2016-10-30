@@ -7,7 +7,7 @@ var Data;
             Data.Sound
                 .AddSound("ambiant", "jail/sounds/bensound-psychedelic.mp3", 1)
                 .AddSound("orderPop", "jail/sounds/orderPop.mp3", 1)
-                .AddSound("joinOk", "jail/sounds/joinOk", 1)
+                .AddSound("joinOk", "jail/sounds/joinOk.mp3", 1)
                 .AddSound("joinFail", "jail/sounds/joinFail.mp3", 1)
                 .AddSound("sendHuman", "jail/sounds/sendHuman.mp3", 1)
                 .AddSound("deleteHuman", "jail/sounds/deleteHuman.mp3", 1)

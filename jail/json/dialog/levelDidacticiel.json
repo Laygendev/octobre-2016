@@ -9,7 +9,7 @@
       "text": {
         "x": 0,
         "y": 0,
-        "string": "Hmm.. Je crois bien avoir anéantis la Terre... Navré, vraiment navré!",
+        "string": "Hmm.. Je crois bien avoir anéanti la Terre... Navré, vraiment navré!",
         "backLineSpecial": true
       }
     },
@@ -45,19 +45,7 @@
       "text": {
         "x": 0,
         "y": 0,
-        "string": "Gluko vivait sur la planète Bloufik, à 7 années lumière de ce système solaire, ........, ça, c'est Bloufik!",
-        "backLineSpecial": true
-      }
-    },
-    {
-      "rect": {
-        "width": 500,
-        "height": 160
-      },
-      "text": {
-        "x": 0,
-        "y": 0,
-        "string": "Moi qui espérait rentrer tôt,..... On dirait bien que je vais devoir faire des heures supplémentaires... Roh!",
+        "string": "Moi qui espérais rentrer tôt. On dirait bien que je vais devoir faire des heures supplémentaires... Roh!",
         "backLineSpecial": true
       }
     },
@@ -81,7 +69,7 @@
       "text": {
         "x": 0,
         "y": 0,
-        "string": "......................................................."
+        "string": "-..."
       }
     },
     {
@@ -92,7 +80,7 @@
       "text": {
         "x": 0,
         "y": 0,
-        "string": "Un problème vous dites ?",
+        "string": "-Un problème vous dites ?",
         "backLineSpecial": true
       }
     },
@@ -104,7 +92,7 @@
       "text": {
         "x": 0,
         "y": 0,
-        "string": ".......................................................",
+        "string": "-...",
         "backLineSpecial": true
       }
     },
@@ -116,7 +104,7 @@
       "text": {
         "x": 0,
         "y": 0,
-        "string": "Hum... Il se pourrait que ce soit moi... J'ai, hum... par erreur hein! hum... déclenché le... le... le lanceur d'étoile ...",
+        "string": "-Hum... Il se pourrait que ce soit moi... J'ai, hum... par erreur hein! hum... déclenché le... le... le lanceur d'étoile ...",
         "backLineSpecial": true
       }
     },
@@ -128,7 +116,7 @@
       "text": {
         "x": 0,
         "y": 0,
-        "string": ".......................................................",
+        "string": "-...",
         "backLineSpecial": true
       }
     },
@@ -140,7 +128,7 @@
       "text": {
         "x": 0,
         "y": 0,
-        "string": "Oui maître... Mais hum.. Je ne sais pas créer une Terre... Je suis créateur d'étoile moi !",
+        "string": "-Oui maître... Mais hum.. Je ne sais pas créer une Terre... Je suis créateur d'étoile moi !",
         "backLineSpecial": true
       }
     },
@@ -152,7 +140,7 @@
       "text": {
         "x": 0,
         "y": 0,
-        "string": ".......................................................",
+        "string": "-...",
         "backLineSpecial": true
       }
     },
@@ -164,7 +152,7 @@
       "text": {
         "x": 0,
         "y": 0,
-        "string": "Le créateur de Vie Terrestre. Oh... Bien maître !...",
+        "string": "-Le créateur de Vie Terrestre. Oh... Bien maître !...",
         "backLineSpecial": true
       }
     },
@@ -192,8 +180,8 @@
       },
       "text": {
         "x": 20,
-        "y": 220,
-        "string": "1. Humain disparu\n2. Corps à assembler\n3. Une fois l'assemblage,\nil faut faire un clic sur la planète pour donner vie à l'humain disparu",
+        "y": 200,
+        "string": "Assembler un humain\n1. Humain à recréer\n2. Cliquer pour prendre le corps et commencer l'assemblage \n3. Cliquer pour envoyer l'humain recréé sur la Terre",
         "backLineSpecial": false
       }
     },
@@ -210,7 +198,7 @@
       "text": {
         "x": 130,
         "y": 0,
-        "string": "Si votre humain ne correspond \npas à l'humain disparu,\nfaites un clic dans la poubelle.",
+        "string": "Cliquer sur la poubelle\nen cas d'erreur.",
         "backLineSpecial": false
       }
     }

@@ -52,7 +52,7 @@ var Application = (function () {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         global.size.width = this.canvas.width;
-        global.size.height = this.canvas.height;
+        global.size.height = this.canvas.height - 50;
         SceneManager.Manager.currentScene.Resize();
     };
     return Application;

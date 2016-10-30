@@ -82,7 +82,6 @@ var Data;
             var randomNumber = Math.floor(Math.random() * (0 - (this.bodySpawn.length))) + this.bodySpawn.length;
             var tmp = this.bodySpawn[randomNumber];
             this.bodySpawn.splice(randomNumber, 1);
-            console.log(tmp);
             return tmp;
         };
         Ressources.RandomPosOrder = function () {

@@ -9,19 +9,7 @@
       "text": {
         "x": 0,
         "y": 0,
-        "string": "Bon, je pense avoir compris, hmm.. Par quel pays commencer ?",
-        "backLineSpecial": true
-      }
-    },
-    {
-      "rect": {
-        "width": 500,
-        "height": 120
-      },
-      "text": {
-        "x": 0,
-        "y": 0,
-        "string": "De souvenir, la France, je trouvai ça bien sympa!",
+        "string": "Bon, je pense avoir compris, hmm.. Par ou commencer..?",
         "backLineSpecial": true
       }
     }

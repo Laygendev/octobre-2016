@@ -8,7 +8,7 @@ var OrderManager = (function () {
         for (var key in this.listOrder) {
             context.save();
             context.translate(global.size.width / 2 - 50, global.size.height - 150);
-            context.globalAlpha = 0.5;
+            context.globalAlpha = 0.7;
             context.scale(0.45, 0.45);
             this.listOrder[key].Draw(context);
             context.restore();

@@ -8,7 +8,6 @@ canvas {
 	z-index: 100;
 }
 
-
 @keyframes animationFrames{
   0% {
     transform:  translate(0px,0px)  ;
