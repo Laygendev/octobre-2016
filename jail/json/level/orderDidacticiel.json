@@ -10,5 +10,29 @@
         "body0"
       ]
     }
+  ],
+  "20": [
+    {
+      "object":
+      [
+        "head1",
+        "leg0",
+        "arm0l",
+        "arm0r",
+        "body1"
+      ]
+    }
+  ],
+  "40": [
+    {
+      "object":
+      [
+        "head2",
+        "leg1",
+        "arm1l",
+        "arm1r",
+        "body0"
+      ]
+    }
   ]
 }

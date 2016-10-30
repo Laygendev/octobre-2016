@@ -6,11 +6,14 @@ http://labodudev.fr
 class Scene {
   public started: boolean = false;
   public notificationManager: NotificationManager = new NotificationManager();
+  protected dialogManager: DialogManager = undefined;
 
   /**
   * Le constructeur permet appelle LoadCanvas
   */
-  constructor() {}
+  constructor() {
+    this.dialogManager = new DialogManager(this);
+  }
 
   public Start():void {}
 

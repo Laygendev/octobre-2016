@@ -13,7 +13,6 @@ class LevelDidacticiel extends MainScene {
   public StartChild():void {
     this.InitOrder();
     this.timer = new Timer(1000, 60, this);
-    // this.timer.LoadNotification(this.notificationManager, 'jail/json/notification/levelDidacticiel.json');
   }
 
   public InitOrder() {

@@ -14,11 +14,9 @@ class MainScene extends Scene {
   protected point: Point = new Point(this);
   public orderManager: OrderManager = new OrderManager();
   protected spawnOrderManager: SpawnOrderManager = undefined;
-  protected dialogManager: DialogManager = undefined;
 
   constructor() {
     super();
-    this.dialogManager = new DialogManager(this);
   }
 
   public Start():void {
@@ -34,7 +32,7 @@ class MainScene extends Scene {
     this.spriteClickableTrash = new SpriteClickable(Data.Ressources.staticImage['trash'], 20, global.size.height - 130, {width: 111, height: 119}, "clickableImage", "trash", undefined);
     this.spriteManager.Add(this.spriteClickableTrash);
 
-    this.spawnManager = new SpawnManager(this.spriteManager, 5000);
+    this.spawnManager = new SpawnManager(this.spriteManager, 2500);
 
     this.StartChild();
   }
@@ -77,6 +75,12 @@ class MainScene extends Scene {
        else {
           Data.Sound.PlaySound('wrong', false);
        }
+    }
+
+    if (this.spriteClickableTrash.ClickIn() && this.character) {
+      this.character.Clear();
+      delete this.character;
+      Data.Sound.PlaySound('deleteHuman', false);
     }
   }
 

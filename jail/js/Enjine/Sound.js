@@ -15,6 +15,7 @@ var Data;
                 .AddSound("countdown", "jail/sounds/countdown.mp3", 3)
                 .AddSound("timer", "jail/sounds/timer.mp3", 1)
                 .AddSound("wrong", "jail/sounds/wrong.mp3", 1);
+            Data.Sound.PlaySound("ambiant", true);
             SceneManager.Manager.SetScene(new LevelDidacticiel());
         };
         Sound.AddSound = function (name, src, maxChannels) {
@@ -81,10 +82,10 @@ var Data;
         Sound.LoopCallback = function () {
             Data.Sound.currentTime = -1;
         };
-        Sound.sounds = {};
-        Sound.currentTime = 0;
         return Sound;
     }());
+    Sound.sounds = {};
+    Sound.currentTime = 0;
     Data.Sound = Sound;
 })(Data || (Data = {}));
 ;

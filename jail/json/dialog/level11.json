@@ -1,0 +1,17 @@
+{
+  "dialog":
+  [
+    {
+      "rect": {
+        "width": 500,
+        "height": 120
+      },
+      "text": {
+        "x": 0,
+        "y": 0,
+        "string": "Ahh la france...! Des humains, encore des humains...",
+        "backLineSpecial": true
+      }
+    }
+  ]
+}

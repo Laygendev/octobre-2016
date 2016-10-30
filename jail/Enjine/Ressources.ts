@@ -115,6 +115,8 @@ module Data {
       var randomNumber: number = Math.floor(Math.random() * (0 - (this.bodySpawn.length))) + this.bodySpawn.length;
       let tmp = this.bodySpawn[randomNumber];
       this.bodySpawn.splice(randomNumber, 1);
+      console.log(tmp);
+      
       return tmp;
 		}
 

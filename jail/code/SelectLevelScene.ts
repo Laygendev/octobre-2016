@@ -10,15 +10,19 @@ class SelectLevelScene extends Scene {
 
   constructor() {
     super();
-  }
 
-  public Init():void {
-		this.started = true;
 		this.spriteEurope = new SpriteClickable(Data.Ressources.staticImage['map'], global.size.width / 2 - 500, 50, {width: 0, height: 0}, "staticImage", "terre");
 		this.spriteManager.Add(this.spriteEurope);
 
 		this.spriteFrance = new SpriteClickable(Data.Ressources.staticImage['mapFrance'], global.size.width / 2 - 41, 297, {width: 36, height: 37}, "staticImage", "terre");
 		this.spriteManager.Add(this.spriteFrance);
+
+		this.dialogManager.Load('jail/json/dialog/levelSelectScene.json');
+  }
+
+	public Start():void {
+    delete this.dialogManager;
+    this.started = true;
 	}
 
   public Update(delta: number):void {
@@ -41,5 +45,18 @@ class SelectLevelScene extends Scene {
 
 		this.spriteFrance.Clear();
 		delete this.spriteFrance;
+	}
+
+	public UpdateNoStarted(delta: number):void {
+
+	}
+
+	public DrawNoStarted(context: any):void {
+		this.spriteManager.Draw(context);
+
+		
+		if (this.dialogManager) {
+			this.dialogManager.Draw(context);
+		}
 	}
 }

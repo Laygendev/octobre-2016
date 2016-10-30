@@ -6,7 +6,11 @@ http://labodudev.fr
 class Level11 extends MainScene {
   constructor() {
     super();
-    this.Start();
+
+    this.dialogManager.Load('jail/json/dialog/level11.json');
+  }
+
+  public StartChild():void {
     this.InitOrder();
     this.timer = new Timer(1000, 120, this);
   }
@@ -21,5 +25,15 @@ class Level11 extends MainScene {
 
   protected DrawChildScene(context: any):void {
     this.orderManager.Draw(context);
+  }
+
+  public UpdateNoStarted(delta: number):void {
+
+  }
+
+  public DrawNoStarted(context: any):void {
+    if (this.dialogManager) {
+      this.dialogManager.Draw(context);
+    }
   }
 }

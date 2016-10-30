@@ -2,6 +2,8 @@ var Scene = (function () {
     function Scene() {
         this.started = false;
         this.notificationManager = new NotificationManager();
+        this.dialogManager = undefined;
+        this.dialogManager = new DialogManager(this);
     }
     Scene.prototype.Start = function () { };
     Scene.prototype.Init = function () { };

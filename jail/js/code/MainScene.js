@@ -14,8 +14,6 @@ var MainScene = (function (_super) {
         _this.point = new Point(_this);
         _this.orderManager = new OrderManager();
         _this.spawnOrderManager = undefined;
-        _this.dialogManager = undefined;
-        _this.dialogManager = new DialogManager(_this);
         return _this;
     }
     MainScene.prototype.Start = function () {
@@ -25,7 +23,7 @@ var MainScene = (function (_super) {
         this.spriteManager.Add(this.spriteClickableTerre);
         this.spriteClickableTrash = new SpriteClickable(Data.Ressources.staticImage['trash'], 20, global.size.height - 130, { width: 111, height: 119 }, "clickableImage", "trash", undefined);
         this.spriteManager.Add(this.spriteClickableTrash);
-        this.spawnManager = new SpawnManager(this.spriteManager, 5000);
+        this.spawnManager = new SpawnManager(this.spriteManager, 2500);
         this.StartChild();
     };
     MainScene.prototype.StartChild = function () { };
@@ -57,6 +55,11 @@ var MainScene = (function (_super) {
             else {
                 Data.Sound.PlaySound('wrong', false);
             }
+        }
+        if (this.spriteClickableTrash.ClickIn() && this.character) {
+            this.character.Clear();
+            delete this.character;
+            Data.Sound.PlaySound('deleteHuman', false);
         }
     };
     MainScene.prototype.Draw = function (context) {

@@ -6,17 +6,20 @@ var __extends = (this && this.__extends) || function (d, b) {
 var SelectLevelScene = (function (_super) {
     __extends(SelectLevelScene, _super);
     function SelectLevelScene() {
-        _super.call(this);
-        this.spriteManager = new SpriteManager();
-        this.spriteEurope = undefined;
-        this.spriteFrance = undefined;
+        var _this = _super.call(this) || this;
+        _this.spriteManager = new SpriteManager();
+        _this.spriteEurope = undefined;
+        _this.spriteFrance = undefined;
+        _this.spriteEurope = new SpriteClickable(Data.Ressources.staticImage['map'], global.size.width / 2 - 500, 50, { width: 0, height: 0 }, "staticImage", "terre");
+        _this.spriteManager.Add(_this.spriteEurope);
+        _this.spriteFrance = new SpriteClickable(Data.Ressources.staticImage['mapFrance'], global.size.width / 2 - 41, 297, { width: 36, height: 37 }, "staticImage", "terre");
+        _this.spriteManager.Add(_this.spriteFrance);
+        _this.dialogManager.Load('jail/json/dialog/levelSelectScene.json');
+        return _this;
     }
-    SelectLevelScene.prototype.Init = function () {
+    SelectLevelScene.prototype.Start = function () {
+        delete this.dialogManager;
         this.started = true;
-        this.spriteEurope = new SpriteClickable(Data.Ressources.staticImage['map'], global.size.width / 2 - 500, 50, { width: 0, height: 0 }, "staticImage", "terre");
-        this.spriteManager.Add(this.spriteEurope);
-        this.spriteFrance = new SpriteClickable(Data.Ressources.staticImage['mapFrance'], global.size.width / 2 - 41, 297, { width: 36, height: 37 }, "staticImage", "terre");
-        this.spriteManager.Add(this.spriteFrance);
     };
     SelectLevelScene.prototype.Update = function (delta) {
         if (this.spriteFrance.ClickIn()) {
@@ -34,6 +37,14 @@ var SelectLevelScene = (function (_super) {
         delete this.spriteEurope;
         this.spriteFrance.Clear();
         delete this.spriteFrance;
+    };
+    SelectLevelScene.prototype.UpdateNoStarted = function (delta) {
+    };
+    SelectLevelScene.prototype.DrawNoStarted = function (context) {
+        this.spriteManager.Draw(context);
+        if (this.dialogManager) {
+            this.dialogManager.Draw(context);
+        }
     };
     return SelectLevelScene;
 }(Scene));

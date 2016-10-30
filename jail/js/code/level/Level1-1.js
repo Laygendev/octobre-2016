@@ -7,11 +7,13 @@ var Level11 = (function (_super) {
     __extends(Level11, _super);
     function Level11() {
         var _this = _super.call(this) || this;
-        _this.Start();
-        _this.InitOrder();
-        _this.timer = new Timer(1000, 120, _this);
+        _this.dialogManager.Load('jail/json/dialog/level11.json');
         return _this;
     }
+    Level11.prototype.StartChild = function () {
+        this.InitOrder();
+        this.timer = new Timer(1000, 120, this);
+    };
     Level11.prototype.InitOrder = function () {
         this.spawnOrderManager = new SpawnOrderManager(this.spriteManager, this.orderManager, 'jail/json/level/order1-1.json');
     };
@@ -20,6 +22,13 @@ var Level11 = (function (_super) {
     };
     Level11.prototype.DrawChildScene = function (context) {
         this.orderManager.Draw(context);
+    };
+    Level11.prototype.UpdateNoStarted = function (delta) {
+    };
+    Level11.prototype.DrawNoStarted = function (context) {
+        if (this.dialogManager) {
+            this.dialogManager.Draw(context);
+        }
     };
     return Level11;
 }(MainScene));

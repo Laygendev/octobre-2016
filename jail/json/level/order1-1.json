@@ -3,10 +3,10 @@
     {
       "object":
       [
-        "head0",
-        "leg0",
-        "arm0l",
-        "arm0r",
+        "head1",
+        "leg1",
+        "arm1l",
+        "arm1r",
         "body0"
       ]
     }
@@ -15,11 +15,95 @@
     {
       "object":
       [
-        "head1",
+        "head0",
         "leg1",
         "arm0l",
         "arm1r",
         "body1"
+      ]
+    }
+  ],
+  "20": [
+    {
+      "object":
+      [
+        "head2",
+        "leg2",
+        "arm0l",
+        "arm2r",
+        "body2"
+      ]
+    }
+  ],
+  "35": [
+    {
+      "object":
+      [
+        "head1",
+        "leg0",
+        "arm0l",
+        "arm0r",
+        "body2"
+      ]
+    }
+  ],
+  "50": [
+    {
+      "object":
+      [
+        "head0",
+        "leg1",
+        "arm1l",
+        "arm2r",
+        "body1"
+      ]
+    }
+  ],
+  "55": [
+    {
+      "object":
+      [
+        "head2",
+        "leg2",
+        "arm2l",
+        "arm2r",
+        "body0"
+      ]
+    }
+  ],
+  "60": [
+    {
+      "object":
+      [
+        "head0",
+        "leg0",
+        "arm0l",
+        "arm0r",
+        "body2"
+      ]
+    }
+  ],
+  "95": [
+    {
+      "object":
+      [
+        "head2",
+        "leg0",
+        "arm2l",
+        "arm0r",
+        "body1"
+      ]
+    }
+  ],
+  "105": [
+    {
+      "object":
+      [
+        "head0",
+        "leg0",
+        "arm0l",
+        "arm0r",
+        "body0"
       ]
     }
   ]

@@ -21,7 +21,7 @@ module Data {
         .AddSound("timer", "jail/sounds/timer.mp3", 1) // OK
         .AddSound("wrong", "jail/sounds/wrong.mp3", 1) // OK
 
-      // Data.Sound.PlaySound("ambiant", true);
+      Data.Sound.PlaySound("ambiant", true);
       SceneManager.Manager.SetScene(new LevelDidacticiel());
     }
 
