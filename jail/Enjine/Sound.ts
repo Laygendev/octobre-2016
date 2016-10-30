@@ -20,6 +20,8 @@ module Data {
         .AddSound("countdown", "jail/sounds/countdown.mp3", 3) // OK
         .AddSound("timer", "jail/sounds/timer.mp3", 1) // OK
         .AddSound("wrong", "jail/sounds/wrong.mp3", 1) // OK
+        .AddSound("explosion", "jail/sounds/explosion.mp3", 1) // OK
+        .AddSound("speak", "jail/sounds/speak.mp3", 1) // OK
 
       Data.Sound.PlaySound("ambiant", true);
       SceneManager.Manager.SetScene(new LevelDidacticiel());
@@ -53,7 +55,7 @@ module Data {
         Data.Sound.sounds[name].index = 0;
       }
       if (loop) {
-        Data.Sound.sounds[name][Data.Sound.sounds[name].index].addEventListener("ended", Data.Sound.LoopCallback, false);
+        Data.Sound.sounds[name][Data.Sound.sounds[name].index].addEventListener("ended", () => { this.PlaySound(name, false); }, false);
       }
       Data.Sound.sounds[name][Data.Sound.sounds[name].index++].play();
       return Data.Sound.sounds[name].index;
@@ -95,7 +97,7 @@ module Data {
 
     static LoopCallback():void {
       Data.Sound.currentTime = -1;
-      // Data.Sound.play();
+      Data.Sound.play();
     }
   }
 };

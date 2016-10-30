@@ -14,7 +14,9 @@ var Data;
                 .AddSound("takeBody", "jail/sounds/takeBody.mp3", 1)
                 .AddSound("countdown", "jail/sounds/countdown.mp3", 3)
                 .AddSound("timer", "jail/sounds/timer.mp3", 1)
-                .AddSound("wrong", "jail/sounds/wrong.mp3", 1);
+                .AddSound("wrong", "jail/sounds/wrong.mp3", 1)
+                .AddSound("explosion", "jail/sounds/explosion.mp3", 1)
+                .AddSound("speak", "jail/sounds/speak.mp3", 1);
             Data.Sound.PlaySound("ambiant", true);
             SceneManager.Manager.SetScene(new LevelDidacticiel());
         };
@@ -39,11 +41,12 @@ var Data;
             return Data.Sound;
         };
         Sound.PlaySound = function (name, loop) {
+            var _this = this;
             if (Data.Sound.sounds[name].index >= Data.Sound.sounds[name].length) {
                 Data.Sound.sounds[name].index = 0;
             }
             if (loop) {
-                Data.Sound.sounds[name][Data.Sound.sounds[name].index].addEventListener("ended", Data.Sound.LoopCallback, false);
+                Data.Sound.sounds[name][Data.Sound.sounds[name].index].addEventListener("ended", function () { _this.PlaySound(name, false); }, false);
             }
             Data.Sound.sounds[name][Data.Sound.sounds[name].index++].play();
             return Data.Sound.sounds[name].index;
@@ -81,6 +84,7 @@ var Data;
         };
         Sound.LoopCallback = function () {
             Data.Sound.currentTime = -1;
+            Data.Sound.play();
         };
         Sound.sounds = {};
         Sound.currentTime = 0;
