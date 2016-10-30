@@ -23,7 +23,7 @@ class SpawnOrderManager {
 
           for (var i in this.jsonLevel[currentTime][key][x]) {
               this.CreateOrder(this.jsonLevel[currentTime][key][x][i]);
-              // this.CreateOrderAfter(this.jsonLevel[currentTime][key][x][i], 5000);
+              this.CreateOrderAfter(this.jsonLevel[currentTime][key][x][i], 5000);
           }
   			}
       }

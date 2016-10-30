@@ -17,6 +17,7 @@ var SpawnOrderManager = (function () {
                     this.orderManager.Add(new Order(currentTime, this.jsonLevel[currentTime][key][x], Data.Ressources.RandomPosOrder()));
                     for (var i in this.jsonLevel[currentTime][key][x]) {
                         this.CreateOrder(this.jsonLevel[currentTime][key][x][i]);
+                        this.CreateOrderAfter(this.jsonLevel[currentTime][key][x][i], 5000);
                     }
                 }
             }
