@@ -6,9 +6,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 var LevelDidacticiel = (function (_super) {
     __extends(LevelDidacticiel, _super);
     function LevelDidacticiel() {
-        var _this = _super.call(this) || this;
-        _this.dialogManager.Load('jail/json/dialog/levelDidacticiel.json');
-        return _this;
+        _super.call(this);
+        this.dialogManager.Load('jail/json/dialog/levelDidacticiel.json');
     }
     LevelDidacticiel.prototype.StartChild = function () {
         this.InitOrder();
@@ -20,15 +19,17 @@ var LevelDidacticiel = (function (_super) {
     LevelDidacticiel.prototype.Spawn = function (currentTime) {
         this.spawnOrderManager.Exec(currentTime);
     };
-    LevelDidacticiel.prototype.DrawChildScene = function (context) {
-        this.orderManager.Draw(context);
+    LevelDidacticiel.prototype.Update = function (delta) {
+        _super.prototype.Update.call(this, delta);
+    };
+    LevelDidacticiel.prototype.Draw = function (context) {
+        _super.prototype.Draw.call(this, context);
     };
     LevelDidacticiel.prototype.UpdateNoStarted = function (delta) {
+        _super.prototype.UpdateNoStarted.call(this, delta);
     };
     LevelDidacticiel.prototype.DrawNoStarted = function (context) {
-        if (this.dialogManager) {
-            this.dialogManager.Draw(context);
-        }
+        _super.prototype.DrawNoStarted.call(this, context);
     };
     return LevelDidacticiel;
 }(MainScene));

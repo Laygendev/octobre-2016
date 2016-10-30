@@ -6,7 +6,6 @@ http://labodudev.fr
 
 let global:any = {};
 global.size = {width: 0, height: 0};
-global.lastSize = {width: 0, height: 0};
 
 class Application {
   private canvas: any;
@@ -34,16 +33,11 @@ class Application {
     this.canvas.height = window.innerHeight
     global.canvas = this.canvas;
 
-
-
     this.context = this.canvas.getContext('2d');
 		global.size.width = this.canvas.width;
 		global.size.height = this.canvas.height;
-		global.lastSize.width = this.canvas.width;
-		global.lastSize.height = this.canvas.height;
 
     // Initialise les évènements: souris, clavier
-    window.addEventListener('resize', this.ResizeCanvas, false);
     EventMouse.Mouse.Event(this.canvas);
     EventKeyboard.Input.Event(this.canvas);
   }
@@ -84,15 +78,5 @@ class Application {
       }
 
     }
-  }
-
-  ResizeCanvas():void {
-    this.canvas.width = window.innerWidth;
-		this.canvas.height = window.innerHeight;
-
-    global.size.width = this.canvas.width;
-		global.size.height = this.canvas.height - 50;
-
-    SceneManager.Manager.currentScene.Resize();
   }
 }

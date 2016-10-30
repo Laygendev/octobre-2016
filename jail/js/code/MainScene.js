@@ -6,15 +6,14 @@ var __extends = (this && this.__extends) || function (d, b) {
 var MainScene = (function (_super) {
     __extends(MainScene, _super);
     function MainScene() {
-        var _this = _super.call(this) || this;
-        _this.spriteManager = new SpriteManager();
-        _this.spawnManager = undefined;
-        _this.character = undefined;
-        _this.timer = undefined;
-        _this.point = new Point(_this);
-        _this.orderManager = new OrderManager();
-        _this.spawnOrderManager = undefined;
-        return _this;
+        _super.call(this);
+        this.spawnManager = undefined;
+        this.character = undefined;
+        this.timer = undefined;
+        this.point = new Point(this);
+        this.orderManager = new OrderManager();
+        this.spawnOrderManager = undefined;
+        this.canSend = false;
     }
     MainScene.prototype.Start = function () {
         delete this.dialogManager;
@@ -35,18 +34,22 @@ var MainScene = (function (_super) {
         this.character.AddChild(tmpSprite);
     };
     MainScene.prototype.Update = function (delta) {
+        var _this = this;
+        _super.prototype.Update.call(this, delta);
         if (this.character) {
             this.character.UpdateCollider(this.spriteManager, this.spriteManager.listSprite);
             this.character.Update();
         }
         var spriteKey = this.spriteManager.Update();
         if (spriteKey && !this.character) {
+            this.canSend = false;
+            setTimeout(function () { _this.canSend = true; }, 50);
             this.InitCharacter(spriteKey);
         }
-        if (this.spriteClickableTerre.ClickIn() && this.character) {
+        if (this.spriteClickableTerre.ClickIn() && this.character && this.canSend) {
             var order = this.character.CheckElement(this.orderManager);
             if (order) {
-                Data.Sound.PlaySound('sendHuman', false);
+                Data.Sound.PlaySound('send', false);
                 order.SetCharacter(this.character);
                 this.character.Clear();
                 this.point.Add(20);
@@ -59,20 +62,26 @@ var MainScene = (function (_super) {
         if (this.spriteClickableTrash.ClickIn() && this.character) {
             this.character.Clear();
             delete this.character;
-            Data.Sound.PlaySound('deleteHuman', false);
+            Data.Sound.PlaySound('poubelle', false);
         }
     };
     MainScene.prototype.Draw = function (context) {
+        _super.prototype.Draw.call(this, context);
         this.timer.Draw(context);
-        this.spriteManager.Draw(context);
         this.point.Draw(context);
-        this.DrawChildScene(context);
-        this.notificationManager.Draw(context);
+        if (this.orderManager) {
+            this.orderManager.Draw(context);
+        }
         if (this.character) {
             this.character.Draw(context);
         }
     };
-    MainScene.prototype.DrawChildScene = function (context) { };
+    MainScene.prototype.UpdateNoStarted = function (delta) {
+        _super.prototype.UpdateNoStarted.call(this, delta);
+    };
+    MainScene.prototype.DrawNoStarted = function (context) {
+        _super.prototype.DrawNoStarted.call(this, context);
+    };
     MainScene.prototype.Clear = function () {
         this.spriteManager.Clear();
         delete this.spriteManager;

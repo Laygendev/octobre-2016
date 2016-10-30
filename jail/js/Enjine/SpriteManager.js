@@ -19,8 +19,6 @@ var SpriteManager = (function () {
         return undefined;
     };
     SpriteManager.prototype.Draw = function (context) {
-        context.font = "12px Source Sans Pro Bold";
-        context.fillText("Sprite: " + this.numberSprite, global.size.width - 50, 50);
         for (var type in this.listSprite) {
             for (var key in this.listSprite[type]) {
                 this.listSprite[type][key].Draw(context);

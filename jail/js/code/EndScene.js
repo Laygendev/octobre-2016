@@ -27,12 +27,13 @@ var EndScene = (function (_super) {
         }
     };
     EndScene.prototype.Update = function (delta) {
-        this.spriteManager.Update();
+        _super.prototype.Update.call(this, delta);
         if (this.buttonRestart.ClickIn()) {
             SceneManager.Manager.SetScene(new SelectLevelScene());
         }
     };
     EndScene.prototype.Draw = function (context) {
+        _super.prototype.Draw.call(this, context);
         context.font = "80px Source Sans Pro Bold";
         context.fillText("Mission terminée", (global.size.width / 2) - 200, 160);
         context.font = "20px Source Sans Pro Bold";
@@ -47,7 +48,6 @@ var EndScene = (function (_super) {
             }
         }
         context.restore();
-        this.spriteManager.Draw(context);
     };
     return EndScene;
 }(Scene));

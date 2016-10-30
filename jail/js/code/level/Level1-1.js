@@ -6,9 +6,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 var Level11 = (function (_super) {
     __extends(Level11, _super);
     function Level11() {
-        var _this = _super.call(this) || this;
-        _this.dialogManager.Load('jail/json/dialog/level11.json');
-        return _this;
+        _super.call(this);
+        this.dialogManager.Load('jail/json/dialog/level11.json');
     }
     Level11.prototype.StartChild = function () {
         this.InitOrder();

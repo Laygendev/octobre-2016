@@ -26,6 +26,8 @@ class SelectLevelScene extends Scene {
 	}
 
   public Update(delta: number):void {
+		super.Update(delta);
+
 		if (this.spriteFrance.ClickIn()) {
 			this.Clear();
 			SceneManager.Manager.SetScene(new Level11());
@@ -33,7 +35,7 @@ class SelectLevelScene extends Scene {
   }
 
 	public Draw(context: any):void {
-		this.spriteManager.Draw(context);
+		super.Draw(context);
   }
 
 	public Clear():void {
@@ -52,11 +54,6 @@ class SelectLevelScene extends Scene {
 	}
 
 	public DrawNoStarted(context: any):void {
-		this.spriteManager.Draw(context);
-
-		
-		if (this.dialogManager) {
-			this.dialogManager.Draw(context);
-		}
+		super.DrawNoStarted(context);
 	}
 }

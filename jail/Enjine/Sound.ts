@@ -14,8 +14,8 @@ module Data {
         .AddSound("orderPop", "jail/sounds/orderPop.mp3", 1)
         .AddSound("joinOk", "jail/sounds/joinOk.mp3", 1) // OK
         .AddSound("joinFail", "jail/sounds/joinFail.mp3", 1) // OK
-        .AddSound("sendHuman", "jail/sounds/sendHuman.mp3", 1) // OK
-        .AddSound("deleteHuman", "jail/sounds/deleteHuman.mp3", 1) // OK
+        .AddSound("send", "jail/sounds/send.mp3", 1) // OK
+        .AddSound("poubelle", "jail/sounds/poubelle.mp3", 1) // OK
         .AddSound("takeBody", "jail/sounds/takeBody.mp3", 1) // OK
         .AddSound("countdown", "jail/sounds/countdown.mp3", 3) // OK
         .AddSound("timer", "jail/sounds/timer.mp3", 1) // OK

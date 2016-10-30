@@ -9,8 +9,8 @@ var Data;
                 .AddSound("orderPop", "jail/sounds/orderPop.mp3", 1)
                 .AddSound("joinOk", "jail/sounds/joinOk.mp3", 1)
                 .AddSound("joinFail", "jail/sounds/joinFail.mp3", 1)
-                .AddSound("sendHuman", "jail/sounds/sendHuman.mp3", 1)
-                .AddSound("deleteHuman", "jail/sounds/deleteHuman.mp3", 1)
+                .AddSound("send", "jail/sounds/send.mp3", 1)
+                .AddSound("poubelle", "jail/sounds/poubelle.mp3", 1)
                 .AddSound("takeBody", "jail/sounds/takeBody.mp3", 1)
                 .AddSound("countdown", "jail/sounds/countdown.mp3", 3)
                 .AddSound("timer", "jail/sounds/timer.mp3", 1)
@@ -82,10 +82,10 @@ var Data;
         Sound.LoopCallback = function () {
             Data.Sound.currentTime = -1;
         };
+        Sound.sounds = {};
+        Sound.currentTime = 0;
         return Sound;
     }());
-    Sound.sounds = {};
-    Sound.currentTime = 0;
     Data.Sound = Sound;
 })(Data || (Data = {}));
 ;

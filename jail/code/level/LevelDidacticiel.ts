@@ -23,17 +23,19 @@ class LevelDidacticiel extends MainScene {
     this.spawnOrderManager.Exec(currentTime);
   }
 
-  protected DrawChildScene(context: any):void {
-    this.orderManager.Draw(context);
+  public Update(delta: number):void {
+    super.Update(delta);
+  }
+
+  public Draw(context: any):void {
+    super.Draw(context);
   }
 
   public UpdateNoStarted(delta: number):void {
-
+    super.UpdateNoStarted(delta);
   }
 
   public DrawNoStarted(context: any):void {
-    if (this.dialogManager) {
-      this.dialogManager.Draw(context);
-    }
+    super.DrawNoStarted(context);
   }
 }

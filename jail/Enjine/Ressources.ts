@@ -20,9 +20,9 @@ module Data {
 			this.buttons['restart'] = new Image();
 			this.buttons['restart'].src = 'jail/images/buttonRestart.png';
 
-      this.staticImage['tapis'] = new Image();
-      this.staticImage['tapis'].src = 'jail/images/tapis.png';
-
+			this.staticImage['leave'] = new Image();
+			this.staticImage['leave'].src = 'jail/images/buttonLeave.png';
+      
       this.staticImage['mouse'] = new Image();
       this.staticImage['mouse'].src = 'jail/images/mouse.png';
 
@@ -40,12 +40,6 @@ module Data {
 
       this.staticImage['helpPoubelle'] = new Image();
       this.staticImage['helpPoubelle'].src = 'jail/images/helpPoubelle.png';
-
-      this.staticImage['openMenu'] = new Image();
-      this.staticImage['openMenu'].src = 'jail/images/openMenu.png';
-
-      this.staticImage['openMenuHover'] = new Image();
-      this.staticImage['openMenuHover'].src = 'jail/images/openMenuHover.png';
 
       this.staticImage['mapFrance'] = new Image();
       this.staticImage['mapFrance'].src = 'jail/images/mapFrance.png';
@@ -115,7 +109,7 @@ module Data {
       var randomNumber: number = Math.floor(Math.random() * (0 - (this.bodySpawn.length))) + this.bodySpawn.length;
       let tmp = this.bodySpawn[randomNumber];
       this.bodySpawn.splice(randomNumber, 1);
-      
+
       return tmp;
 		}
 

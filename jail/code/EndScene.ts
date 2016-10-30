@@ -27,14 +27,15 @@ class EndScene extends Scene {
 	}
 
   public Update(delta: number):void {
-		this.spriteManager.Update();
-
+		super.Update(delta);
 		if (this.buttonRestart.ClickIn()) {
 			SceneManager.Manager.SetScene(new SelectLevelScene());
 		}
   }
 
 	public Draw(context: any):void {
+		super.Draw(context);
+
 		context.font = "80px Source Sans Pro Bold";
 		context.fillText("Mission terminée", (global.size.width / 2) - 200, 160);
 		context.font = "20px Source Sans Pro Bold";
@@ -50,7 +51,5 @@ class EndScene extends Scene {
 			}
 		}
 		context.restore();
-
-		this.spriteManager.Draw(context);
   }
 }
