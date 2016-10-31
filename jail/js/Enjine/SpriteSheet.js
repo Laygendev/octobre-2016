@@ -11,10 +11,16 @@ var SpriteSheet = (function (_super) {
         this.type = type;
         this.pos = pos;
         this.zone = zone;
+        console.log(this.zone);
     }
     SpriteSheet.prototype.Update = function () {
     };
     SpriteSheet.prototype.Draw = function (context) {
+        context.save();
+        context.translate(this.pos.x, this.pos.y);
+        context.scale(this.scale.x, this.scale.y);
+        context.drawImage(Data.Images.spriteSheet, this.zone.x, this.zone.y, this.zone.width, this.zone.height, -(this.zone.width / 2) + this.offset.x, -(this.zone.height / 2) + this.offset.y, this.zone.width, this.zone.height);
+        context.restore();
     };
     SpriteSheet.prototype.Clear = function () { };
     return SpriteSheet;

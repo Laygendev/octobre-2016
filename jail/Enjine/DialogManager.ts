@@ -19,13 +19,6 @@ class DialogManager {
   private dialogs: Array<Dialog>= [];
 
   /**
-   * Le sprite indiquant qui faut "cliquer" pour effectuer une action.
-   * Soit sauter un dialogues, soit passer au dialogue suivant.
-   * @type {SpriteClickable}
-   */
-  private mouseSprite: SpriteClickable = undefined;
-
-  /**
    * Initialise le clique de la souris
    * @return {void} nothing
    */
@@ -80,7 +73,7 @@ class DialogManager {
       context.fillStyle = "white";
 
       if (this.dialogs[this.currentKeyDialog]) {
-        this.dialogs[this.currentKeyDialog].Draw(this.mouseSprite, context);
+        this.dialogs[this.currentKeyDialog].Draw(context);
       }
 
       context.restore();
@@ -117,6 +110,5 @@ class DialogManager {
     }
 
     delete this.dialogs;
-    delete this.mouseSprite;
   }
 }

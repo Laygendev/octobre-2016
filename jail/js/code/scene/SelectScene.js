@@ -7,27 +7,28 @@ var SelectScene = (function (_super) {
     __extends(SelectScene, _super);
     function SelectScene() {
         _super.call(this);
-        this.spriteEurope = undefined;
-        this.spriteFrance = undefined;
+        this.spriteEurope = new Sprite(Data.Images.backgrounds['europe'], 'europe', 'staticImage', { x: global.hWidth - 978 / 2, y: global.hHeight - 650 / 2 });
+        this.spriteFrance = new Sprite(Data.Images.buttons['levelFrance'], 'france', 'staticImage', { x: global.hWidth - 41, y: 297 });
+        this.spriteManager.Add(this.spriteEurope);
+        this.spriteManager.Add(this.spriteFrance);
         this.dialogManager.Load('jail/json/dialog/levelSelectScene.json');
     }
+    SelectScene.prototype.Start = function () {
+        _super.prototype.Start.call(this);
+        this.spriteFrance.SetClickable({ w: 36, h: 37 }, { x: 0, y: 0 }, this.GoToParis);
+    };
     SelectScene.prototype.Update = function (delta) {
         _super.prototype.Update.call(this, delta);
-        if (this.spriteFrance.ClickIn()) {
-            this.Clear();
-            SceneManager.Manager.SetScene(new Level11());
-        }
     };
     SelectScene.prototype.Draw = function (context) {
         _super.prototype.Draw.call(this, context);
     };
     SelectScene.prototype.Clear = function () {
-        this.spriteManager.Clear();
-        delete this.spriteManager;
-        this.spriteEurope.Clear();
-        delete this.spriteEurope;
-        this.spriteFrance.Clear();
-        delete this.spriteFrance;
+        _super.prototype.Clear.call(this);
+    };
+    SelectScene.prototype.GoToParis = function () {
+        SceneManager.Manager.currentScene.Clear();
+        SceneManager.Manager.SetScene(new Paris());
     };
     return SelectScene;
 }(Scene));

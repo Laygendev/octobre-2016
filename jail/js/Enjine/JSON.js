@@ -1,9 +1,9 @@
-var Data;
-(function (Data) {
-    var JSONLoader = (function () {
-        function JSONLoader() {
+var Loader;
+(function (Loader) {
+    var JSON = (function () {
+        function JSON() {
         }
-        JSONLoader.Exec = function (pathFile, callback) {
+        JSON.Exec = function (pathFile, callback) {
             var xobj = new XMLHttpRequest();
             xobj.overrideMimeType("application/json");
             xobj.open('GET', pathFile, true);
@@ -16,8 +16,8 @@ var Data;
             };
             xobj.send(null);
         };
-        return JSONLoader;
+        return JSON;
     }());
-    Data.JSONLoader = JSONLoader;
-})(Data || (Data = {}));
+    Loader.JSON = JSON;
+})(Loader || (Loader = {}));
 //# sourceMappingURL=JSON.js.map

@@ -5,27 +5,34 @@ http://labodudev.fr
 
 class SpriteGenerator {
   private randomSide: Array<string> = ["top", "bottom", "left", "right"];
-  private speedGenerator: any = {min: 0.5, max: 5};
-  private randomAngle: any = {min: -0.01, max: 0.01}
+  private speedGenerator: any = {min: 0.8, max: 3};
+  private randomAngle: any = {min: -0.01, max: 0.01};
+
   constructor() {}
 
   Exec(zoneName: string): Sprite {
-    // let pos = this.RandomPosition();
-    //
-		// if (!zoneName) {
-	  //   // zoneName = Data.Ressources.RandomHumanPart();
-		// }
-    //
-		// if (Data.Ressources.humanPart[zoneName]) {
-	  //   let zone = Data.Ressources.humanPart[zoneName];
-	  //   let spriteMovable: SpriteMovable = new SpriteMovable(pos.x, pos.y, zone, zone.type, this.GenerateSpeed(), 0, 0, zoneName);
-	  //   spriteMovable.angle = this.RandomAngle(pos.key);
-	  //   spriteMovable.speedAngle = this.GenerateSpeedAngle(pos);
-	  //   return spriteMovable;
-		// }
-		// else {
+    let pos = this.RandomPosition();
+
+		if (Data.Object.humanParts[zoneName]) {
+	    let zone = Data.Object.humanParts[zoneName];
+	    let spriteMovable: Sprite;
+      spriteMovable = new Sprite(
+        Data.Images.spriteSheet,
+        zoneName,
+        zone.type,
+        {
+          x: pos.x,
+          y: pos.y
+        });
+
+      spriteMovable.angle = this.RandomAngle(pos.key);
+      spriteMovable.SetZone(zone);
+      spriteMovable.SetMovable(this.GenerateSpeed(), this.GenerateSpeedAngle(pos));
+	    return spriteMovable;
+		}
+		else {
 			return undefined;
-		// }
+		}
   }
 
   RandomPosition(): any {
@@ -66,7 +73,7 @@ class SpriteGenerator {
       if (pos.x <= 200) {
         return 0.002;
       }
-      else if(pos.x >= global.size.width - 200) {
+      else if(pos.x >= global.width - 200) {
         return -0.002;
       }
       else {
@@ -78,7 +85,7 @@ class SpriteGenerator {
       if (pos.x <= 200) {
         return -0.002;
       }
-      else if(pos.x >= global.size.width - 200) {
+      else if(pos.x >= global.width - 200) {
         return 0.002;
       }
       else {
@@ -90,7 +97,7 @@ class SpriteGenerator {
       if (pos.y <= 200) {
         return -0.002;
       }
-      else if(pos.y >= global.size.height - 200) {
+      else if(pos.y >= global.height - 200) {
         return 0.002;
       }
       else {
@@ -102,7 +109,7 @@ class SpriteGenerator {
       if (pos.y <= 200) {
         return 0.002;
       }
-      else if(pos.y >= global.size.height - 200) {
+      else if(pos.y >= global.height - 200) {
         return -0.002;
       }
       else {
@@ -121,18 +128,18 @@ class SpriteGenerator {
           "y": 0
         },
         "max": {
-          "x": global.size.width - 200,
+          "x": global.width - 200,
           "y": 0
         }
       },
       "bottom": {
         "min": {
           "x": 200,
-          "y": global.size.height
+          "y": global.height
         },
         "max": {
-          "x": global.size.width - 200,
-          "y": global.size.height
+          "x": global.width - 200,
+          "y": global.height
         }
       },
       "left": {
@@ -142,17 +149,17 @@ class SpriteGenerator {
         },
         "max": {
           "x": 0,
-          "y": global.size.height - 200
+          "y": global.height - 200
         }
       },
       "right": {
         "min": {
-          "x": global.size.width,
+          "x": global.width,
           "y": 200
         },
         "max": {
-          "x": global.size.width,
-          "y": global.size.height - 200
+          "x": global.width,
+          "y": global.height - 200
         }
       }
     };

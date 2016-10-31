@@ -6,11 +6,12 @@ http://labodudev.fr
 class CharacterCollider {
   public pos: any = [{x: 0, y: 0},{x: 0, y: 0},{x: 0, y: 0},{x: 0, y: 0}];
   public angle: number = 0;
-  public speedAngle: number = 0.5728;
 
-  constructor(public Rect: any) {}
+  constructor(public Rect: any) {
 
-  public Update(parentPos: any, parentAngle: number):void {
+  }
+
+  public Update(parentPos: any, parentAngle: number, zone: string):void {
     this.pos[0].x = parentPos.x + this.Rect[0].x;
     this.pos[0].y = parentPos.y + this.Rect[0].y;
 
@@ -25,6 +26,7 @@ class CharacterCollider {
 
     this.angle = parentAngle * 57.3;
     this.Rotate(parentPos);
+    this.CheckCollider(zone);
   }
 
   public Rotate(parentPos: any):void {
@@ -62,17 +64,26 @@ class CharacterCollider {
     context.stroke();
   }
 
-  public CheckCollider(parent: Character, listSprite: any, zone: string):any {
+  public CheckCollider(zone: string):any {
+    let character = SceneManager.Manager.currentScene.character;
+    let listSprite = SceneManager.Manager.currentScene.spriteManager.listSprite;
     for(var type in listSprite) {
       for(var key in listSprite[type]) {
-        for (var colliderPointKey in listSprite[type][key].colliderPoint)
-          if (this.OnEnter(listSprite[type][key].colliderPoint[colliderPointKey], zone)) {
-            return {
-              valide: this.CheckIsValide(zone, colliderPointKey),
-              sprite: listSprite[type][key],
-              zoneCharacter: zone,
-              zoneElement: colliderPointKey
-            };
+        for (var colliderPointKey in listSprite[type][key].collidersPoint) {
+          if (listSprite[type][key]) {
+            if(this.OnEnter(listSprite[type][key], listSprite[type][key].collidersPoint[colliderPointKey], zone, character, listSprite[type][key])) {
+              let contactInfos: any = {
+                valide : this.CheckIsValide(zone, colliderPointKey),
+                sprite : listSprite[type][key],
+                zoneCharacter : zone,
+                zoneElement :  colliderPointKey
+              };
+
+              character.AddContactChild(contactInfos);
+              character.RemoveCollider(zone)
+              SceneManager.Manager.currentScene.spriteManager.Remove(listSprite[type][key]);
+            }
+          }
         }
     	}
     }
@@ -80,7 +91,7 @@ class CharacterCollider {
     return undefined;
   }
 
-  public OnEnter(colliderPoint:any, zone:string):boolean {
+  public OnEnter(triggerElement: any, colliderPoint:any, zone:string, parent: Character, child: Sprite):boolean {
     var collider = true;
 
     if (!colliderPoint) return false;

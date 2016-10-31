@@ -4,12 +4,12 @@ http://labodudev.fr
 */
 
 class Order {
-  private done: Boolean = false;
-  private character: Character = undefined;
+  public done: Boolean = false;
+  public character: Character = undefined;
   private pos: any = {x: 0, y: 0};
 
   constructor(public listHumanPartKey: Array<string>) {
-
+    this.pos = Helper.Order.RandomPosOrder()
   }
 
   public Draw(context: any):void {
@@ -17,7 +17,9 @@ class Order {
     if (this.done) {
       context.globalAlpha = 1;
     }
+
     context.translate(this.pos.x, this.pos.y);
+
     for(var key in this.listHumanPartKey) {
       Helper.DrawImage.Draw(this.listHumanPartKey[key], context);
     }
@@ -29,6 +31,7 @@ class Order {
   }
 
   public SetCharacter(character: Character):void {
+    this.done = true;
     this.character = character;
   }
 }

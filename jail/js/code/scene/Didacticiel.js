@@ -8,10 +8,13 @@ var SceneDidacticiel = (function (_super) {
     function SceneDidacticiel() {
         _super.call(this);
         this.dialogManager.Load('jail/json/dialog/levelDidacticiel.json');
-        this.spawnOrderManager = new SpawnOrderManager(this.spriteManager, this.orderManager, 'jail/json/level/orderDidacticiel.json');
-        this.countdown = new Countdown(60);
     }
     SceneDidacticiel.prototype.Start = function () {
+        _super.prototype.Start.call(this);
+        this.spawnOrderManager = new SpawnOrderManager('jail/json/level/orderDidacticiel.json', this.orderManager, this.spawnManager);
+        this.countdown.SetObjectToCall(this.spawnOrderManager);
+        this.countdown.SetObjectToCall(this.spawnManager);
+        this.countdown.Start(60);
     };
     SceneDidacticiel.prototype.Update = function (delta) {
         _super.prototype.Update.call(this, delta);

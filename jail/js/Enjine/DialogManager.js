@@ -2,7 +2,6 @@ var DialogManager = (function () {
     function DialogManager() {
         this.currentKeyDialog = 0;
         this.dialogs = [];
-        this.mouseSprite = undefined;
     }
     DialogManager.prototype.MouseDown = function (event) {
         if (this.dialogs) {
@@ -32,7 +31,7 @@ var DialogManager = (function () {
             context.save();
             context.fillStyle = "white";
             if (this.dialogs[this.currentKeyDialog]) {
-                this.dialogs[this.currentKeyDialog].Draw(this.mouseSprite, context);
+                this.dialogs[this.currentKeyDialog].Draw(context);
             }
             context.restore();
         }
@@ -56,7 +55,6 @@ var DialogManager = (function () {
             this.dialogs[key].Clear();
         }
         delete this.dialogs;
-        delete this.mouseSprite;
     };
     return DialogManager;
 }());

@@ -14,6 +14,7 @@ var Data;
                 .AddSound("countdown", "jail/sounds/countdown.mp3", 3)
                 .AddSound("timer", "jail/sounds/timer.mp3", 1)
                 .AddSound("wrong", "jail/sounds/wrong.mp3", 1);
+            this.PlaySound("ambiant", true);
             cb();
         };
         Sounds.AddSound = function (name, src, maxChannels) {

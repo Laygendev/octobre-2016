@@ -3,13 +3,27 @@ Créer par Jimmy Latour, 2016
 http://labodudev.fr
 */
 
-class Level11 extends MainScene {
+class Paris extends MainScene {
   constructor() {
     super();
 
     this.dialogManager.Load('jail/json/dialog/level11.json');
-    this.spawnOrderManager = new SpawnOrderManager(this.spriteManager, this.orderManager, 'jail/json/level/order1-1.json');
+  }
 
-    this.countdown = new Countdown(120);
+  public Start():void {
+    super.Start();
+    this.spawnOrderManager = new SpawnOrderManager('jail/json/level/order1-1.json', this.orderManager, this.spawnManager);
+    this.countdown.SetObjectToCall(this.spawnOrderManager);
+    this.countdown.SetObjectToCall(this.spawnManager);
+
+    this.countdown.Start(120);
+  }
+
+  public Update(delta: number):void {
+    super.Update(delta);
+  }
+
+  public Draw(context: any):void {
+    super.Draw(context);
   }
 }

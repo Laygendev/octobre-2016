@@ -8,12 +8,15 @@ class SceneDidacticiel extends MainScene {
     super();
 
     this.dialogManager.Load('jail/json/dialog/levelDidacticiel.json');
-    this.spawnOrderManager = new SpawnOrderManager(this.spriteManager, this.orderManager, 'jail/json/level/orderDidacticiel.json');
-    this.countdown = new Countdown(60);
   }
 
   public Start():void {
-    
+    super.Start();
+    this.spawnOrderManager = new SpawnOrderManager('jail/json/level/orderDidacticiel.json', this.orderManager, this.spawnManager);
+    this.countdown.SetObjectToCall(this.spawnOrderManager);
+    this.countdown.SetObjectToCall(this.spawnManager);
+
+    this.countdown.Start(60);
   }
 
   public Update(delta: number):void {

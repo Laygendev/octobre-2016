@@ -4,7 +4,9 @@ var Loader = (function () {
     Loader.prototype.Exec = function (cb) {
         Data.Images.Load(function () {
             Data.Sounds.Load(function () {
-                cb();
+                Data.Object.Load(function () {
+                    cb();
+                });
             });
         });
     };

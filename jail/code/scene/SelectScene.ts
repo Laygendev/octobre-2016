@@ -4,28 +4,36 @@ http://labodudev.fr
 */
 
 class SelectScene extends Scene {
-	private spriteEurope: SpriteClickable = undefined;
-	private spriteFrance: SpriteClickable = undefined;
+	private spriteEurope: Sprite = new Sprite(
+    Data.Images.backgrounds['europe'],
+    'europe',
+    'staticImage',
+    {x : global.hWidth - 978 / 2, y: global.hHeight - 650 / 2}
+  );
+
+	private spriteFrance: Sprite = new Sprite(
+    Data.Images.buttons['levelFrance'],
+    'france',
+    'staticImage',
+    {x : global.hWidth - 41, y: 297}
+  );
 
   constructor() {
     super();
 
-		// this.spriteEurope = new SpriteClickable(Data.Ressources.staticImage['map'], global.size.width / 2 - 500, 50, {width: 0, height: 0}, "staticImage", "terre");
-		// this.spriteManager.Add(this.spriteEurope);
-		//
-		// this.spriteFrance = new SpriteClickable(Data.Ressources.staticImage['mapFrance'], global.size.width / 2 - 41, 297, {width: 36, height: 37}, "staticImage", "terre");
-		// this.spriteManager.Add(this.spriteFrance);
+    this.spriteManager.Add(this.spriteEurope);
+    this.spriteManager.Add(this.spriteFrance);
 
 		this.dialogManager.Load('jail/json/dialog/levelSelectScene.json');
   }
 
+	public Start():void {
+    super.Start();
+		this.spriteFrance.SetClickable({w: 36, h: 37}, {x: 0, y: 0}, this.GoToParis);
+  }
+
   public Update(delta: number):void {
 		super.Update(delta);
-
-		if (this.spriteFrance.ClickIn()) {
-			this.Clear();
-			SceneManager.Manager.SetScene(new Level11());
-		}
   }
 
 	public Draw(context: any):void {
@@ -33,13 +41,11 @@ class SelectScene extends Scene {
   }
 
 	public Clear():void {
-		this.spriteManager.Clear();
-		delete this.spriteManager;
-
-		this.spriteEurope.Clear();
-		delete this.spriteEurope;
-
-		this.spriteFrance.Clear();
-		delete this.spriteFrance;
+    super.Clear();
 	}
+
+  public GoToParis(): void {
+    SceneManager.Manager.currentScene.Clear();
+    SceneManager.Manager.SetScene(new Paris());
+  }
 }

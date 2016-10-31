@@ -2,6 +2,7 @@
 Créer par Jimmy Latour, 2016
 http://labodudev.fr
 Gères un dialogue
+Les dialogues sont paramétrés à l'aide d'un fichier JSON
 */
 
 class Dialog {
@@ -48,6 +49,11 @@ class Dialog {
   public pos: any = {x: 0, y: 0};
 
   /**
+   * L'image à afficher dans le dialogue
+   * @type {Sprite}
+   */
+  public sprite: Sprite;
+  /**
    * Initialise la position et la vitesse d'écriture du texte
    * Initialise l'intervalle qui permet de faire l'effet "machine à écrire"
    * @param  {any}    publicdata Données reçu du fichier JSON
@@ -57,6 +63,16 @@ class Dialog {
   constructor(public data: any, speedText: number) {
     this.pos.x = data.text.x;
     this.pos.y = data.text.y;
+
+    if (data.image) {
+      this.sprite = new Sprite(Data.Images.staticImages[data.image.name],
+                              data.image.name,
+                              undefined,
+                              {
+                                x: data.image.x,
+                                y: data.image.y
+                              });
+    }
 
     this.interval = setInterval( () => { this.Update(); }, speedText );
   }
@@ -71,19 +87,19 @@ class Dialog {
     }
   }
 
-  public DrawRect(mouseSprite: SpriteClickable, context: any):void {
+  public DrawRect(context: any):void {
     context.translate(global.hWidth - this.data.rect.width / 2, global.hHeight - this.data.rect.height / 2);
     context.fillRect(0, 0, this.data.rect.width, this.data.rect.height);
     // mouseSprite.Draw(context);
     context.translate(20, 50);
   }
 
-  public Draw(mouseSprite: SpriteClickable, context: any):void {
-    this.DrawRect(mouseSprite, context);
+  public Draw(context: any):void {
+    this.DrawRect(context);
 
-    // if (this.sprite) {
-    //   this.sprite.Draw(context);
-    // }
+    if (this.sprite) {
+      this.sprite.Draw(context);
+    }
 
     context.fillStyle = "black";
     context.font = "26px Source Sans Pro Bold";

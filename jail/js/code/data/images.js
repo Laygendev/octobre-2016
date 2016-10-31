@@ -8,9 +8,7 @@ var Data;
                 Data.Images.LoadButton(function () {
                     Data.Images.LoadBackground(function () {
                         Data.Images.LoadStaticElement(function () {
-                            Data.Images.LoadJSON(function () {
-                                cb();
-                            });
+                            cb();
                         });
                     });
                 });
@@ -47,29 +45,10 @@ var Data;
             Data.Images.staticImages['mouse'].src = 'jail/images/mouse.png';
             cb();
         };
-        Images.LoadJSON = function (cb) {
-            Data.JSONLoader.Exec('jail/json/bodySpawn.json', function (data) {
-                Data.Images.bodiesSpawn = data;
-                Data.JSONLoader.Exec('jail/json/orderSpawn.json', function (data) {
-                    Data.Images.ordersSpawn = data;
-                    Data.JSONLoader.Exec('jail/json/loadBodies.json', function (data) {
-                        Data.Images.bodies = data;
-                        Data.JSONLoader.Exec('jail/json/loadElements.json', function (data) {
-                            Data.Images.humanParts = data;
-                            cb();
-                        });
-                    });
-                });
-            });
-        };
         Images.spriteSheet = new Image();
         Images.buttons = [];
         Images.backgrounds = [];
         Images.staticImages = [];
-        Images.bodies = undefined;
-        Images.humanParts = undefined;
-        Images.bodiesSpawn = undefined;
-        Images.ordersSpawn = undefined;
         return Images;
     }());
     Data.Images = Images;

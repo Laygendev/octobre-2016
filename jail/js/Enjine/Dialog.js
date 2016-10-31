@@ -10,6 +10,12 @@ var Dialog = (function () {
         this.pos = { x: 0, y: 0 };
         this.pos.x = data.text.x;
         this.pos.y = data.text.y;
+        if (data.image) {
+            this.sprite = new Sprite(Data.Images.staticImages[data.image.name], data.image.name, undefined, {
+                x: data.image.x,
+                y: data.image.y
+            });
+        }
         this.interval = setInterval(function () { _this.Update(); }, speedText);
     }
     Dialog.prototype.Update = function () {
@@ -21,13 +27,16 @@ var Dialog = (function () {
             this.done = true;
         }
     };
-    Dialog.prototype.DrawRect = function (mouseSprite, context) {
+    Dialog.prototype.DrawRect = function (context) {
         context.translate(global.hWidth - this.data.rect.width / 2, global.hHeight - this.data.rect.height / 2);
         context.fillRect(0, 0, this.data.rect.width, this.data.rect.height);
         context.translate(20, 50);
     };
-    Dialog.prototype.Draw = function (mouseSprite, context) {
-        this.DrawRect(mouseSprite, context);
+    Dialog.prototype.Draw = function (context) {
+        this.DrawRect(context);
+        if (this.sprite) {
+            this.sprite.Draw(context);
+        }
         context.fillStyle = "black";
         context.font = "26px Source Sans Pro Bold";
         if (this.data.text.backLineSpecial) {

@@ -10,19 +10,12 @@ module Data {
     static backgrounds: any = [];
     static staticImages: any = [];
 
-    static bodies: any = undefined;
-		static humanParts: any = undefined;
-    static bodiesSpawn: any = undefined;
-    static ordersSpawn: any = undefined;
-
     static Load(cb: () => void):void {
       this.LoadSpriteSheet(() => {
         Data.Images.LoadButton(() => {
           Data.Images.LoadBackground(() => {
             Data.Images.LoadStaticElement(() => {
-              Data.Images.LoadJSON(() => {
-                cb();
-              });
+              cb();
             });
           });
         });
@@ -71,25 +64,6 @@ module Data {
       Data.Images.staticImages['mouse'].src = 'jail/images/mouse.png';
 
       cb();
-    }
-
-    static LoadJSON(cb: () => void):void {
-      Data.JSONLoader.Exec('jail/json/bodySpawn.json', (data: Array<any>) => {
-        Data.Images.bodiesSpawn = data;
-
-        Data.JSONLoader.Exec('jail/json/orderSpawn.json', (data: Array<any>) => {
-          Data.Images.ordersSpawn = data;
-
-          Data.JSONLoader.Exec('jail/json/loadBodies.json', (data: Array<any>) => {
-            Data.Images.bodies = data;
-
-            Data.JSONLoader.Exec('jail/json/loadElements.json', (data: Array<any>) => {
-              Data.Images.humanParts = data;
-              cb();
-            });
-          });
-        });
-      });
     }
   }
 }

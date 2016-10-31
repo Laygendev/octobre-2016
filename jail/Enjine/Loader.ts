@@ -19,7 +19,9 @@ class Loader {
   Exec(cb: () => void): void {
     Data.Images.Load(() => {
       Data.Sounds.Load(() => {
-        cb();
+        Data.Object.Load(() => {
+          cb();
+        });
       });
     });
   }

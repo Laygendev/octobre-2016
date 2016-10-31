@@ -3,9 +3,8 @@ var CharacterCollider = (function () {
         this.Rect = Rect;
         this.pos = [{ x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }, { x: 0, y: 0 }];
         this.angle = 0;
-        this.speedAngle = 0.5728;
     }
-    CharacterCollider.prototype.Update = function (parentPos, parentAngle) {
+    CharacterCollider.prototype.Update = function (parentPos, parentAngle, zone) {
         this.pos[0].x = parentPos.x + this.Rect[0].x;
         this.pos[0].y = parentPos.y + this.Rect[0].y;
         this.pos[1].x = parentPos.x + this.Rect[1].x;
@@ -16,6 +15,7 @@ var CharacterCollider = (function () {
         this.pos[3].y = parentPos.y + this.Rect[3].y;
         this.angle = parentAngle * 57.3;
         this.Rotate(parentPos);
+        this.CheckCollider(zone);
     };
     CharacterCollider.prototype.Rotate = function (parentPos) {
         for (var i = 0; i < 4; i++) {
@@ -45,23 +45,31 @@ var CharacterCollider = (function () {
         }
         context.stroke();
     };
-    CharacterCollider.prototype.CheckCollider = function (parent, listSprite, zone) {
+    CharacterCollider.prototype.CheckCollider = function (zone) {
+        var character = SceneManager.Manager.currentScene.character;
+        var listSprite = SceneManager.Manager.currentScene.spriteManager.listSprite;
         for (var type in listSprite) {
             for (var key in listSprite[type]) {
-                for (var colliderPointKey in listSprite[type][key].colliderPoint)
-                    if (this.OnEnter(listSprite[type][key].colliderPoint[colliderPointKey], zone)) {
-                        return {
-                            valide: this.CheckIsValide(zone, colliderPointKey),
-                            sprite: listSprite[type][key],
-                            zoneCharacter: zone,
-                            zoneElement: colliderPointKey
-                        };
+                for (var colliderPointKey in listSprite[type][key].collidersPoint) {
+                    if (listSprite[type][key]) {
+                        if (this.OnEnter(listSprite[type][key], listSprite[type][key].collidersPoint[colliderPointKey], zone, character, listSprite[type][key])) {
+                            var contactInfos = {
+                                valide: this.CheckIsValide(zone, colliderPointKey),
+                                sprite: listSprite[type][key],
+                                zoneCharacter: zone,
+                                zoneElement: colliderPointKey
+                            };
+                            character.AddContactChild(contactInfos);
+                            character.RemoveCollider(zone);
+                            SceneManager.Manager.currentScene.spriteManager.Remove(listSprite[type][key]);
+                        }
                     }
+                }
             }
         }
         return undefined;
     };
-    CharacterCollider.prototype.OnEnter = function (colliderPoint, zone) {
+    CharacterCollider.prototype.OnEnter = function (triggerElement, colliderPoint, zone, parent, child) {
         var collider = true;
         if (!colliderPoint)
             return false;

@@ -1,28 +1,27 @@
 var SpawnOrderManager = (function () {
-    function SpawnOrderManager(spriteManager, orderManager, pathToJson) {
+    function SpawnOrderManager(pathToJson, orderManager, spawnManager) {
         var _this = this;
-        this.spriteManager = spriteManager;
-        this.orderManager = orderManager;
         this.pathToJson = pathToJson;
+        this.orderManager = orderManager;
+        this.spawnManager = spawnManager;
         this.jsonLevel = undefined;
-        this.spriteGenerator = new SpriteGenerator();
         Data.JSONLoader.Exec(pathToJson, function (data) {
             _this.jsonLevel = data;
         });
     }
     SpawnOrderManager.prototype.Exec = function (currentTime) {
         if (this.jsonLevel[currentTime]) {
+            var listKeyWithNoTime = [];
             for (var key in this.jsonLevel[currentTime]) {
-                for (var x in this.jsonLevel[currentTime][key]) {
-                    this.orderManager.Add(new Order(this.jsonLevel[currentTime][key][x]));
-                }
+                var keySplitted = this.jsonLevel[currentTime][key].split('_');
+                listKeyWithNoTime.push(keySplitted[1]);
             }
+            this.orderManager.Add(new Order(listKeyWithNoTime));
+            this.spawnManager.Add(this.jsonLevel[currentTime]);
         }
     };
     SpawnOrderManager.prototype.Clear = function () {
         delete this.jsonLevel;
-        this.spriteGenerator.Clear();
-        delete this.spriteGenerator;
     };
     return SpawnOrderManager;
 }());

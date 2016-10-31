@@ -9,7 +9,11 @@ Gère la boucle principale du jeu
  * Permet d'accéder à la taille du canvas dans tous les fichiers
  * @type {any}
  */
-let global: any = { canvas: undefined, width: 0, height: 0 };
+let global: any = {
+  application: undefined,
+  canvas: undefined,
+  width: 0,
+  height: 0 };
 
 /**
  * Charges le canvas
@@ -46,6 +50,8 @@ class Application {
    * @return {void}
    */
   constructor() {
+    global["application"] = this;
+
     this.LoadCanvas();
     this.StartLoadData( () => {
       SceneManager.Manager.SetScene(new SceneDidacticiel());
@@ -62,7 +68,7 @@ class Application {
   LoadCanvas():void {
     this.canvas = document.getElementById("canvas");
     global["canvas"] = this.canvas;
-    
+
 		this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
     global["width"] = this.canvas.width;
@@ -104,5 +110,9 @@ class Application {
       SceneManager.Manager.currentScene.Update(deltaTime);
       SceneManager.Manager.currentScene.Draw(this.context);
     }
+  }
+
+  Exit():void {
+    window.open('','_self').close();
   }
 }

@@ -5,7 +5,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var SpriteMovable = (function (_super) {
     __extends(SpriteMovable, _super);
-    function SpriteMovable(image, name, type, pos, zone, speed, angle, speedAngle) {
+    function SpriteMovable(image, name, type, pos, zone, speed) {
         var _this = this;
         _super.call(this, image, name, type, zone);
         this.image = image;
@@ -14,11 +14,10 @@ var SpriteMovable = (function (_super) {
         this.pos = pos;
         this.zone = zone;
         this.speed = speed;
-        this.angle = angle;
-        this.speedAngle = speedAngle;
         this.timeOut = 2000;
         this.inScreen = false;
         this.pointsCollider = [];
+        this.speedAngle = 0;
         setTimeout(function () { _this.inScreen = true; }, this.timeOut);
     }
     SpriteMovable.prototype.Update = function () {

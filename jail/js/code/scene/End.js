@@ -5,30 +5,38 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var EndScene = (function (_super) {
     __extends(EndScene, _super);
-    function EndScene(orderManager, score) {
+    function EndScene(orderManager) {
         _super.call(this);
         this.orderManager = orderManager;
-        this.score = score;
-        this.buttonOk = undefined;
+        this.buttonOk = new Sprite(Data.Images.buttons['ok'], 'ok', 'buttons', { x: global.hWidth - 163 / 2, y: global.height - 100 });
+        this.dialogManager.Clear();
+        delete this.dialogManager;
+        this.buttonOk.SetClickable({ w: 163, h: 45 }, { x: 0, y: 0 }, this.ChangeScene);
+        this.spriteManager.Add(this.buttonOk);
     }
     EndScene.prototype.Update = function (delta) {
         _super.prototype.Update.call(this, delta);
-        if (this.buttonOk.ClickIn()) {
-            SceneManager.Manager.SetScene(new SelectScene());
-        }
     };
     EndScene.prototype.Draw = function (context) {
         _super.prototype.Draw.call(this, context);
         context.font = "80px Source Sans Pro Bold";
-        context.fillText("Mission terminée", (global.size.width / 2) - 200, 160);
-        context.font = "20px Source Sans Pro Bold";
-        context.fillText("Score: " + this.score.point, (global.size.width / 2) - 200, 200);
+        context.fillText("Mission terminée", (global.hWidth) - 200, 160);
         context.save();
-        context.translate(global.size.width / 2 - 200, global.size.height / 2 - 20);
+        context.translate(global.hWidth / 2 - 200, global.hHeight / 2 - 20);
         context.scale(0.5, 0.5);
         for (var key in this.orderManager.listOrder) {
+            if (this.orderManager.listOrder[key].done) {
+                this.orderManager.listOrder[key].character.Draw(context);
+            }
         }
         context.restore();
+    };
+    EndScene.prototype.Clear = function () {
+        _super.prototype.Clear.call(this);
+    };
+    EndScene.prototype.ChangeScene = function () {
+        SceneManager.Manager.currentScene.Clear();
+        SceneManager.Manager.SetScene(new SelectScene());
     };
     return EndScene;
 }(Scene));

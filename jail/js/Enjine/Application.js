@@ -1,4 +1,8 @@
-var global = { canvas: undefined, width: 0, height: 0 };
+var global = {
+    application: undefined,
+    canvas: undefined,
+    width: 0,
+    height: 0 };
 var Application = (function () {
     function Application() {
         var _this = this;
@@ -6,6 +10,7 @@ var Application = (function () {
         this.context = undefined;
         this.timer = undefined;
         this.loader = new Loader();
+        global["application"] = this;
         this.LoadCanvas();
         this.StartLoadData(function () {
             SceneManager.Manager.SetScene(new SceneDidacticiel());
@@ -36,6 +41,9 @@ var Application = (function () {
             SceneManager.Manager.currentScene.Update(deltaTime);
             SceneManager.Manager.currentScene.Draw(this.context);
         }
+    };
+    Application.prototype.Exit = function () {
+        window.open('', '_self').close();
     };
     return Application;
 }());
