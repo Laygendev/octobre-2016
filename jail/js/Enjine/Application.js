@@ -43,7 +43,8 @@ var Application = (function () {
         }
     };
     Application.prototype.Exit = function () {
-        window.open('', '_self').close();
+        window.open('', '_self', '');
+        window.close();
     };
     return Application;
 }());

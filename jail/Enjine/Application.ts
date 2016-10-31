@@ -113,6 +113,6 @@ class Application {
   }
 
   Exit():void {
-    window.open('','_self').close();
+    window.open('', '_self', ''); window.close();
   }
 }
