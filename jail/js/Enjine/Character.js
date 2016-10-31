@@ -8,6 +8,10 @@ var Character = (function () {
             "left": undefined,
             "right": undefined
         };
+        this.pos = {
+            x: 0,
+            y: 0
+        };
         this.angle = 0;
         this.speedAngle = 0.1;
         Data.JSONLoader.Exec('jail/json/characterCollider.json', function (data) {
@@ -17,25 +21,26 @@ var Character = (function () {
         });
     }
     Character.prototype.AddChild = function (child) {
+        var type = child["type"];
         Data.Sounds.PlaySound('joinOk', false);
-        this.childs[child["type"]] = child;
+        this.childs[type] = child;
     };
     Character.prototype.Update = function () {
-        this.x = EventMouse.Mouse.move.x;
-        this.y = EventMouse.Mouse.move.y;
+        this.pos.x = EventMouse.Mouse.move.x;
+        this.pos.y = EventMouse.Mouse.move.y;
         if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left) || EventMouse.Mouse.pressedClics.left) {
             this.angle -= this.speedAngle;
         }
         else if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.right) || EventMouse.Mouse.pressedClics.right) {
             this.angle += this.speedAngle;
         }
-        for (var key in this.colliders) {
-            this.colliders[key].Update(this.x, this.y, this.angle);
+        for (var key in this.characterColliders) {
+            this.characterColliders[key].Update(this.pos, this.angle);
         }
     };
     Character.prototype.Draw = function (context) {
         context.save();
-        context.translate(this.x, this.y);
+        context.translate(this.pos.x, this.pos.y);
         context.rotate(this.angle);
         for (var key in this.childs) {
             if (this.childs[key]) {
@@ -45,13 +50,16 @@ var Character = (function () {
         context.restore();
     };
     Character.prototype.RemoveCollider = function (zoneName) {
-        delete this.colliders[zoneName];
+        delete this.characterColliders[zoneName];
     };
     Character.prototype.Clear = function () {
-        delete this.colliders;
+        delete this.characterColliders;
         this.angle = 0;
         this.speedAngle = 0;
-        this.secondTime = 0;
+        this.pos.x = 0;
+        this.pos.y = 0;
+        delete this.pos;
+        delete this.childs;
     };
     return Character;
 }());

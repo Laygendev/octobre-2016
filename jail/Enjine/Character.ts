@@ -27,6 +27,15 @@ class Character {
   };
 
   /**
+   * La position du personnage
+   * @type {any}
+   */
+  public pos: any = {
+    x: 0,
+    y: 0
+  }
+
+  /**
    * L'angle du personnage
    * @type {number}
    */
@@ -56,13 +65,20 @@ class Character {
    * @return {void}
    */
   public AddChild(child: Sprite):void {
+    let type: string = child["type"];
     Data.Sounds.PlaySound('joinOk', false);
-    this.childs[child["type"]] = child;
+    this.childs[type] = child;
   }
 
+  /**
+   * Met à jour la position du personnage selon la souris.
+   * Si on presse le clavier ou les cliques de la souris, fait une rotation
+   * au personnage.
+   * Met à jour les collisions du personnage.
+   */
   public Update():void {
-    this.x = EventMouse.Mouse.move.x;
-    this.y = EventMouse.Mouse.move.y;
+    this.pos.x = EventMouse.Mouse.move.x;
+    this.pos.y = EventMouse.Mouse.move.y;
 
     if (EventKeyboard.Input.IsKeyDown(EventKeyboard.Input.keys.left) || EventMouse.Mouse.pressedClics.left) {
       this.angle -= this.speedAngle;
@@ -71,14 +87,20 @@ class Character {
       this.angle += this.speedAngle;
     }
 
-    for (var key in this.colliders) {
-      this.colliders[key].Update(this.x, this.y, this.angle);
+    for (var key in this.characterColliders) {
+      this.characterColliders[key].Update(this.pos, this.angle);
     }
   }
 
+  /**
+   * Déplaces le canvas pour le centrer sur le personnage.
+   * Fait une rotation selon son angle.
+   * Appelle la méthode Draw de tous ses enfants.
+   * @param {any} context [description]
+   */
   public Draw(context: any):void {
     context.save();
-    context.translate(this.x, this.y);
+    context.translate(this.pos.x, this.pos.y);
     context.rotate(this.angle);
 
     for (var key in this.childs) {
@@ -90,14 +112,29 @@ class Character {
     context.restore();
   }
 
+  /**
+   * Permet de supprimer une collision du personnage
+   * @param {string} zoneName La clé de la collision "top", "bottom", "left" ou
+   * "right".
+   */
   public RemoveCollider(zoneName: string):void {
-    delete this.colliders[zoneName];
+    delete this.characterColliders[zoneName];
   }
 
+  /**
+   * Nettoies toutes les variables
+   */
   public Clear():void {
-    delete this.colliders;
+    delete this.characterColliders;
+
     this.angle = 0;
+
     this.speedAngle = 0;
-    this.secondTime = 0;
+
+    this.pos.x = 0;
+    this.pos.y = 0;
+    delete this.pos;
+
+    delete this.childs;
   }
 }

@@ -15,16 +15,16 @@ class SpawnManager {
 
   Exec():void {
     let tmpSprite: Sprite = this.spriteGenerator.Exec(undefined);
-    tmpSprite.SetSpriteManager(this.spriteManager);
-    this.spriteManager.Add(tmpSprite);
+    // tmpSprite.SetSpriteManager(this.spriteManager);
+    // this.spriteManager.Add(tmpSprite);
   }
 
 	ExecBody():void {
-		let tmpSprite: Sprite = this.spriteGenerator.Exec(Data.Ressources.RandomBody());
-		this.spriteManager.Add(tmpSprite);
+		// let tmpSprite: Sprite = this.spriteGenerator.Exec(Data.Ressources.RandomBody());
+		// this.spriteManager.Add(tmpSprite);
 	}
 
   Clear():void {
-    
+
   }
 }

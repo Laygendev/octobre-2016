@@ -41,6 +41,10 @@ module EventMouse {
 					break;
 			}
 
+      if (SceneManager.Manager.currentScene && SceneManager.Manager.currentScene.dialogManager) {
+        SceneManager.Manager.currentScene.dialogManager.MouseDown(event);
+      }
+
       this.isClicked = true;
     };
 

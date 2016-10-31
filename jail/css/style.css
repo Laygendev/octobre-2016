@@ -135,7 +135,7 @@ canvas {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-image: url('../images/backgroundPremierPlan.png');
+	background-image: url('../images/background/backgroundPremierPlan.png');
 	background-size: cover;
 
 	animation: animationFrames linear 8s;
@@ -162,7 +162,7 @@ canvas {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-image: url('../images/backgroundSecondPlan.png');
+	background-image: url('../images/background/backgroundSecondPlan.png');
 	background-size: cover;
 
 	animation: animationLeft linear 8s;

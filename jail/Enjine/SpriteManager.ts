@@ -4,15 +4,11 @@ http://labodudev.fr
 */
 
 class SpriteManager {
-  listSprite: any = {"body": [], "head": [], "leg": [], "arml": [], "armr": [], "button": [], "staticImage": [], "clickableImage": []};
+  listSprite: any = {"body": [], "head": [], "leg": [], "arml": [], "armr": [], "buttons": [], "staticImage": [], "clickableImage": []};
   numberSprite: number = 0;
   constructor() {}
 
-  protected Init():void {
-
-  }
-
-  public Update():string {
+  public Update(deltaTime: number):string {
     for (var type in this.listSprite) {
       for (var key in this.listSprite[type]) {
         this.listSprite[type][key].Update();
@@ -36,9 +32,12 @@ class SpriteManager {
     }
   }
 
+  /**
+   * Ajoutes un sprites dans le tableau listSprite
+   * @param {Sprite} sprite Le sprite a ajouter
+   */
   Add(sprite: Sprite): void {
 		if (sprite) {
-      this.numberSprite++;
 	    this.listSprite[sprite.type].push(sprite);
 		}
   }

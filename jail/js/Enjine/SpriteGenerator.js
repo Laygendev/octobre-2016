@@ -5,20 +5,7 @@ var SpriteGenerator = (function () {
         this.randomAngle = { min: -0.01, max: 0.01 };
     }
     SpriteGenerator.prototype.Exec = function (zoneName) {
-        var pos = this.RandomPosition();
-        if (!zoneName) {
-            zoneName = Data.Ressources.RandomHumanPart();
-        }
-        if (Data.Ressources.humanPart[zoneName]) {
-            var zone = Data.Ressources.humanPart[zoneName];
-            var spriteMovable = new SpriteMovable(pos.x, pos.y, zone, zone.type, this.GenerateSpeed(), 0, 0, zoneName);
-            spriteMovable.angle = this.RandomAngle(pos.key);
-            spriteMovable.speedAngle = this.GenerateSpeedAngle(pos);
-            return spriteMovable;
-        }
-        else {
-            return undefined;
-        }
+        return undefined;
     };
     SpriteGenerator.prototype.RandomPosition = function () {
         var randomSide = Math.floor(Math.random() * (0 - (this.randomSide.length))) + this.randomSide.length;

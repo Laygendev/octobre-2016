@@ -5,13 +5,6 @@ var SceneManager;
         }
         Manager.SetScene = function (levelScene) {
             this.currentScene = levelScene;
-            levelScene.Init();
-        };
-        Manager.Pause = function () {
-            this.currentScene.started = false;
-        };
-        Manager.Resume = function () {
-            this.currentScene.started = true;
         };
         Manager.Update = function (delta) {
             this.currentScene.Update(delta);

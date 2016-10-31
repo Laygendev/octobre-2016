@@ -5,54 +5,32 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var SpriteClickable = (function (_super) {
     __extends(SpriteClickable, _super);
-    function SpriteClickable(image, x, y, zone, type, name, imageHover) {
-        _super.call(this, x, y, zone, type, name);
+    function SpriteClickable(image, name, type, pos, zoneClickable) {
+        _super.call(this, image, name, type, pos);
         this.image = image;
-        this.x = x;
-        this.y = y;
-        this.zone = zone;
-        this.type = type;
         this.name = name;
-        this.imageHover = imageHover;
+        this.type = type;
+        this.pos = pos;
+        this.zoneClickable = zoneClickable;
         this.speedAngle = 0.01;
         this.angle = 0;
         this.currentImage = this.image;
     }
-    SpriteClickable.prototype.Update = function () {
-        if (this.image != undefined) {
-            this.MouseIn();
-        }
-    };
+    SpriteClickable.prototype.Update = function (deltaTime) { };
     SpriteClickable.prototype.Draw = function (context) {
         if (this.image != undefined) {
-            context.drawImage(this.currentImage, this.x, this.y);
-        }
-        else {
-            context.save();
-            context.translate(this.x + (this.zone.width / 2), this.y + (this.zone.height / 2));
-            context.rotate(this.angle);
-            context.drawImage(Data.Ressources.spriteSheet, this.zone.x, this.zone.y, this.zone.width, this.zone.height, -(this.zone.width / 2), -(this.zone.height / 2), this.zone.width, this.zone.height);
-            context.restore();
-        }
-    };
-    SpriteClickable.prototype.MouseIn = function () {
-        if (EventMouse.Mouse.move.x > this.x && EventMouse.Mouse.move.x < this.x + this.zone.width &&
-            EventMouse.Mouse.move.y > this.y && EventMouse.Mouse.move.y < this.y + this.zone.height) {
-            if (this.imageHover) {
-                this.currentImage = this.imageHover;
-            }
-        }
-        else {
-            this.currentImage = this.image;
+            context.drawImage(this.currentImage, this.pos.x, this.pos.y);
         }
     };
     SpriteClickable.prototype.ClickIn = function () {
         if (EventMouse.Mouse.isClicked &&
-            EventMouse.Mouse.click.x > this.x && EventMouse.Mouse.click.x < this.x + this.zone.width &&
-            EventMouse.Mouse.click.y > this.y && EventMouse.Mouse.click.y < this.y + this.zone.height) {
+            EventMouse.Mouse.click.x > this.pos.x && EventMouse.Mouse.click.x < this.pos.x + this.zoneClickable.width &&
+            EventMouse.Mouse.click.y > this.pos.y && EventMouse.Mouse.click.y < this.pos.y + this.zoneClickable.height) {
             return true;
         }
         return false;
+    };
+    SpriteClickable.prototype.Clear = function () {
     };
     return SpriteClickable;
 }(Sprite));

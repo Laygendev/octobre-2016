@@ -1,11 +1,9 @@
 var SpriteManager = (function () {
     function SpriteManager() {
-        this.listSprite = { "body": [], "head": [], "leg": [], "arml": [], "armr": [], "button": [], "staticImage": [], "clickableImage": [] };
+        this.listSprite = { "body": [], "head": [], "leg": [], "arml": [], "armr": [], "buttons": [], "staticImage": [], "clickableImage": [] };
         this.numberSprite = 0;
     }
-    SpriteManager.prototype.Init = function () {
-    };
-    SpriteManager.prototype.Update = function () {
+    SpriteManager.prototype.Update = function (deltaTime) {
         for (var type in this.listSprite) {
             for (var key in this.listSprite[type]) {
                 this.listSprite[type][key].Update();
@@ -27,7 +25,6 @@ var SpriteManager = (function () {
     };
     SpriteManager.prototype.Add = function (sprite) {
         if (sprite) {
-            this.numberSprite++;
             this.listSprite[sprite.type].push(sprite);
         }
     };

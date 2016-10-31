@@ -1,4 +1,4 @@
-var global = { width: 0, height: 0 };
+var global = { canvas: undefined, width: 0, height: 0 };
 var Application = (function () {
     function Application() {
         var _this = this;
@@ -8,11 +8,13 @@ var Application = (function () {
         this.loader = new Loader();
         this.LoadCanvas();
         this.StartLoadData(function () {
+            SceneManager.Manager.SetScene(new SceneDidacticiel());
             _this.timer = new Timer(_this);
         });
     }
     Application.prototype.LoadCanvas = function () {
         this.canvas = document.getElementById("canvas");
+        global["canvas"] = this.canvas;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         global["width"] = this.canvas.width;

@@ -1,28 +1,13 @@
 var Scene = (function () {
     function Scene() {
-        this.started = false;
-        this.dialogManager = undefined;
-        this.buttonLeave = undefined;
         this.spriteManager = new SpriteManager();
-        this.buttonLeave = new SpriteClickable(Data.Ressources.staticImage['leave'], global.size.width - 40, 20, { width: 19, height: 19 }, "clickableImage", "leave", undefined);
-        this.spriteManager.Add(this.buttonLeave);
-        this.dialogManager = new DialogManager(this);
+        this.dialogManager = new DialogManager();
+        this.buttonExit = new SpriteClickable(Data.Images.buttons['exit'], 'exit', 'buttons', { x: global.width - 20, y: 0 }, { width: 19, height: 19 });
+        this.spriteManager.Add(this.buttonExit);
     }
     Scene.prototype.Start = function () { };
-    Scene.prototype.Init = function () { };
-    Scene.prototype.Update = function (delta) {
-        console.log('Update');
-    };
+    Scene.prototype.Update = function (delta) { };
     Scene.prototype.Draw = function (context) {
-        this.spriteManager.Draw(context);
-    };
-    Scene.prototype.UpdateNoStarted = function (delta) {
-        if (this.buttonLeave.ClickIn()) {
-            window.open('', '_self', '');
-            window.close();
-        }
-    };
-    Scene.prototype.DrawNoStarted = function (context) {
         if (this.spriteManager) {
             this.spriteManager.Draw(context);
         }
@@ -30,7 +15,8 @@ var Scene = (function () {
             this.dialogManager.Draw(context);
         }
     };
-    Scene.prototype.Resize = function () { };
+    Scene.prototype.Clear = function () {
+    };
     return Scene;
 }());
 //# sourceMappingURL=Scene.js.map

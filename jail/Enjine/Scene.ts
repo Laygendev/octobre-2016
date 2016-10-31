@@ -4,38 +4,43 @@ http://labodudev.fr
 */
 
 class Scene {
-  public started: boolean = false;
-  public dialogManager: DialogManager = undefined;
-  public buttonLeave: SpriteClickable = undefined;
-  public spriteManager: SpriteManager = new SpriteManager();
   /**
-  * Le constructeur permet appelle LoadCanvas
-  */
+   * Gestion des sprites
+   * @type {SpriteManager} [description]
+   */
+  public spriteManager: SpriteManager = new SpriteManager();
+
+  /**
+   * Gestion des dialogues
+   * @type {DialogManager}
+   */
+  public dialogManager: DialogManager = new DialogManager();
+
+  /**
+   * Le button permettant de quitter le jeu à tout moment
+   * @type {SpriteClickable}
+   */
+  public buttonExit: SpriteClickable = new SpriteClickable(
+    Data.Images.buttons['exit'],
+    'exit',
+    'buttons',
+    {x : global.width - 20, y: 0},
+    {width: 19 , height: 19}
+  );
+
+  /**
+   * Ajoutes buttonExit dans spriteManager
+   * @return {void} nothing
+   */
   constructor() {
-    this.buttonLeave = new SpriteClickable(Data.Ressources.staticImage['leave'], global.size.width - 40, 20, {width: 19, height: 19}, "clickableImage", "leave", undefined);
-    this.spriteManager.Add(this.buttonLeave);
-    this.dialogManager = new DialogManager(this);
+    this.spriteManager.Add(this.buttonExit);
   }
 
   public Start():void {}
 
-  public Init():void {}
-
-  public Update(delta: number):void {
-    console.log('Update');
-  }
+  public Update(delta: number):void {}
 
   public Draw(context: any):void {
-    this.spriteManager.Draw(context);
-  }
-
-  public UpdateNoStarted(delta: number):void {
-    if (this.buttonLeave.ClickIn()) {
-      window.open('', '_self', ''); window.close();
-    }
-  }
-
-  public DrawNoStarted(context: any):void {
     if (this.spriteManager) {
       this.spriteManager.Draw(context);
     }
@@ -45,5 +50,7 @@ class Scene {
     }
   }
 
-  public Resize():void {}
+  public Clear():void {
+
+  }
 }

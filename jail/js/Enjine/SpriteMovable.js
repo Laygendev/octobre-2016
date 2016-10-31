@@ -5,43 +5,47 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var SpriteMovable = (function (_super) {
     __extends(SpriteMovable, _super);
-    function SpriteMovable(x, y, zone, zoneType, speed, angle, speedAngle, name) {
+    function SpriteMovable(image, name, type, pos, zone, speed, angle, speedAngle) {
         var _this = this;
-        _super.call(this, x, y, zone, zoneType, name);
-        this.x = x;
-        this.y = y;
+        _super.call(this, image, name, type, zone);
+        this.image = image;
+        this.name = name;
+        this.type = type;
+        this.pos = pos;
         this.zone = zone;
         this.speed = speed;
         this.angle = angle;
         this.speedAngle = speedAngle;
-        this.name = name;
         this.timeOut = 2000;
         this.inScreen = false;
+        this.pointsCollider = [];
         setTimeout(function () { _this.inScreen = true; }, this.timeOut);
     }
     SpriteMovable.prototype.Update = function () {
-        this.x = this.x + this.speed * Math.cos(this.angle);
-        this.y = this.y + this.speed * Math.sin(this.angle);
+        this.pos.x = this.pos.x + this.speed * Math.cos(this.angle);
+        this.pos.y = this.pos.y + this.speed * Math.sin(this.angle);
         this.angle += this.speedAngle;
-        if (this.inScreen && (this.x < -50 || this.x > global.size.width + 50 || this.y < -50 || this.y > global.size.height + 50)) {
+        if (this.inScreen && (this.pos.x < -50 || this.pos.x > global.size.width + 50 || this.pos.y < -50 || this.pos.y > global.size.height + 50)) {
             if (this.spriteManager) {
                 this.spriteManager.Remove(this);
             }
             this.Clear();
         }
-        for (var key in this.colliderPoint) {
-            this.colliderPoint[key].Update(this.x, this.y, this.angle);
+        for (var key in this.pointsCollider) {
+            this.pointsCollider[key].Update(this.pos, this.angle);
         }
     };
     SpriteMovable.prototype.Draw = function (context) {
         context.save();
-        context.translate(this.x, this.y);
+        context.translate(this.pos.x, this.pos.y);
         context.rotate(this.angle);
-        context.drawImage(Data.Ressources.spriteSheet, this.zone.x, this.zone.y, this.zone.width, this.zone.height, -(this.zone.width / 2) + this.offset.x, -(this.zone.height / 2) + this.offset.y, this.zone.width, this.zone.height);
+        context.drawImage(this.image, this.zone.x, this.zone.y, this.zone.width, this.zone.height, -(this.zone.width / 2) + this.offset.x, -(this.zone.height / 2) + this.offset.y, this.zone.width, this.zone.height);
         context.restore();
-        for (var key in this.colliderPoint) {
-            this.colliderPoint[key].Draw(context);
+        for (var key in this.pointsCollider) {
+            this.pointsCollider[key].Draw(context);
         }
+    };
+    SpriteMovable.prototype.Clear = function () {
     };
     return SpriteMovable;
 }(Sprite));

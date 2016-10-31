@@ -1,12 +1,8 @@
 var DialogManager = (function () {
-    function DialogManager(scene) {
-        var _this = this;
-        this.scene = scene;
+    function DialogManager() {
         this.currentKeyDialog = 0;
         this.dialogs = [];
         this.mouseSprite = undefined;
-        this.mouseSprite = new SpriteClickable(Data.Ressources.staticImage['mouse'], 0, 0, { width: 0, height: 0 }, "staticImage", "mouse");
-        global.canvas.addEventListener('mousedown', function (event) { _this.MouseDown(event); }, false);
     }
     DialogManager.prototype.MouseDown = function (event) {
         if (this.dialogs) {
@@ -31,20 +27,22 @@ var DialogManager = (function () {
     DialogManager.prototype.AddDialog = function (dialog) {
         this.dialogs.push(dialog);
     };
-    DialogManager.prototype.Update = function () {
-    };
     DialogManager.prototype.Draw = function (context) {
-        context.save();
-        context.fillStyle = "white";
-        if (this.dialogs[this.currentKeyDialog]) {
-            this.dialogs[this.currentKeyDialog].Draw(this.mouseSprite, context);
+        if (this.dialogs) {
+            context.save();
+            context.fillStyle = "white";
+            if (this.dialogs[this.currentKeyDialog]) {
+                this.dialogs[this.currentKeyDialog].Draw(this.mouseSprite, context);
+            }
+            context.restore();
         }
-        context.restore();
     };
     DialogManager.prototype.NextDialog = function () {
         this.currentKeyDialog++;
         if (this.currentKeyDialog >= this.dialogs.length) {
             this.Clear();
+            delete SceneManager.Manager.currentScene.dialogManager;
+            delete SceneManager.Manager.currentScene.Start();
         }
         else {
             this.dialogs[this.currentKeyDialog].currentChar = 0;
@@ -53,16 +51,12 @@ var DialogManager = (function () {
         }
     };
     DialogManager.prototype.Clear = function () {
-        var _this = this;
         delete this.currentKeyDialog;
         for (var key in this.dialogs) {
             this.dialogs[key].Clear();
         }
-        global.canvas.removeEventListener('mousedown', function (event) { _this.MouseDown(event); }, false);
         delete this.dialogs;
-        this.mouseSprite.Clear();
         delete this.mouseSprite;
-        this.scene.Start();
     };
     return DialogManager;
 }());

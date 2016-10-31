@@ -10,36 +10,36 @@ class CharacterCollider {
 
   constructor(public Rect: any) {}
 
-  public Update(parentX: number, parentY: number, parentAngle: number):void {
-    this.pos[0].x = parentX + this.Rect[0].x;
-    this.pos[0].y = parentY + this.Rect[0].y;
+  public Update(parentPos: any, parentAngle: number):void {
+    this.pos[0].x = parentPos.x + this.Rect[0].x;
+    this.pos[0].y = parentPos.y + this.Rect[0].y;
 
-    this.pos[1].x = parentX + this.Rect[1].x;
-    this.pos[1].y = parentY + this.Rect[1].y;
+    this.pos[1].x = parentPos.x + this.Rect[1].x;
+    this.pos[1].y = parentPos.y + this.Rect[1].y;
 
-    this.pos[2].x = parentX + this.Rect[2].x;
-    this.pos[2].y = parentY + this.Rect[2].y;
+    this.pos[2].x = parentPos.x + this.Rect[2].x;
+    this.pos[2].y = parentPos.y + this.Rect[2].y;
 
-    this.pos[3].x = parentX + this.Rect[3].x;
-    this.pos[3].y = parentY + this.Rect[3].y;
+    this.pos[3].x = parentPos.x + this.Rect[3].x;
+    this.pos[3].y = parentPos.y + this.Rect[3].y;
 
     this.angle = parentAngle * 57.3;
-    this.Rotate(parentX, parentY);
+    this.Rotate(parentPos);
   }
 
-  public Rotate(parentX: number, parentY: number):void {
+  public Rotate(parentPos: any):void {
 	  for(var i = 0; i < 4; i++) {
   		var A = this.pos[i];
 
-  		this.pos[i] = this.RotatePoint(A, {x: parentX, y: parentY});
+  		this.pos[i] = this.RotatePoint(A, parentPos);
   	}
   }
 
-  public RotatePoint(point:any, parent:any):any {
+  public RotatePoint(point:any, parentPos:any):any {
     let angle = this.angle * Math.PI / 180.0;
   	return {
-			x: Math.cos(angle) * (point.x - parent.x) - Math.sin(angle) * (point.y - parent.y) + parent.x,
-			y: Math.sin(angle) * (point.x - parent.x) + Math.cos(angle) * (point.y - parent.y) + parent.y
+			x: Math.cos(angle) * (point.x - parentPos.x) - Math.sin(angle) * (point.y - parentPos.y) + parentPos.x,
+			y: Math.sin(angle) * (point.x - parentPos.x) + Math.cos(angle) * (point.y - parentPos.y) + parentPos.y
   	};
   }
 
@@ -62,7 +62,7 @@ class CharacterCollider {
     context.stroke();
   }
 
-  public CheckCollider(parent: Character, listSprite: Array<Sprite>, zone: string):any {
+  public CheckCollider(parent: Character, listSprite: any, zone: string):any {
     for(var type in listSprite) {
       for(var key in listSprite[type]) {
         for (var colliderPointKey in listSprite[type][key].colliderPoint)

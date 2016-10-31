@@ -8,7 +8,7 @@ class Score {
   /**
   * Le constructeur permet appelle LoadCanvas
   */
-  constructor(public mainScene: MainScene) {
+  constructor() {
     this.Init();
   }
 

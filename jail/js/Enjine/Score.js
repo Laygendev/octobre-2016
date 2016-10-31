@@ -1,6 +1,5 @@
 var Score = (function () {
-    function Score(mainScene) {
-        this.mainScene = mainScene;
+    function Score() {
         this.point = 0;
         this.Init();
     }

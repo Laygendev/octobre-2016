@@ -11,12 +11,8 @@ var SpawnManager = (function () {
     }
     SpawnManager.prototype.Exec = function () {
         var tmpSprite = this.spriteGenerator.Exec(undefined);
-        tmpSprite.SetSpriteManager(this.spriteManager);
-        this.spriteManager.Add(tmpSprite);
     };
     SpawnManager.prototype.ExecBody = function () {
-        var tmpSprite = this.spriteGenerator.Exec(Data.Ressources.RandomBody());
-        this.spriteManager.Add(tmpSprite);
     };
     SpawnManager.prototype.Clear = function () {
     };

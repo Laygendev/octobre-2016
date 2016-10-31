@@ -10,22 +10,22 @@ class SpriteGenerator {
   constructor() {}
 
   Exec(zoneName: string): Sprite {
-    let pos = this.RandomPosition();
-
-		if (!zoneName) {
-	    zoneName = Data.Ressources.RandomHumanPart();
-		}
-
-		if (Data.Ressources.humanPart[zoneName]) {
-	    let zone = Data.Ressources.humanPart[zoneName];
-	    let spriteMovable: SpriteMovable = new SpriteMovable(pos.x, pos.y, zone, zone.type, this.GenerateSpeed(), 0, 0, zoneName);
-	    spriteMovable.angle = this.RandomAngle(pos.key);
-	    spriteMovable.speedAngle = this.GenerateSpeedAngle(pos);
-	    return spriteMovable;
-		}
-		else {
+    // let pos = this.RandomPosition();
+    //
+		// if (!zoneName) {
+	  //   // zoneName = Data.Ressources.RandomHumanPart();
+		// }
+    //
+		// if (Data.Ressources.humanPart[zoneName]) {
+	  //   let zone = Data.Ressources.humanPart[zoneName];
+	  //   let spriteMovable: SpriteMovable = new SpriteMovable(pos.x, pos.y, zone, zone.type, this.GenerateSpeed(), 0, 0, zoneName);
+	  //   spriteMovable.angle = this.RandomAngle(pos.key);
+	  //   spriteMovable.speedAngle = this.GenerateSpeedAngle(pos);
+	  //   return spriteMovable;
+		// }
+		// else {
 			return undefined;
-		}
+		// }
   }
 
   RandomPosition(): any {
